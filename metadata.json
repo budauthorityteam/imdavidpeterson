@@ -1,0 +1,6 @@
+{
+  "name": "David Peterson Portfolio",
+  "description": "Professional personal brand and portfolio site for David N. Peterson, fractional executive, consultant, and business operator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
