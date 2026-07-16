@@ -123,9 +123,9 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
       {/* Header section */}
       <section className="px-6 md:px-12 max-w-5xl mx-auto">
         <div className="max-w-3xl space-y-4">
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 font-bold block">Media & Speaking</span>
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Media & Speaking</span>
           <h1 id="media-title" className="text-4xl md:text-6xl font-black font-display tracking-tight text-white leading-none">
-            Podcast Hub & Speaking
+            Podcast Hub <span className="text-gradient">& Speaking</span>
           </h1>
           <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-2xl font-sans font-light">
             Hear David's raw, unfiltered commentary on scale, organizational change, and digital marketing operations across active podcasts and publications.
@@ -151,8 +151,8 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
                 <div 
                   key={ep.id}
                   className={`p-6 rounded-lg border transition-all duration-300 ${
-                    isEpPlaying 
-                      ? 'bg-zinc-900/60 border-zinc-500' 
+                    isEpPlaying
+                      ? 'bg-zinc-900/60 border-[#10B981]/50 shadow-lg shadow-[#10B981]/10'
                       : 'bg-zinc-950 border-zinc-900 hover:border-zinc-800'
                   }`}
                 >
@@ -161,9 +161,9 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
                       <button
                         onClick={() => togglePlayback(ep.id)}
                         className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border transition-all ${
-                          isEpPlaying 
-                            ? 'bg-white border-white text-black' 
-                            : 'bg-zinc-900 border-zinc-850 text-zinc-400 hover:text-white hover:border-white'
+                          isEpPlaying
+                            ? 'bg-[#10B981] border-[#10B981] text-black shadow-lg shadow-[#10B981]/30'
+                            : 'bg-zinc-900 border-zinc-850 text-zinc-400 hover:text-[#10B981] hover:border-[#10B981]'
                         }`}
                         aria-label={isEpPlaying ? "Pause episode" : "Play episode"}
                       >
@@ -197,10 +197,10 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
                       
                       {isEpPlaying && (
                         <div className="flex items-end space-x-0.5 h-4 pb-0.5">
-                          <span className="w-0.5 bg-white animate-[pulse_0.8s_infinite] h-3"></span>
-                          <span className="w-0.5 bg-white animate-[pulse_1.2s_infinite] h-4"></span>
-                          <span className="w-0.5 bg-white animate-[pulse_0.9s_infinite] h-2"></span>
-                          <span className="w-0.5 bg-white animate-[pulse_1.4s_infinite] h-3.5"></span>
+                          <span className="w-0.5 bg-[#10B981] animate-[pulse_0.8s_infinite] h-3"></span>
+                          <span className="w-0.5 bg-[#10B981] animate-[pulse_1.2s_infinite] h-4"></span>
+                          <span className="w-0.5 bg-[#34D399] animate-[pulse_0.9s_infinite] h-2"></span>
+                          <span className="w-0.5 bg-[#34D399] animate-[pulse_1.4s_infinite] h-3.5"></span>
                         </div>
                       )}
                     </div>
@@ -224,7 +224,7 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {speakingTopics.map((topic, i) => (
-                <div key={i} className="bg-zinc-950 border border-zinc-900 rounded-lg p-5 space-y-2 hover:border-zinc-800 transition-colors">
+                <div key={i} className="glow-card bg-zinc-950 border border-zinc-900 rounded-lg p-5 space-y-2">
                   <h4 className="text-sm md:text-base font-bold font-display text-white">{topic.title}</h4>
                   <p className="text-xs text-zinc-400 leading-relaxed font-sans font-light">{topic.desc}</p>
                 </div>
@@ -271,7 +271,7 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
             {pressMentions.map((press, i) => (
               <div 
                 key={i} 
-                className="p-5 bg-zinc-950 border border-zinc-900 rounded-lg flex justify-between items-center group hover:border-zinc-800 transition-all"
+                className="glow-card p-5 bg-zinc-950 border border-zinc-900 rounded-lg flex justify-between items-center group"
               >
                 <div className="space-y-1 pr-4">
                   <div className="flex items-center space-x-2 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">

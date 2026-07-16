@@ -119,22 +119,32 @@ export default function App() {
   };
 
   return (
-    <div id="app-root" className="min-h-screen flex flex-col bg-[#0A0A0A] text-white">
+    <div id="app-root" className="relative min-h-screen flex flex-col bg-[#0A0A0A] text-white overflow-x-hidden">
+      {/* Ambient aurora + grain background */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="aurora aurora-1" />
+        <div className="aurora aurora-2" />
+        <div className="aurora aurora-3" />
+        <div className="grain-overlay" />
+      </div>
+
       {/* Elegant Header */}
-      <Header 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
+      <Header
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
       />
 
       {/* Primary Route Stage */}
-      <main id="main-content" className="flex-grow">
+      <main id="main-content" className="relative z-10 flex-grow">
         {renderActiveView()}
       </main>
 
       {/* Elegant Footer */}
-      <Footer 
-        setActiveTab={setActiveTab} 
-      />
+      <div className="relative z-10">
+        <Footer
+          setActiveTab={setActiveTab}
+        />
+      </div>
 
       {/* Floating CTA bar on Mobile */}
       {activeTab !== '/contact' && (
