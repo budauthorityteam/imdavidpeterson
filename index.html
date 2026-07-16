@@ -3,11 +3,169 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <meta name="theme-color" content="#0A0A0A" />
+
+    <!-- Primary meta -->
+    <title>David Peterson | Operator, Builder &amp; Fractional Executive</title>
+    <meta
+      name="description"
+      content="David Peterson is an operator and builder with two decades scaling businesses. Founder of BudAuthority. Now building AI-driven systems that do the work of teams. Selective advisory, speaking, and consulting."
+    />
+    <meta name="author" content="David Peterson" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://imdavidpeterson.com/" />
+
+    <!-- Icons & manifest -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="David Peterson" />
+    <meta property="og:title" content="David Peterson | Operator, Builder &amp; Fractional Executive" />
+    <meta
+      property="og:description"
+      content="Two decades operating and scaling businesses. Founder of BudAuthority. Now building AI-driven systems that do the work of teams. Selectively available for advisory."
+    />
+    <meta property="og:url" content="https://imdavidpeterson.com/" />
+    <meta property="og:image" content="https://imdavidpeterson.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="David Peterson — Operator & Builder" />
+    <meta property="profile:first_name" content="David" />
+    <meta property="profile:last_name" content="Peterson" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="David Peterson | Operator, Builder &amp; Fractional Executive" />
+    <meta
+      name="twitter:description"
+      content="Two decades operating and scaling businesses. Founder of BudAuthority. Now building AI-driven systems that do the work of teams."
+    />
+    <meta name="twitter:image" content="https://imdavidpeterson.com/og-image.png" />
+    <meta name="twitter:image:alt" content="David Peterson — Operator & Builder" />
+
+    <!-- Fonts: preconnect + async, non-render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      />
+    </noscript>
+
+    <!-- Structured data: Person + WebSite + ProfilePage (static, crawlable without JS) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://imdavidpeterson.com/#david-peterson",
+            "name": "David Peterson",
+            "alternateName": "David N. Peterson",
+            "url": "https://imdavidpeterson.com/",
+            "jobTitle": "Founder & Operator",
+            "description": "Operator and builder with two decades scaling businesses across operations, marketing, and technology. Founder of BudAuthority. Builds AI-driven systems that automate the work of teams.",
+            "knowsAbout": [
+              "Business operations",
+              "Scaling and turnarounds",
+              "Digital marketing",
+              "Search engine optimization",
+              "Applied AI and automation",
+              "Fractional executive leadership",
+              "Organizational change"
+            ],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "BudAuthority",
+              "url": "https://budauthority.com"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressRegion": "RI",
+              "addressCountry": "US"
+            },
+            "email": "mailto:davidpetersonri@gmail.com",
+            "sameAs": [
+              "https://budauthority.com"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://imdavidpeterson.com/#website",
+            "url": "https://imdavidpeterson.com/",
+            "name": "David Peterson",
+            "description": "The personal hub of David Peterson: operator, builder, founder of BudAuthority, podcast host, and selective advisor.",
+            "publisher": { "@id": "https://imdavidpeterson.com/#david-peterson" },
+            "inLanguage": "en-US"
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://imdavidpeterson.com/#profilepage",
+            "url": "https://imdavidpeterson.com/",
+            "name": "David Peterson | Operator & Builder",
+            "isPartOf": { "@id": "https://imdavidpeterson.com/#website" },
+            "about": { "@id": "https://imdavidpeterson.com/#david-peterson" },
+            "inLanguage": "en-US"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- SEO fallback for crawlers and clients without JavaScript.
+         The React app renders into #root above; this content is only shown when JS is disabled,
+         but is always readable by non-JS crawlers (social unfurlers, AI crawlers, etc.). -->
+    <noscript>
+      <main>
+        <h1>David Peterson &mdash; Operator, Builder &amp; Fractional Executive</h1>
+        <p>
+          I spent twenty years running and scaling other people's businesses. Now I build my own.
+          I'm the founder of <a href="https://budauthority.com">BudAuthority</a>, a digital marketing
+          and SEO agency, and I build AI-driven systems that do the work of entire teams.
+        </p>
+        <h2>Track record</h2>
+        <ul>
+          <li>Grew a channel business unit from $5M to $30M+ ARR in under three years (Aurea Software, Austin, TX).</li>
+          <li>Led an organization of 350+ team members as a senior operations leader (New York, NY).</li>
+          <li>Grew inside sales 300%+, e-commerce 150%+, and retail foot traffic 200%+ YTD across 17 stores.</li>
+          <li>Managed a $600K/year marketing budget and P&amp;L driving $5.5M+ in revenue.</li>
+          <li>Founder & principal of BudAuthority, serving 30+ retainer clients with proprietary SEO intelligence software.</li>
+        </ul>
+        <h2>Work with David</h2>
+        <p>
+          Selective fractional executive, consulting &amp; advisory, and speaking engagements.
+          Advisory engagements start at $5,000/month.
+          Reach out at <a href="mailto:davidpetersonri@gmail.com">davidpetersonri@gmail.com</a>.
+        </p>
+        <h2>Sections</h2>
+        <ul>
+          <li><a href="/#/about">About</a></li>
+          <li><a href="/#/now">Now &mdash; current focus</a></li>
+          <li><a href="/#/media">Media &amp; speaking</a></li>
+          <li><a href="/#/contact">Contact</a></li>
+        </ul>
+      </main>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

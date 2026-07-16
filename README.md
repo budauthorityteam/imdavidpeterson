@@ -1,20 +1,36 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# imdavidpeterson.com
 
-# Run and deploy your AI Studio app
+Personal hub for David Peterson — operator, builder, founder of BudAuthority, podcast host, and selective advisor. Single-page React app (Vite + React 19 + Tailwind 4).
 
-This contains everything you need to run your app locally.
+## Run locally
 
-View your app in AI Studio: https://ai.studio/apps/74005030-16df-4b5f-9e6e-ce3a6f48fc50
+**Prerequisites:** Node.js 18+
 
-## Run Locally
+```bash
+npm install
+npm run dev      # http://localhost:3000
+```
 
-**Prerequisites:**  Node.js
+## Scripts
 
+- `npm run dev` — local dev server
+- `npm run build` — production build to `dist/`
+- `npm run preview` — serve the production build locally
+- `npm run lint` — TypeScript typecheck (`tsc --noEmit`)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Editing content
+
+- **Identity & links** (email, social profiles, agency, real-estate link) live in one place: `PROFILE` in [`src/data.ts`](src/data.ts). Replace the `-placeholder` URLs with the real ones.
+- **Track record, timeline, services, media** — the rest of `src/data.ts` and the per-view components in `src/components/`.
+- **SEO metadata** — static `<title>`, meta description, Open Graph/Twitter tags, and JSON-LD structured data live in [`index.html`](index.html). Per-view titles/descriptions are synced at runtime in `src/App.tsx`.
+
+## SEO assets
+
+Served from `public/` at the site root:
+
+- `robots.txt` — allows all crawlers incl. AI/answer engines; points to the sitemap
+- `sitemap.xml`
+- `site.webmanifest`, `favicon.svg`, `favicon-96.png`, `apple-touch-icon.png`
+- `og-image.png` — 1200×630 social share card
+
+> **Before launch:** confirm the canonical domain (`https://imdavidpeterson.com`) in `index.html`, `sitemap.xml`, `robots.txt`, and `PROFILE.siteUrl`. If it changes, update all four.

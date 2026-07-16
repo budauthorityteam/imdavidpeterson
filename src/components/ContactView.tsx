@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Send, CheckCircle2, MapPin, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
+import { PROFILE } from '../data';
 
 export default function ContactView() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -134,10 +135,10 @@ export default function ContactView() {
                 <p className="font-light">
                   I'm a licensed real estate agent in Rhode Island and Massachusetts. For residential or commercial asset inquiries, you can also access my real estate platform:
                 </p>
-                <a 
-                  href="https://davidpeterson.realestate-placeholder.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={PROFILE.realEstate}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-white hover:underline font-mono text-[10px]"
                 >
                   <span>David Peterson Real Estate Brokerage</span>
@@ -184,8 +185,8 @@ export default function ContactView() {
       <motion.div variants={itemVariants} className="mt-16 pt-10 border-t border-zinc-900 grid grid-cols-1 sm:grid-cols-2 gap-8 text-xs font-sans text-zinc-500 font-light">
         <div className="space-y-2">
           <span className="block font-mono text-[10px] uppercase text-zinc-400 font-bold">Direct Channel</span>
-          <a href="mailto:davidpetersonri@gmail.com" className="text-white hover:underline font-mono">
-            davidpetersonri@gmail.com
+          <a href={`mailto:${PROFILE.email}`} className="text-white hover:underline font-mono">
+            {PROFILE.email}
           </a>
           <p className="text-[10px]">Located in Rhode Island, servicing projects globally.</p>
         </div>
@@ -193,19 +194,19 @@ export default function ContactView() {
         <div className="space-y-2">
           <span className="block font-mono text-[10px] uppercase text-zinc-400 font-bold">Professional Logs</span>
           <div className="flex items-center space-x-4 pt-1 text-[10px] font-mono uppercase tracking-wider">
-            <a 
-              href="https://linkedin.com/in/imdavidpeterson-placeholder" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={PROFILE.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white transition-colors inline-flex items-center space-x-1"
             >
               <Linkedin className="w-3 h-3" />
               <span>LinkedIn</span>
             </a>
-            <a 
-              href="https://twitter.com/imdavidpeterson-placeholder" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={PROFILE.social.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white transition-colors inline-flex items-center space-x-1"
             >
               <Twitter className="w-3 h-3" />

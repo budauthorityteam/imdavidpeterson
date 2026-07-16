@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+server.js
+
+# Local env / secrets
+.env
+.env.local
+.env.*.local
+
+# Logs & OS cruft
+*.log
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

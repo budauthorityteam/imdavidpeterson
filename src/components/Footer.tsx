@@ -1,5 +1,6 @@
 import React from 'react';
 import { Linkedin, Twitter, Mail, ArrowUpRight, ShieldCheck, MapPin } from 'lucide-react';
+import { PROFILE } from '../data';
 
 interface FooterProps {
   setActiveTab: (tab: string) => void;
@@ -40,27 +41,30 @@ export default function Footer({ setActiveTab }: FooterProps) {
               Two decades running, scaling, and automating operations. Currently founding and building systemized AI software, automation frameworks, and digital portfolio assets.
             </p>
             <div className="flex items-center space-x-4 pt-2">
-              <a 
-                href="https://linkedin.com/in/imdavidpeterson-placeholder" 
-                target="_blank" 
+              <a
+                href={PROFILE.social.linkedin}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-600 hover:text-white transition-colors"
+                aria-label="David Peterson on LinkedIn"
                 title="LinkedIn Profile"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a 
-                href="https://twitter.com/imdavidpeterson-placeholder" 
-                target="_blank" 
+              <a
+                href={PROFILE.social.twitter}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-zinc-600 hover:text-white transition-colors"
+                aria-label="David Peterson on X (Twitter)"
                 title="Twitter Profile"
               >
                 <Twitter className="w-4 h-4" />
               </a>
-              <a 
-                href="mailto:davidpetersonri@gmail.com" 
+              <a
+                href={`mailto:${PROFILE.email}`}
                 className="text-zinc-600 hover:text-white transition-colors"
+                aria-label="Email David Peterson"
                 title="Email David"
               >
                 <Mail className="w-4 h-4" />
@@ -93,10 +97,10 @@ export default function Footer({ setActiveTab }: FooterProps) {
               <div className="p-4 bg-zinc-950 rounded border border-zinc-900 flex items-start space-x-3">
                 <ShieldCheck className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
                 <p className="text-[10px] text-zinc-400 leading-relaxed font-sans font-light">
-                  Licensed Real Estate Agent in Rhode Island & Massachusetts. Affiliated with premier brokerage networks. 
-                  <a 
-                    href="https://davidpeterson.realestate-placeholder.com" 
-                    target="_blank" 
+                  Licensed Real Estate Agent in Rhode Island & Massachusetts. Affiliated with premier brokerage networks.
+                  <a
+                    href={PROFILE.realEstate}
+                    target="_blank"
                     rel="noopener noreferrer" 
                     className="text-white hover:underline ml-1 inline-flex items-center font-mono"
                   >

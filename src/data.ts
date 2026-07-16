@@ -1,3 +1,24 @@
+// -----------------------------------------------------------------------------
+// PROFILE — single source of truth for identity + external links.
+// TODO(David): replace the `-placeholder` URLs below with your real profiles.
+// These feed the footer, contact page, and (for the real ones) the JSON-LD in
+// index.html. Leave a value as null to hide that link everywhere.
+// -----------------------------------------------------------------------------
+export const PROFILE = {
+  name: 'David Peterson',
+  email: 'davidpetersonri@gmail.com',
+  siteUrl: 'https://imdavidpeterson.com',
+  location: 'Rhode Island, USA',
+  agency: { name: 'BudAuthority', url: 'https://budauthority.com' },
+  social: {
+    linkedin: 'https://linkedin.com/in/imdavidpeterson-placeholder',
+    twitter: 'https://twitter.com/imdavidpeterson-placeholder',
+    instagram: 'https://instagram.com/imdavidpeterson-placeholder',
+    youtube: 'https://youtube.com/imdavidpeterson-placeholder',
+  },
+  realEstate: 'https://davidpeterson.realestate-placeholder.com',
+} as const;
+
 export interface ProofPoint {
   id: string;
   metric: string;
