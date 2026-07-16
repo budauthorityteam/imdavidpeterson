@@ -1,13 +1,29 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, ArrowDown, Mic, BookOpen, Volume2, Calendar, ShieldCheck, Play } from 'lucide-react';
+import HeroCanvas from './HeroCanvas';
+import CountUp from './CountUp';
 
 interface HomeViewProps {
   setActiveTab: (tab: string) => void;
 }
 
+const MARQUEE_ITEMS = [
+  'Operations',
+  'Growth',
+  'Applied AI',
+  'Fractional Executive',
+  'SEO Intelligence',
+  'Austin, TX',
+  'New York, NY',
+  'Hong Kong',
+  'Tucson, AZ',
+  'Rocky Hill, CT',
+  'Rhode Island',
+];
+
 export default function HomeView({ setActiveTab }: HomeViewProps) {
-  
+
   const handleNavClick = (tab: string) => {
     setActiveTab(tab);
     window.location.hash = tab;
@@ -71,7 +87,15 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       className="space-y-24 md:space-y-36 pb-24"
     >
       {/* 1. HERO SECTION */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto pt-32 md:pt-40">
+      <section className="relative overflow-hidden pt-32 md:pt-40 pb-4">
+        {/* Interactive agent-network backdrop */}
+        <div className="absolute inset-0 pointer-events-none">
+          <HeroCanvas />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+        </div>
+
+        <div className="relative z-10 px-6 md:px-12 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-center">
           
           {/* Left: Text Details */}
@@ -136,7 +160,27 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           </div>
 
         </div>
+        </div>
       </section>
+
+      {/* MARQUEE BAND */}
+      <div className="marquee-track relative overflow-hidden border-y border-zinc-900 bg-zinc-950/40 py-4">
+        <div className="marquee">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
+              {MARQUEE_ITEMS.map((item, i) => (
+                <span key={i} className="flex items-center text-[11px] font-mono uppercase tracking-[0.25em] text-zinc-500 whitespace-nowrap">
+                  <span className="mx-6">{item}</span>
+                  <span className="text-[#10B981]">/</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
+      </div>
 
       {/* 2. TRACK RECORD */}
       <section id="the-public-part" className="px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900 pt-20 scroll-mt-20">
@@ -157,16 +201,21 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             {proofPoints.map((point, index) => (
               <div
                 key={index}
-                className="glow-card bg-zinc-950 border border-zinc-900 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden group"
+                onMouseMove={(e) => {
+                  const r = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+                  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
+                }}
+                className="spotlight glow-card bg-zinc-950 border border-zinc-900 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden group"
               >
                 {/* Visual accent inside card */}
-                <div className="absolute top-0 right-0 p-3 text-[9px] font-mono text-zinc-700 group-hover:text-[#10B981]/70 transition-colors select-none">
+                <div className="absolute top-0 right-0 p-3 text-[9px] font-mono text-zinc-700 group-hover:text-[#10B981]/70 transition-colors select-none z-10">
                   [S.{index+1}]
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 relative z-10">
                   <div className="text-3xl md:text-4xl font-black font-display text-gradient tracking-tight">
-                    {point.metric}
+                    <CountUp value={point.metric} />
                   </div>
                   <div className="text-xs font-semibold font-mono text-zinc-300 uppercase tracking-wide">
                     {point.label}
@@ -176,7 +225,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-zinc-900/60 flex justify-between items-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+                <div className="relative z-10 pt-4 border-t border-zinc-900/60 flex justify-between items-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
                   <span>{point.location}</span>
                   <span className="text-[#10B981]/70">• Verified</span>
                 </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, MapPin, CheckCircle2, ChevronRight, CornerDownRight } from 'lucide-react';
 import { TIMELINE } from '../data';
+import CountUp from './CountUp';
 
 interface AboutViewProps {
   setActiveTab: (tab: string) => void;
@@ -156,7 +157,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
               {TIMELINE[activeTimelineIdx].highlightMetric && (
                 <div className="absolute top-6 right-8 text-right hidden sm:block">
                   <div className="text-5xl font-black font-display text-gradient leading-none">
-                    {TIMELINE[activeTimelineIdx].highlightMetric?.value}
+                    <CountUp value={TIMELINE[activeTimelineIdx].highlightMetric?.value ?? ''} />
                   </div>
                   <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider mt-1">
                     {TIMELINE[activeTimelineIdx].highlightMetric?.label}
