@@ -48,8 +48,8 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`cursor-pointer hover:text-white transition-all py-1 relative ${
-                  isActive ? 'text-white font-bold' : ''
+                className={`cursor-pointer hover:text-white transition-all py-1 relative after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-[#10B981] after:transition-all ${
+                  isActive ? 'text-white font-bold after:w-full' : 'after:w-0 hover:after:w-full'
                 }`}
               >
                 {item.label}

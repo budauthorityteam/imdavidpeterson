@@ -45,7 +45,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
                 href={PROFILE.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-600 hover:text-white transition-colors"
+                className="text-zinc-600 hover:text-[#10B981] transition-colors"
                 aria-label="David Peterson on LinkedIn"
                 title="LinkedIn Profile"
               >
@@ -55,7 +55,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
                 href={PROFILE.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-zinc-600 hover:text-white transition-colors"
+                className="text-zinc-600 hover:text-[#10B981] transition-colors"
                 aria-label="David Peterson on X (Twitter)"
                 title="Twitter Profile"
               >
@@ -63,7 +63,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
               </a>
               <a
                 href={`mailto:${PROFILE.email}`}
-                className="text-zinc-600 hover:text-white transition-colors"
+                className="text-zinc-600 hover:text-[#10B981] transition-colors"
                 aria-label="Email David Peterson"
                 title="Email David"
               >

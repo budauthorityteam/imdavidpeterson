@@ -52,9 +52,9 @@ export default function ContactView() {
       className="max-w-2xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-36"
     >
       <motion.div variants={itemVariants} className="space-y-4 mb-10">
-        <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 font-bold block">Communications Desk</span>
+        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Communications Desk</span>
         <h1 id="contact-title" className="text-4xl md:text-6xl font-black font-display text-white tracking-tighter">
-          Get in Touch
+          Get in <span className="text-gradient">Touch</span>
         </h1>
         <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-sans font-light">
           This inbox is actively filtered. David replies to operations and advisory challenges where there is immediate mathematical alignment.
@@ -64,7 +64,7 @@ export default function ContactView() {
       <motion.div variants={itemVariants} className="border-t border-zinc-900 pt-10">
         {formSubmitted ? (
           <div className="p-8 bg-zinc-950 border border-zinc-900 rounded-lg text-center space-y-4">
-            <div className="w-12 h-12 bg-zinc-900 border border-zinc-700 text-white flex items-center justify-center rounded-full mx-auto">
+            <div className="w-12 h-12 bg-[#10B981]/10 border border-[#10B981]/50 text-[#10B981] flex items-center justify-center rounded-full mx-auto shadow-lg shadow-[#10B981]/10">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h4 className="text-base font-bold text-white font-display">Transmission Completed</h4>
@@ -91,7 +91,7 @@ export default function ContactView() {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-zinc-700 transition-all font-sans"
+                  className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans"
                   placeholder="e.g. Marcus Aurelius"
                 />
               </div>
@@ -104,7 +104,7 @@ export default function ContactView() {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-zinc-700 transition-all font-sans"
+                  className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans"
                   placeholder="e.g. marcus@empire.com"
                 />
               </div>
@@ -118,7 +118,7 @@ export default function ContactView() {
                 required
                 value={formData.subject}
                 onChange={handleInputChange}
-                className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-zinc-300 focus:outline-none focus:border-zinc-700 transition-all font-sans appearance-none cursor-pointer"
+                className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-zinc-300 focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans appearance-none cursor-pointer"
               >
                 <option value="" disabled>Select an option...</option>
                 <option value="Advisory engagement">Advisory engagement</option>
@@ -156,7 +156,7 @@ export default function ContactView() {
                 rows={5}
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-zinc-700 transition-all font-sans leading-relaxed"
+                className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans leading-relaxed"
                 placeholder="Skip the pitch deck. Two sentences on why this is worth both our time."
               ></textarea>
             </div>
@@ -165,7 +165,7 @@ export default function ContactView() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-white text-black hover:bg-zinc-200 py-4 text-xs font-mono font-bold uppercase tracking-widest transition-all flex items-center justify-center space-x-2 rounded font-black cursor-pointer"
+                className="btn-shine w-full text-black py-4 text-xs font-mono font-bold uppercase tracking-widest transition-transform hover:scale-[1.01] flex items-center justify-center space-x-2 rounded font-black cursor-pointer shadow-lg shadow-[#10B981]/10"
               >
                 {loading ? (
                   <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>

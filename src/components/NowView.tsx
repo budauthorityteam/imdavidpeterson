@@ -35,14 +35,15 @@ export default function NowView({ setActiveTab }: NowViewProps) {
       className="max-w-3xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-36"
     >
       <motion.div variants={itemVariants} className="space-y-4 mb-12">
-        <div className="flex items-center space-x-2.5 text-zinc-500 font-mono text-xs uppercase tracking-widest">
-          <Clock className="w-3.5 h-3.5" />
+        <div className="flex items-center space-x-2.5 text-zinc-400 font-mono text-xs uppercase tracking-widest">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] pulse-dot"></span>
+          <Clock className="w-3.5 h-3.5 text-[#10B981]" />
           <span>Status Page</span>
-          <span>•</span>
+          <span className="text-[#10B981]">•</span>
           <span>Rhode Island, USA</span>
         </div>
-        <h1 id="now-title" className="text-4xl md:text-6xl font-black font-display text-white tracking-tighter">
-          Now
+        <h1 id="now-title" className="text-4xl md:text-6xl font-black font-display tracking-tighter">
+          <span className="text-gradient">Now</span>
         </h1>
         <p className="text-zinc-500 font-mono text-xs uppercase tracking-wider">
           Last updated: July 15, 2026
@@ -60,36 +61,36 @@ export default function NowView({ setActiveTab }: NowViewProps) {
         */}
         
         <div className="space-y-8 font-sans">
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-zinc-500 transition-colors">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block font-semibold">01 / SOFTWARE ARCHITECTURE</span>
+          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
+            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">01 / SOFTWARE ARCHITECTURE</span>
             <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
               Architecting private, generative agent microservices that coordinate complex customer lifecycle and marketing automation workflows. I am systematically stripping out operational bloat and replacing traditional headcount with system design.
             </p>
           </div>
 
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-zinc-500 transition-colors">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block font-semibold">02 / OPERATIONS & SERVICES</span>
+          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
+            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">02 / OPERATIONS & SERVICES</span>
             <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
               Managing organic growth systems and search visibility infrastructure under my primary digital marketing and SEO platform, servicing select enterprise retainers.
             </p>
           </div>
 
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-zinc-500 transition-colors">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block font-semibold">03 / AUDIO MEDIA</span>
+          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
+            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">03 / AUDIO MEDIA</span>
             <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
               Recording and producing weekly long-form discussions for <span className="text-white italic">Taking Back Entrepreneurship</span> and <span className="text-white italic">We Tried, We Failed</span>, analyzing raw, survivor-bias-free operator realities.
             </p>
           </div>
 
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-zinc-500 transition-colors">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block font-semibold">04 / ASSET ADVISORY</span>
+          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
+            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">04 / ASSET ADVISORY</span>
             <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
               Maintaining active real estate brokerage licensing in Rhode Island and Massachusetts. Advising select clients on off-market commercial property transactions and localized digital search targeting for physical assets.
             </p>
           </div>
 
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-zinc-500 transition-colors">
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block font-semibold">05 / SYSTEMS ENGINEERING</span>
+          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
+            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">05 / SYSTEMS ENGINEERING</span>
             <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
               Applying twenty years of hard-won operations to writing code instead of managing bloated org charts. I'm currently focused on model chaining, optimizing context-window management, and automated workflow triggers.
             </p>

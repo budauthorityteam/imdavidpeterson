@@ -5,9 +5,12 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Signature accent — warm "ember". Swap these two lines to re-theme the whole site. */
+  --color-accent: #10B981;
+  --color-accent-soft: #34D399;
 }
 
-/* Custom scrollbar and ambient animation styles if needed */
 html {
   scroll-behavior: smooth;
   background-color: #0A0A0A;
@@ -17,4 +20,132 @@ body {
   color: #FFFFFF;
   background-color: #0A0A0A;
   font-family: var(--font-sans);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Pizzazz layer: ambient aurora, grain, gradient text, glows
+ * ------------------------------------------------------------------ */
+
+/* Gradient headline text */
+.text-gradient {
+  background-image: linear-gradient(120deg, #34D399 0%, #10B981 45%, #14B8A6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-cool {
+  background-image: linear-gradient(120deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ambient aurora blobs behind everything */
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+.aurora-1 {
+  width: 640px; height: 640px;
+  top: -220px; left: -160px;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.30), transparent 68%);
+  animation: auroraDrift 24s ease-in-out infinite;
+}
+.aurora-2 {
+  width: 560px; height: 560px;
+  top: 4%; right: -180px;
+  background: radial-gradient(circle at center, rgba(20, 184, 166, 0.20), transparent 68%);
+  animation: auroraDrift 30s ease-in-out infinite reverse;
+}
+.aurora-3 {
+  width: 720px; height: 720px;
+  bottom: -280px; left: 30%;
+  background: radial-gradient(circle at center, rgba(52, 211, 153, 0.16), transparent 70%);
+  animation: auroraDrift 34s ease-in-out infinite;
+}
+
+@keyframes auroraDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(6%, 8%, 0) scale(1.12); }
+  66%  { transform: translate3d(-5%, 4%, 0) scale(0.94); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* Fine film grain for depth */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Subtle top hairline of accent light */
+.accent-hairline {
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+}
+
+/* Accent glow on hover for cards */
+.glow-card {
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.glow-card:hover {
+  border-color: rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.10), 0 18px 50px -24px rgba(16, 185, 129, 0.45);
+  transform: translateY(-3px);
+}
+
+/* Animated conic gradient ring (used on the hero profile card) */
+.gradient-ring {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-ring::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from 0deg, transparent 0deg, var(--color-accent) 90deg, #14B8A6 180deg, transparent 260deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin 6s linear infinite;
+  z-index: -1;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Pulsing accent dot */
+.pulse-dot {
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Animated gradient sweep for the primary CTA */
+.btn-shine {
+  background-size: 200% 100%;
+  background-image: linear-gradient(110deg, #ffffff 0%, #ffffff 40%, #D1FAE5 50%, #ffffff 60%, #ffffff 100%);
+  animation: shine 6s linear infinite;
+}
+@keyframes shine {
+  to { background-position: -200% 0; }
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .aurora, .gradient-ring::before, .pulse-dot, .btn-shine {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
 }

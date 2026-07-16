@@ -41,12 +41,12 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
       <section className="px-6 md:px-12 max-w-5xl mx-auto">
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 font-bold block">Biography</span>
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Biography</span>
             <h1 id="about-title" className="text-4xl md:text-6xl font-black font-display tracking-tight text-white leading-none">
               Operator First. <br />
-              Builder Now.
+              <span className="text-gradient">Builder Now.</span>
             </h1>
-            <div className="h-[1px] w-20 bg-zinc-800"></div>
+            <div className="accent-hairline h-[1px] w-20"></div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-4">
@@ -111,7 +111,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
         <div className="space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-900 pb-6">
             <div className="space-y-2">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 font-bold block">SELECT COMPLETED CHAPTERS</span>
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">SELECT COMPLETED CHAPTERS</span>
               <h2 className="text-2xl md:text-3xl font-bold font-display text-white tracking-tight">
                 The Battle Record
               </h2>
@@ -133,8 +133,8 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
                       key={stop.id}
                       onClick={() => setActiveTimelineIdx(index)}
                       className={`w-full text-left p-3.5 rounded border transition-all text-xs flex justify-between items-center ${
-                        isActive 
-                          ? 'bg-zinc-950 border-white text-white font-bold pl-5' 
+                        isActive
+                          ? 'bg-zinc-950 border-[#10B981]/60 text-white font-bold pl-5 shadow-lg shadow-[#10B981]/5'
                           : 'bg-transparent border-transparent text-zinc-400 hover:text-white hover:bg-zinc-900/30'
                       }`}
                     >
@@ -155,7 +155,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
               {/* Highlight big metric */}
               {TIMELINE[activeTimelineIdx].highlightMetric && (
                 <div className="absolute top-6 right-8 text-right hidden sm:block">
-                  <div className="text-5xl font-black font-display text-white leading-none">
+                  <div className="text-5xl font-black font-display text-gradient leading-none">
                     {TIMELINE[activeTimelineIdx].highlightMetric?.value}
                   </div>
                   <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider mt-1">
@@ -194,7 +194,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {TIMELINE[activeTimelineIdx].achievements.map((ach, i) => (
                         <div key={i} className="bg-zinc-900/30 border border-zinc-900 p-3 rounded flex items-start space-x-2">
-                          <CheckCircle2 className="w-4 h-4 text-white shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
                           <p className="text-xs text-zinc-400 leading-relaxed font-sans">{ach}</p>
                         </div>
                       ))}
