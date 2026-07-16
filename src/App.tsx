@@ -78,84 +78,27 @@ export default function App() {
     // Set page title
     document.title = title;
 
-    // Set meta description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute('content', description);
-
-    // Schema.org dynamic injection
-    document.querySelectorAll('.dynamic-schema').forEach(el => el.remove());
-
-    const schemaScripts: HTMLScriptElement[] = [];
-
-    // 1. Person Schema JSON-LD on Homepage
-    if (activeTab === 'home') {
-      const personSchema = {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "David Peterson",
-        "alternateName": "David N. Peterson",
-        "jobTitle": "Founder & Operator",
-        "knowsAbout": [
-          "business operations",
-          "digital marketing",
-          "applied AI",
-          "organizational change"
-        ],
-        "sameAs": [
-          "https://linkedin.com/in/imdavidpeterson-placeholder",
-          "https://twitter.com/imdavidpeterson-placeholder",
-          "https://instagram.com/imdavidpeterson-placeholder",
-          "https://youtube.com/imdavidpeterson-placeholder",
-          "https://takingbackentrepreneurship-placeholder.com",
-          "https://wetriedwefailed-placeholder.com"
-        ]
-      };
-
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.className = 'dynamic-schema';
-      script.text = JSON.stringify(personSchema);
-      schemaScripts.push(script);
-    }
-
-    // 2. BreadcrumbList Schema sitewide
-    const breadcrumbList = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": window.location.origin
-        }
-      ]
+    // Keep name/property meta tags in sync as the active view changes, so that
+    // deep-linked hash URLs shared by JS-capable scrapers unfurl with the right copy.
+    // (Canonical entity structured data lives statically in index.html.)
+    const upsertMeta = (selector: string, attr: 'name' | 'property', key: string, content: string) => {
+      let el = document.head.querySelector(selector) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
     };
 
-    if (activeTab !== 'home') {
-      const pageName = activeTab.replace('/', '').toUpperCase();
-      breadcrumbList.itemListElement.push({
-        "@type": "ListItem",
-        "position": 2,
-        "name": pageName,
-        "item": `${window.location.origin}/#${activeTab}`
-      });
-    }
+    const url = `${window.location.origin}/${activeTab === 'home' ? '' : `#${activeTab}`}`;
 
-    const breadcrumbScript = document.createElement('script');
-    breadcrumbScript.type = 'application/ld+json';
-    breadcrumbScript.className = 'dynamic-schema';
-    breadcrumbScript.text = JSON.stringify(breadcrumbList);
-    schemaScripts.push(breadcrumbScript);
-
-    // Append scripts to document
-    schemaScripts.forEach(script => document.head.appendChild(script));
-
+    upsertMeta('meta[name="description"]', 'name', 'description', description);
+    upsertMeta('meta[property="og:title"]', 'property', 'og:title', title);
+    upsertMeta('meta[property="og:description"]', 'property', 'og:description', description);
+    upsertMeta('meta[property="og:url"]', 'property', 'og:url', url);
+    upsertMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
+    upsertMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
   }, [activeTab]);
 
   const renderActiveView = () => {
