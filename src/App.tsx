@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useSpring } from 'motion/react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeView from './components/HomeView';
@@ -9,6 +10,8 @@ import ContactView from './components/ContactView';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.2 });
 
   // Sync hash changes with the active tab for deep linking
   useEffect(() => {
@@ -120,6 +123,13 @@ export default function App() {
 
   return (
     <div id="app-root" className="relative min-h-screen flex flex-col bg-paper text-ink overflow-x-hidden">
+      {/* Scroll progress bar */}
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: progress }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-accent origin-left z-[60]"
+      />
+
       {/* Warm paper texture */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div className="paper-grain" />

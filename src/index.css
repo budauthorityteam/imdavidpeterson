@@ -141,10 +141,62 @@ body {
   width: max-content;
   animation: marquee 34s linear infinite;
 }
+.marquee--slow { animation-duration: 48s; }
+.marquee--rev { animation-direction: reverse; }
 .marquee-track:hover .marquee { animation-play-state: paused; }
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+
+/* Cursor spotlight (used on tilt cards) */
+.spotlight { position: relative; }
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(240px circle at var(--mx, -600px) var(--my, -600px), rgba(225, 74, 34, 0.10), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Ember aurora blobs (soft warmth on cream) */
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  will-change: transform;
+  pointer-events: none;
+}
+.aurora-a {
+  width: 540px; height: 540px; top: -180px; right: 4%;
+  background: radial-gradient(circle at center, rgba(225, 74, 34, 0.18), transparent 68%);
+  animation: auroraDrift 26s ease-in-out infinite;
+}
+.aurora-b {
+  width: 440px; height: 440px; top: 8%; left: -140px;
+  background: radial-gradient(circle at center, rgba(225, 74, 34, 0.10), transparent 70%);
+  animation: auroraDrift 34s ease-in-out infinite reverse;
+}
+@keyframes auroraDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(5%, 7%, 0) scale(1.12); }
+  66%  { transform: translate3d(-4%, 3%, 0) scale(0.94); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* Outlined display type (for the big kinetic band) */
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--color-ink);
+  color: transparent;
+}
+.text-outline-accent {
+  -webkit-text-stroke: 1.5px var(--color-accent);
+  color: transparent;
 }
 
 /* Link underline that draws in on hover */
@@ -160,7 +212,7 @@ body {
 
 /* Respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .pulse-dot, .marquee { animation: none !important; }
+  .pulse-dot, .marquee, .aurora { animation: none !important; }
   html { scroll-behavior: auto; }
   .ed-card:hover { transform: none; }
 }

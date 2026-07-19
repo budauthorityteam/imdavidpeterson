@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Play, Pause, ExternalLink, Mic, Check, ArrowRight } from 'lucide-react';
+import { TiltCard } from './Motion';
 
 interface MediaViewProps {
   setActiveTab: (tab: string) => void;
@@ -164,10 +165,12 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
             <h2 className="kicker">Speaking topics</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {speakingTopics.map((t, i) => (
-                <div key={i} className="ed-card rounded-2xl p-6 space-y-2">
-                  <h3 className="font-display font-semibold text-lg text-ink tracking-tight">{t.title}</h3>
-                  <p className="text-ink-soft leading-relaxed">{t.desc}</p>
-                </div>
+                <TiltCard key={i} className="ed-card rounded-2xl p-6" max={6}>
+                  <div className="space-y-2">
+                    <h3 className="font-display font-semibold text-lg text-ink tracking-tight">{t.title}</h3>
+                    <p className="text-ink-soft leading-relaxed">{t.desc}</p>
+                  </div>
+                </TiltCard>
               ))}
             </div>
           </motion.div>
@@ -200,25 +203,23 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
         </motion.h2>
         <motion.div variants={item} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {pressMentions.map((press, i) => (
-            <a
-              key={i}
-              href="#"
-              className="ed-card rounded-2xl p-5 flex justify-between items-center gap-4 group"
-            >
-              <div className="space-y-1 pr-2">
-                <div className="flex items-center gap-2 text-xs text-ink-faint">
-                  <span className="font-medium text-accent">{press.outlet}</span>
-                  <span>·</span>
-                  <span>{press.date}</span>
+            <TiltCard key={i} className="ed-card rounded-2xl p-5 group" max={5}>
+              <a href="#" className="flex justify-between items-center gap-4 h-full">
+                <div className="space-y-1 pr-2">
+                  <div className="flex items-center gap-2 text-xs text-ink-faint">
+                    <span className="font-medium text-accent">{press.outlet}</span>
+                    <span>·</span>
+                    <span>{press.date}</span>
+                  </div>
+                  <h3 className="font-display font-semibold text-ink tracking-tight leading-snug">
+                    {press.title}
+                  </h3>
                 </div>
-                <h3 className="font-display font-semibold text-ink tracking-tight leading-snug">
-                  {press.title}
-                </h3>
-              </div>
-              <span className="w-9 h-9 rounded-full bg-paper border border-line flex items-center justify-center shrink-0 text-ink-soft group-hover:bg-ink group-hover:text-paper group-hover:border-ink transition-all">
-                <ExternalLink className="w-4 h-4" />
-              </span>
-            </a>
+                <span className="w-9 h-9 rounded-full bg-paper border border-line flex items-center justify-center shrink-0 text-ink-soft group-hover:bg-ink group-hover:text-paper group-hover:border-ink transition-all">
+                  <ExternalLink className="w-4 h-4" />
+                </span>
+              </a>
+            </TiltCard>
           ))}
         </motion.div>
       </section>
