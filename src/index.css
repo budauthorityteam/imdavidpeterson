@@ -7,7 +7,7 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque", "Inter", sans-serif;
+  --font-display: "Inter Tight", "Inter", sans-serif;
   --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono: "Inter", ui-monospace, monospace; /* legacy fallback; kickers use tracked sans */
 

@@ -9,6 +9,7 @@ import {
   TiltCard,
   Magnetic,
   RotatingWord,
+  PhotoFrame,
   stagger,
 } from './Motion';
 
@@ -67,24 +68,25 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
 
   return (
     <div>
-      {/* ============================== HERO (transparent, shows shader) ============================== */}
-      <section className="relative overflow-hidden pt-32 md:pt-44 pb-20 md:pb-28">
+      {/* ============================== HERO (floating panel + portrait) ============================== */}
+      <section className="relative overflow-hidden pt-28 md:pt-36 pb-16 md:pb-24 px-6 md:px-12">
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="visible"
-          className="relative z-10 px-6 md:px-12 max-w-6xl mx-auto"
+          className="relative z-10 max-w-6xl mx-auto"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-            <div className="lg:col-span-7 space-y-7">
-              <Item className="inline-flex items-center gap-2.5 bg-paper-2/80 border border-line px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.14em] uppercase text-ink-soft backdrop-blur-sm">
+          <div className="rounded-[2rem] md:rounded-[2.5rem] bg-[#FBFAF5] border border-line/70 shadow-[0_44px_90px_-46px_rgba(23,19,13,0.4)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+            {/* Left: content */}
+            <div className="lg:col-span-7 order-2 lg:order-1 p-8 md:p-12 lg:p-14 flex flex-col justify-center gap-6">
+              <Item className="inline-flex w-fit items-center gap-2.5 bg-paper-2 border border-line px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.14em] uppercase text-ink-soft">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
                 <span>Operator · Builder · Founder of BudAuthority</span>
               </Item>
 
               <h1
                 id="hero-h1"
-                className="font-display font-bold text-ink tracking-[-0.02em] leading-[0.95] text-5xl md:text-7xl"
+                className="font-display font-bold text-ink tracking-[-0.02em] leading-[0.94] text-5xl md:text-6xl xl:text-7xl"
               >
                 <MaskLine>I scaled other</MaskLine>
                 <MaskLine>
@@ -125,32 +127,35 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                   <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
                 </a>
               </Item>
+
+              {/* Compact proof strip */}
+              <Item className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-5 mt-1 border-t border-line">
+                {[
+                  { n: '$30M+', l: 'ARR scaled' },
+                  { n: '350+', l: 'people led' },
+                  { n: '30+', l: 'clients' },
+                ].map((s) => (
+                  <div key={s.l} className="flex items-baseline gap-2">
+                    <span className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight">
+                      <CountUp value={s.n} />
+                    </span>
+                    <span className="text-xs text-ink-faint uppercase tracking-wider">{s.l}</span>
+                  </div>
+                ))}
+              </Item>
             </div>
 
-            <div className="lg:col-span-5">
-              <TiltCard className="ed-card rounded-3xl p-7 md:p-8 shadow-xl shadow-ink/5" max={7}>
-                <div>
-                  <div className="kicker mb-6">The short version</div>
-                  <div className="divide-y divide-line">
-                    {[
-                      { n: '$30M+', l: 'ARR scaled from $5M' },
-                      { n: '350+', l: 'people led at peak' },
-                      { n: '30+', l: 'clients at BudAuthority' },
-                    ].map((s) => (
-                      <div key={s.l} className="flex items-baseline justify-between py-4 first:pt-0 last:pb-0">
-                        <span className="font-display font-bold text-4xl md:text-5xl text-ink tracking-tight">
-                          <CountUp value={s.n} />
-                        </span>
-                        <span className="text-ink-soft text-sm text-right max-w-[9rem]">{s.l}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 pt-5 border-t border-line flex items-center gap-2 text-xs text-ink-faint">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <span>Rhode Island, USA · building in public</span>
-                  </div>
-                </div>
-              </TiltCard>
+            {/* Right: portrait */}
+            <div className="lg:col-span-5 order-1 lg:order-2 relative min-h-[360px] sm:min-h-[440px] lg:min-h-[620px]">
+              <PhotoFrame
+                src="/david-hero.png"
+                alt="David Peterson, operator and builder"
+                mirror
+                className="absolute inset-0 h-full w-full"
+                imgClassName="object-top"
+              />
+              <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#FBFAF5] to-transparent pointer-events-none" />
+              <div className="lg:hidden absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FBFAF5] to-transparent pointer-events-none" />
             </div>
           </div>
         </motion.div>

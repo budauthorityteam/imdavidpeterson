@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { User } from 'lucide-react';
 import {
   AnimatePresence,
   motion,
@@ -7,6 +8,47 @@ import {
   useSpring,
   useTransform,
 } from 'motion/react';
+
+/* Photo slot — renders the image, or a labeled placeholder until the file is
+   dropped into /public. Mirror flips horizontally (for inward gaze). */
+export function PhotoFrame({
+  src,
+  alt,
+  className = '',
+  imgClassName = '',
+  mirror = false,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  imgClassName?: string;
+  mirror?: boolean;
+}) {
+  const [err, setErr] = useState(false);
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {!err ? (
+        <img
+          src={src}
+          alt={alt}
+          loading="eager"
+          onError={() => setErr(true)}
+          className={`w-full h-full object-cover ${mirror ? '-scale-x-100' : ''} ${imgClassName}`}
+        />
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 gap-3 bg-paper-3">
+          <span className="w-14 h-14 rounded-full bg-accent-soft flex items-center justify-center">
+            <User className="w-7 h-7 text-accent" />
+          </span>
+          <span className="font-display font-semibold text-ink">Your portrait here</span>
+          <span className="text-xs text-ink-faint">
+            Drop <span className="text-ink-soft">public{src}</span>
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 /* Shared scroll-reveal variants ------------------------------------------- */
 export const stagger = {

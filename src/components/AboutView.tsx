@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Calendar, MapPin, Check, ChevronRight, ArrowRight, Wrench, Building2, TrendingUp } from 'lucide-react';
 import { TIMELINE } from '../data';
 import CountUp from './CountUp';
-import { Reveal, Item } from './Motion';
+import { Reveal, Item, PhotoFrame } from './Motion';
 
 interface AboutViewProps {
   setActiveTab: (tab: string) => void;
@@ -53,6 +53,12 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pt-14">
           {/* Aside */}
           <motion.div variants={item} className="lg:col-span-4 space-y-8">
+            <PhotoFrame
+              src="/david-about.png"
+              alt="David Peterson"
+              className="aspect-[4/5] w-full rounded-2xl border border-line shadow-[0_30px_60px_-40px_rgba(23,19,13,0.4)]"
+              imgClassName="object-top"
+            />
             <div className="space-y-2">
               <span className="font-serif text-accent text-6xl leading-[0.6] block" aria-hidden="true">“</span>
               <p className="font-serif italic text-xl text-ink leading-relaxed">
