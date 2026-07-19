@@ -152,7 +152,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                 alt="David Peterson, operator and builder"
                 mirror
                 className="absolute inset-0 h-full w-full"
-                imgClassName="object-top"
+                imgClassName="object-top mix-blend-multiply"
               />
               <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#FBFAF5] to-transparent pointer-events-none" />
               <div className="lg:hidden absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FBFAF5] to-transparent pointer-events-none" />
