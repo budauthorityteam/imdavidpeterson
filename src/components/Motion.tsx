@@ -9,7 +9,7 @@ import {
   useTransform,
 } from 'motion/react';
 
-/* Photo slot — renders the image, or a labeled placeholder until the file is
+/* Photo slot: renders the image, or a labeled placeholder until the file is
    dropped into /public. Mirror flips horizontally (for inward gaze). */
 export function PhotoFrame({
   src,
