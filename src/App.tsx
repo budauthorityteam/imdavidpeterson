@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
+import Lenis from 'lenis';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeView from './components/HomeView';
@@ -7,11 +8,54 @@ import NowView from './components/NowView';
 import AboutView from './components/AboutView';
 import MediaView from './components/MediaView';
 import ContactView from './components/ContactView';
+import ShaderBackground from './components/ShaderBackground';
+import Cursor from './components/Cursor';
+import Preloader from './components/Preloader';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.2 });
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // Momentum smooth scroll + smooth in-page anchor jumps
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    lenisRef.current = lenis;
+    let raf = 0;
+    const loop = (t: number) => {
+      lenis.raf(t);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+
+    const onAnchorClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!a) return;
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (el) {
+        e.preventDefault();
+        lenis.scrollTo(el as HTMLElement, { offset: -90 });
+      }
+    };
+    document.addEventListener('click', onAnchorClick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener('click', onAnchorClick);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
+
+  // Jump to top when the active view changes
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
+  }, [activeTab]);
 
   // Sync hash changes with the active tab for deep linking
   useEffect(() => {
@@ -123,6 +167,10 @@ export default function App() {
 
   return (
     <div id="app-root" className="relative min-h-screen flex flex-col bg-paper text-ink overflow-x-hidden">
+      {/* Intro preloader + bespoke cursor */}
+      <Preloader />
+      <Cursor />
+
       {/* Scroll progress bar */}
       <motion.div
         aria-hidden="true"
@@ -130,8 +178,9 @@ export default function App() {
         className="fixed top-0 left-0 right-0 h-[3px] bg-accent origin-left z-[60]"
       />
 
-      {/* Warm paper texture */}
+      {/* Living shader field + warm paper texture */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <ShaderBackground />
         <div className="paper-grain" />
       </div>
 

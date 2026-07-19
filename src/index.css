@@ -210,6 +210,29 @@ body {
 }
 .link-underline:hover { background-size: 100% 2px; }
 
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Custom cursor */
+.cursor-dot {
+  position: fixed; top: 0; left: 0; width: 7px; height: 7px; border-radius: 9999px;
+  background: var(--color-accent); z-index: 120; pointer-events: none; opacity: 0;
+  transition: opacity .3s ease; will-change: transform;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 38px; height: 38px; border-radius: 9999px;
+  border: 1.5px solid #fff; z-index: 119; pointer-events: none; opacity: 0;
+  mix-blend-mode: difference; will-change: transform;
+  transition: opacity .3s ease, width .25s ease, height .25s ease, background .25s ease;
+}
+.cursor-ring.is-active { width: 58px; height: 58px; background: #fff; }
+@media (pointer: fine) {
+  html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
+}
+
 /* Respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .pulse-dot, .marquee, .aurora { animation: none !important; }

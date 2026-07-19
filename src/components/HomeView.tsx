@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check } from 'lucide-react';
-import HeroCanvas from './HeroCanvas';
+import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check, Building2, Wrench, Cog } from 'lucide-react';
 import CountUp from './CountUp';
 import {
   Reveal,
@@ -27,7 +26,7 @@ const MARQUEE_ITEMS = [
   'Systems over Headcount',
 ];
 
-const OUTLINE_WORDS = ['Operator', 'Builder', 'Contrarian', 'Operator', 'Builder', 'Contrarian'];
+const OUTLINE_WORDS = ['Build', 'Buy', 'Operate', 'Build', 'Buy', 'Operate'];
 
 const PROOF = [
   { metric: '$30M+', label: 'ARR grown from $5M', detail: 'Scaled a channel business unit in under three years with an 80/20 organic strategy.', where: 'Aurea Software · Austin, TX' },
@@ -59,15 +58,6 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
     <div>
       {/* ============================== HERO ============================== */}
       <section className="relative overflow-hidden pt-32 md:pt-44 pb-16 md:pb-24">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="aurora aurora-a" />
-          <div className="aurora aurora-b" />
-          <div className="absolute inset-0 opacity-70">
-            <HeroCanvas />
-          </div>
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-paper to-transparent" />
-        </div>
-
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -98,7 +88,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                 Today that means{' '}
                 <RotatingWord
                   className="text-accent"
-                  words={['AI agents.', 'SEO engines.', 'lean software.', 'cash flow.']}
+                  words={['AI agents.', 'boring businesses.', 'SEO engines.', 'cash flow.']}
                 />
               </Item>
 
@@ -314,6 +304,84 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             </Item>
           </div>
         </div>
+      </Reveal>
+
+      {/* ============================== BUILD / BUY / OPERATE ============================== */}
+      <Reveal as="section" className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
+        <div className="max-w-2xl space-y-4 mb-12">
+          <Item as="span" className="kicker block">The thesis</Item>
+          <Item as="h2" className="font-display font-bold text-ink text-4xl md:text-6xl tracking-tight leading-[0.98]">
+            I don't chase unicorns.
+            <br />
+            I buy <span className="underline-swash mark serif-italic font-normal">boring</span>.
+          </Item>
+          <Item as="p" className="text-ink-soft text-lg leading-relaxed">
+            The best businesses are unsexy: local, essential, and quietly printing cash. I acquire
+            overlooked companies through unconventional deals, then drop twenty years of operating
+            systems and AI on top. Build what should be built. Buy what already works.
+          </Item>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {[
+            { icon: Wrench, tag: 'Build', desc: 'Software and AI systems from scratch, where clean code beats another five hires.' },
+            { icon: Building2, tag: 'Buy', desc: 'Boring, cash-flowing businesses the market ignores, acquired at sane multiples with creative terms.' },
+            { icon: Cog, tag: 'Operate', desc: 'Two decades of operating discipline dropped on top, so the asset compounds instead of coasting.' },
+          ].map((c, i) => (
+            <TiltCard key={c.tag} className="ed-card rounded-2xl p-6" max={8}>
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between">
+                  <span className="w-11 h-11 rounded-full bg-accent-soft flex items-center justify-center">
+                    <c.icon className="w-5 h-5 text-accent" />
+                  </span>
+                  <span className="font-display font-bold text-4xl text-line-2">0{i + 1}</span>
+                </div>
+                <h3 className="font-display font-bold text-2xl text-ink tracking-tight mt-5">{c.tag}</h3>
+                <p className="text-ink-soft leading-relaxed mt-2">{c.desc}</p>
+              </div>
+            </TiltCard>
+          ))}
+        </div>
+
+        {/* Buy box */}
+        <Item className="mt-5">
+          <div className="ed-card rounded-2xl p-7 md:p-9">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6">
+              <h3 className="font-display font-bold text-2xl text-ink tracking-tight">The buy box</h3>
+              <span className="kicker">What I look for</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4">
+              {[
+                ['Revenue', '$500K to $5M, with real margin and real customers.'],
+                ['Sector', 'Boring and essential: services, home trades, B2B, local.'],
+                ['Situation', 'Owner ready to step back, no clean succession plan.'],
+                ['Structure', 'Creative and fair: seller financing, earnouts, equity rolls.'],
+                ['The tell', 'Fixable with systems and AI, not a heroic turnaround.'],
+                ['The pass', 'Hype, hockey-stick decks, and anything that needs a miracle.'],
+              ].map(([k, v]) => (
+                <div key={k} className="flex items-start gap-3 py-1 border-t border-line pt-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                  <div>
+                    <div className="font-semibold text-ink text-sm">{k}</div>
+                    <div className="text-ink-soft text-sm leading-relaxed">{v}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-7 pt-6 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <p className="text-ink-soft">Selling a business like this, or hunting one down together?</p>
+              <Magnetic>
+                <button
+                  onClick={() => handleNavClick('/contact')}
+                  className="btn-ink inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold tracking-wide cursor-pointer"
+                >
+                  <span>Let's talk deals</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Magnetic>
+            </div>
+          </div>
+        </Item>
       </Reveal>
 
       {/* ============================== OUTLINED MARQUEE BAND ============================== */}

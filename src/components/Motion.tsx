@@ -57,6 +57,7 @@ export function Item({
   children: React.ReactNode;
   className?: string;
   as?: 'div' | 'h1' | 'h2' | 'p' | 'span';
+  key?: React.Key;
 }) {
   const Comp: any = (motion as any)[as];
   return (

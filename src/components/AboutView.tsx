@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, MapPin, Check, ChevronRight, ArrowRight } from 'lucide-react';
+import { Calendar, MapPin, Check, ChevronRight, ArrowRight, Wrench, Building2, Cog } from 'lucide-react';
 import { TIMELINE } from '../data';
 import CountUp from './CountUp';
+import { Reveal, Item } from './Motion';
 
 interface AboutViewProps {
   setActiveTab: (tab: string) => void;
@@ -98,6 +99,12 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
               deploy private generative AI agents that automate entire workflows, across my own
               portfolio of software and marketing companies.
             </p>
+            <p>
+              Building is only half of it. The other half is buying. I hunt for boring, essential,
+              cash-flowing businesses the market overlooks, acquire them through creative and
+              unconventional deals, and put those same operating systems to work so the asset
+              compounds instead of coasting. Unsexy is the entire point.
+            </p>
             <p className="text-ink">
               If you're doing diligence, exploring advisory, or looking for an operating partner,
               see what I'm{' '}
@@ -119,6 +126,43 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* Acquisition thesis */}
+      <Reveal as="section" className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
+        <div className="bg-ink text-paper rounded-[2rem] px-8 py-12 md:px-14 md:py-16 relative overflow-hidden">
+          <div className="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
+          <div className="relative space-y-9">
+            <div className="max-w-2xl space-y-4">
+              <Item as="span" className="kicker block">Build. Buy. Operate.</Item>
+              <Item as="h2" className="font-display font-bold text-3xl md:text-5xl tracking-tight leading-[1.02]">
+                Build what should exist.
+                <br />
+                Buy what already works.
+              </Item>
+              <Item as="p" className="text-paper/70 text-lg leading-relaxed">
+                These days my time splits between writing software and acquiring boring,
+                cash-flowing businesses through unconventional deals. Same operating playbook,
+                two very different engines, and no interest in whatever is currently fashionable.
+              </Item>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                { icon: Wrench, tag: 'Build', desc: 'Software and AI systems from scratch, where clean code replaces headcount.' },
+                { icon: Building2, tag: 'Buy', desc: 'Unsexy, essential, cash-flowing companies the market overlooks, at sane multiples.' },
+                { icon: Cog, tag: 'Operate', desc: 'Twenty years of operating discipline, dropped on top so the asset compounds.' },
+              ].map((c) => (
+                <Item key={c.tag} className="bg-paper/5 border border-paper/15 rounded-2xl p-6 space-y-3">
+                  <span className="w-11 h-11 rounded-full bg-accent flex items-center justify-center">
+                    <c.icon className="w-5 h-5 text-white" />
+                  </span>
+                  <h3 className="font-display font-bold text-xl tracking-tight">{c.tag}</h3>
+                  <p className="text-paper/65 text-sm leading-relaxed">{c.desc}</p>
+                </Item>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Reveal>
 
       {/* Timeline */}
       <section className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
