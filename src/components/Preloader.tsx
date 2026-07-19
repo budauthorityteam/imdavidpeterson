@@ -57,7 +57,7 @@ export default function Preloader() {
           </div>
 
           <div className="flex items-end justify-between">
-            <span className="text-paper/50 text-sm">Build. Buy. Operate.</span>
+            <span className="text-paper/50 text-sm">Grow. Build. Buy.</span>
             <span className="font-display font-bold text-6xl md:text-8xl tabular-nums leading-none">
               {n}
             </span>

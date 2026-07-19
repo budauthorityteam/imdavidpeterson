@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, MapPin, Check, ChevronRight, ArrowRight, Wrench, Building2, Cog } from 'lucide-react';
+import { Calendar, MapPin, Check, ChevronRight, ArrowRight, Wrench, Building2, TrendingUp } from 'lucide-react';
 import { TIMELINE } from '../data';
 import CountUp from './CountUp';
 import { Reveal, Item } from './Motion';
@@ -100,10 +100,10 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
               portfolio of software and marketing companies.
             </p>
             <p>
-              Building is only half of it. The other half is buying. I hunt for boring, essential,
-              cash-flowing businesses the market overlooks, acquire them through creative and
-              unconventional deals, and put those same operating systems to work so the asset
-              compounds instead of coasting. Unsexy is the entire point.
+              Building is only half of it. I spend just as much time inside real, boring,
+              cash-flowing companies, taking a business doing $500K to $1M and helping it reach
+              $2M to $10M in sales, and helping the right people buy into or partner with that kind
+              of company. Unsexy is the entire point.
             </p>
             <p className="text-ink">
               If you're doing diligence, exploring advisory, or looking for an operating partner,
@@ -133,23 +133,24 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
           <div className="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
           <div className="relative space-y-9">
             <div className="max-w-2xl space-y-4">
-              <Item as="span" className="kicker block">Build. Buy. Operate.</Item>
+              <Item as="span" className="kicker block">Grow. Build. Buy.</Item>
               <Item as="h2" className="font-display font-bold text-3xl md:text-5xl tracking-tight leading-[1.02]">
-                Build what should exist.
+                Grow what already works.
                 <br />
-                Buy what already works.
+                Build what should exist.
               </Item>
               <Item as="p" className="text-paper/70 text-lg leading-relaxed">
-                These days my time splits between writing software and acquiring boring,
-                cash-flowing businesses through unconventional deals. Same operating playbook,
-                two very different engines, and no interest in whatever is currently fashionable.
+                These days my time splits between growing real, boring, cash-flowing companies and
+                building the software that runs them. I take a business doing $500K to $1M and help
+                it reach $2M to $10M in sales, and I help the right people buy into that kind of
+                company too.
               </Item>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
+                { icon: TrendingUp, tag: 'Grow', desc: 'Take a $500K to $1M business to $2M to $10M in sales with operating systems and demand.' },
                 { icon: Wrench, tag: 'Build', desc: 'Software and AI systems from scratch, where clean code replaces headcount.' },
-                { icon: Building2, tag: 'Buy', desc: 'Unsexy, essential, cash-flowing companies the market overlooks, at sane multiples.' },
-                { icon: Cog, tag: 'Operate', desc: 'Twenty years of operating discipline, dropped on top so the asset compounds.' },
+                { icon: Building2, tag: 'Buy', desc: 'Help the right operator acquire or partner into a boring, cash-flowing company.' },
               ].map((c) => (
                 <Item key={c.tag} className="bg-paper/5 border border-paper/15 rounded-2xl p-6 space-y-3">
                   <span className="w-11 h-11 rounded-full bg-accent flex items-center justify-center">

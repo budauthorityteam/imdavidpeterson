@@ -3,8 +3,8 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", "Inter", sans-serif;
-  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-display: "Bricolage Grotesque", "Inter", sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono: "Inter", ui-monospace, monospace; /* legacy fallback; kickers use tracked sans */
 
   /* --------------------------------------------------------------------- *
