@@ -3,164 +3,143 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: "Inter", ui-monospace, monospace; /* legacy fallback; kickers use tracked sans */
 
-  /* Signature accent — warm "ember". Swap these two lines to re-theme the whole site. */
-  --color-accent: #10B981;
-  --color-accent-soft: #34D399;
+  /* --------------------------------------------------------------------- *
+   *  BOLD EDITORIAL palette: warm cream paper, ink, one confident ember.
+   *  Re-theme the whole site by editing --color-accent (+ its -deep hover).
+   * --------------------------------------------------------------------- */
+  --color-paper:      #F4F0E7; /* page background (warm cream) */
+  --color-paper-2:    #EAE3D5; /* raised panels / cards */
+  --color-paper-3:    #E1D9C8; /* deepest neutral panel */
+  --color-ink:        #17130D; /* headlines / primary text (warm near-black) */
+  --color-ink-soft:   #4B453B; /* body copy */
+  --color-ink-faint:  #8B8272; /* meta / captions */
+  --color-line:       #DCD3C1; /* hairlines / borders */
+  --color-line-2:     #C8BDA6; /* stronger borders */
+
+  --color-accent:      #E14A22; /* ember, the signature accent */
+  --color-accent-deep: #B93A16; /* ember, pressed/hover */
+  --color-accent-soft: #F6E4DA; /* ember wash for chips/highlights */
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #0A0A0A;
+  background-color: #F4F0E7;
 }
 
 body {
-  color: #FFFFFF;
-  background-color: #0A0A0A;
+  color: #17130D;
+  background-color: #F4F0E7;
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #17130D;
+  color: #F4F0E7;
 }
 
 /* ------------------------------------------------------------------ *
- *  Pizzazz layer: ambient aurora, grain, gradient text, glows
+ *  Editorial helpers
  * ------------------------------------------------------------------ */
 
-/* Gradient headline text */
-.text-gradient {
-  background-image: linear-gradient(120deg, #34D399 0%, #10B981 45%, #14B8A6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Kicker / eyebrow label */
+.kicker {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
-.text-gradient-cool {
-  background-image: linear-gradient(120deg, #ffffff 0%, #a1a1aa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Editorial serif for pull-quotes and emphasis */
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
 }
 
-/* Ambient aurora blobs behind everything */
-.aurora {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(90px);
-  will-change: transform;
-}
-.aurora-1 {
-  width: 640px; height: 640px;
-  top: -220px; left: -160px;
-  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.30), transparent 68%);
-  animation: auroraDrift 24s ease-in-out infinite;
-}
-.aurora-2 {
-  width: 560px; height: 560px;
-  top: 4%; right: -180px;
-  background: radial-gradient(circle at center, rgba(20, 184, 166, 0.20), transparent 68%);
-  animation: auroraDrift 30s ease-in-out infinite reverse;
-}
-.aurora-3 {
-  width: 720px; height: 720px;
-  bottom: -280px; left: 30%;
-  background: radial-gradient(circle at center, rgba(52, 211, 153, 0.16), transparent 70%);
-  animation: auroraDrift 34s ease-in-out infinite;
+/* Accent-marked headline word */
+.mark {
+  color: var(--color-accent);
 }
 
-@keyframes auroraDrift {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  33%  { transform: translate3d(6%, 8%, 0) scale(1.12); }
-  66%  { transform: translate3d(-5%, 4%, 0) scale(0.94); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
-}
-
-/* Fine film grain for depth */
-.grain-overlay {
-  position: absolute;
-  inset: 0;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Subtle top hairline of accent light */
-.accent-hairline {
-  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-}
-
-/* Accent glow on hover for cards */
-.glow-card {
-  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-.glow-card:hover {
-  border-color: rgba(16, 185, 129, 0.45) !important;
-  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.10), 0 18px 50px -24px rgba(16, 185, 129, 0.45);
-  transform: translateY(-3px);
-}
-
-/* Animated conic gradient ring (used on the hero profile card) */
-.gradient-ring {
+/* Hand-drawn accent underline swash under a headline word */
+.underline-swash {
   position: relative;
-  isolation: isolate;
+  display: inline-block;
 }
-.gradient-ring::before {
+.underline-swash::after {
   content: "";
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(from 0deg, transparent 0deg, var(--color-accent) 90deg, #14B8A6 180deg, transparent 260deg, transparent 360deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: spin 6s linear infinite;
+  left: -2%;
+  right: -2%;
+  bottom: 0.02em;
+  height: 0.34em;
+  background: var(--color-accent);
+  opacity: 0.22;
   z-index: -1;
+  border-radius: 2px;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* Very faint paper grain for warmth (light, not the old dark grain) */
+.paper-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
 }
+
+/* Editorial card: warm panel that lifts on hover */
+.ed-card {
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-line);
+  transition: transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s ease, border-color .35s ease;
+}
+.ed-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-line-2);
+  box-shadow: 0 22px 48px -30px rgba(23,19,13,0.45);
+}
+
+/* Primary ink button */
+.btn-ink {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transition: transform .2s ease, background .2s ease;
+}
+.btn-ink:hover { background: #000; transform: translateY(-2px); }
+
+/* Ember button */
+.btn-accent {
+  background: var(--color-accent);
+  color: #fff;
+  transition: transform .2s ease, background .2s ease;
+}
+.btn-accent:hover { background: var(--color-accent-deep); transform: translateY(-2px); }
 
 /* Pulsing accent dot */
 .pulse-dot {
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: pulseDot 2s infinite;
+  box-shadow: 0 0 0 0 rgba(225, 74, 34, 0.55);
+  animation: pulseDot 2.2s infinite;
 }
 @keyframes pulseDot {
-  0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-  70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(225, 74, 34, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(225, 74, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(225, 74, 34, 0); }
 }
-
-/* Animated gradient sweep for the primary CTA */
-.btn-shine {
-  background-size: 200% 100%;
-  background-image: linear-gradient(110deg, #ffffff 0%, #ffffff 40%, #D1FAE5 50%, #ffffff 60%, #ffffff 100%);
-  animation: shine 6s linear infinite;
-}
-@keyframes shine {
-  to { background-position: -200% 0; }
-}
-
-/* Cursor spotlight on cards */
-.spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  background: radial-gradient(180px circle at var(--mx, -200px) var(--my, -200px), rgba(16, 185, 129, 0.12), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-.spotlight:hover::before { opacity: 1; }
 
 /* Marquee ticker */
 .marquee {
   display: flex;
   width: max-content;
-  animation: marquee 32s linear infinite;
+  animation: marquee 34s linear infinite;
 }
 .marquee-track:hover .marquee { animation-play-state: paused; }
 @keyframes marquee {
@@ -168,10 +147,20 @@ body {
   to   { transform: translateX(-50%); }
 }
 
+/* Link underline that draws in on hover */
+.link-underline {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size .3s ease;
+  padding-bottom: 2px;
+}
+.link-underline:hover { background-size: 100% 2px; }
+
 /* Respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .aurora, .gradient-ring::before, .pulse-dot, .btn-shine, .marquee {
-    animation: none !important;
-  }
+  .pulse-dot, .marquee { animation: none !important; }
   html { scroll-behavior: auto; }
+  .ed-card:hover { transform: none; }
 }

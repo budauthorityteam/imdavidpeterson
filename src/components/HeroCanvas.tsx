@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Lightweight interactive "agent network" — drifting nodes joined by lines that
+ * Lightweight interactive "agent network": drifting nodes joined by lines that
  * brighten near the cursor. Pure canvas, no deps. Pauses on reduced-motion and
- * when the tab is hidden. Emerald-tinted to match the site accent.
+ * when the tab is hidden. Ink lines with ember highlights, to sit on cream.
  */
 export default function HeroCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -21,7 +21,8 @@ export default function HeroCanvas() {
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let raf = 0;
 
-    const ACCENT = '16, 185, 129'; // emerald rgb
+    const ACCENT = '225, 74, 34'; // ember rgb
+    const INK = '23, 19, 13'; // warm ink rgb (base lines on cream)
     const mouse = { x: -9999, y: -9999 };
 
     type Node = { x: number; y: number; vx: number; vy: number; r: number };
@@ -80,8 +81,8 @@ export default function HeroCanvas() {
           const b = nodes[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < LINK_DIST) {
-            const o = (1 - d / LINK_DIST) * 0.5;
-            ctx.strokeStyle = `rgba(${ACCENT}, ${o})`;
+            const o = (1 - d / LINK_DIST) * 0.16;
+            ctx.strokeStyle = `rgba(${INK}, ${o})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -95,7 +96,7 @@ export default function HeroCanvas() {
       for (const p of nodes) {
         const d = Math.hypot(mouse.x - p.x, mouse.y - p.y);
         if (d < 170) {
-          const o = (1 - d / 170) * 0.8;
+          const o = (1 - d / 170) * 0.55;
           ctx.strokeStyle = `rgba(${ACCENT}, ${o})`;
           ctx.lineWidth = 1;
           ctx.beginPath();
@@ -108,7 +109,7 @@ export default function HeroCanvas() {
       // Nodes
       for (const p of nodes) {
         const near = Math.hypot(mouse.x - p.x, mouse.y - p.y) < 170;
-        ctx.fillStyle = near ? `rgba(52, 211, 153, 0.95)` : `rgba(${ACCENT}, 0.65)`;
+        ctx.fillStyle = near ? `rgba(${ACCENT}, 0.9)` : `rgba(${INK}, 0.28)`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();

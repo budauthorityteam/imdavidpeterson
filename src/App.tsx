@@ -50,28 +50,28 @@ export default function App() {
   // Update dynamic SEO page metadata & Schema injection
   useEffect(() => {
     let title = "David Peterson | Operator & Builder";
-    let description = "Two decades operating and scaling businesses. Now building AI-driven systems that do the work of teams. Occasionally available for advisory.";
+    let description = "I scaled other people's companies to $30M+. Now I build my own, and I share exactly how. Systems, growth, and applied AI for operators who'd rather build than talk.";
 
     switch (activeTab) {
       case 'home':
         title = "David Peterson | Operator & Builder";
-        description = "Two decades operating and scaling businesses. Now building AI-driven systems that do the work of teams. Occasionally available for advisory.";
+        description = "I scaled other people's companies to $30M+. Now I build my own, and I share exactly how. Systems, growth, and applied AI for operators who'd rather build than talk.";
         break;
       case '/now':
-        title = "Now | What David Peterson Is Working On";
-        description = "The current operational focus and live status page for David Peterson. Understated, updated quarterly.";
+        title = "Now | What David Peterson Is Building";
+        description = "A quarterly, no-spin snapshot of what David Peterson is actually working on right now: the systems, the software, and the operating focus.";
         break;
       case '/about':
         title = "About | David Peterson";
-        description = "The professional arc of David Peterson, entrepreneur, former music industry executive, and hands-on operational scaling leader.";
+        description = "From a 350-person music operation to $30M+ ARR turnarounds to building AI systems that replace headcount. The full operator's arc, told straight.";
         break;
       case '/media':
-        title = "Media | David Peterson";
-        description = "Listen to episodes of Taking Back Entrepreneurship and We Tried, We Failed. Review active keynotes and publications.";
+        title = "Podcasts & Speaking | David Peterson";
+        description = "Taking Back Entrepreneurship and We Tried, We Failed. Raw, survivor-bias-free conversations on building. Plus keynotes, workshops, and press.";
         break;
       case '/contact':
-        title = "Get in Touch | David Peterson";
-        description = "Audit, partner, or enquire. Direct, actively filtered inbox for operational scaling and advisory.";
+        title = "Work With David Peterson";
+        description = "Advisory, speaking, partnerships, or a straight answer to a hard question. Tell me what you're building and I'll tell you the truth.";
         break;
     }
 
@@ -119,13 +119,10 @@ export default function App() {
   };
 
   return (
-    <div id="app-root" className="relative min-h-screen flex flex-col bg-[#0A0A0A] text-white overflow-x-hidden">
-      {/* Ambient aurora + grain background */}
+    <div id="app-root" className="relative min-h-screen flex flex-col bg-paper text-ink overflow-x-hidden">
+      {/* Warm paper texture */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="aurora aurora-1" />
-        <div className="aurora aurora-2" />
-        <div className="aurora aurora-3" />
-        <div className="grain-overlay" />
+        <div className="paper-grain" />
       </div>
 
       {/* Elegant Header */}
@@ -155,9 +152,9 @@ export default function App() {
               window.location.hash = '/contact';
               window.scrollTo({ top: 0, behavior: 'instant' });
             }}
-            className="w-full bg-white text-black py-4 rounded-lg text-xs font-mono font-bold uppercase tracking-widest shadow-2xl flex items-center justify-center space-x-2 border border-zinc-200 cursor-pointer"
+            className="btn-accent w-full py-4 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] shadow-xl flex items-center justify-center space-x-2 cursor-pointer"
           >
-            <span>Get in Touch</span>
+            <span>Work With Me</span>
           </button>
         </div>
       )}

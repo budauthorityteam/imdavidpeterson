@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// PROFILE — single source of truth for identity + external links.
+// PROFILE: single source of truth for identity + external links.
 // TODO(David): replace the `-placeholder` URLs below with your real profiles.
 // These feed the footer, contact page, and (for the real ones) the JSON-LD in
 // index.html. Leave a value as null to hide that link everywhere.
