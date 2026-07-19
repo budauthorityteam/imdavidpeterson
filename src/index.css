@@ -225,10 +225,10 @@ html.lenis, html.lenis body { height: auto; }
 .cursor-ring {
   position: fixed; top: 0; left: 0; width: 38px; height: 38px; border-radius: 9999px;
   border: 1.5px solid #fff; z-index: 119; pointer-events: none; opacity: 0;
-  mix-blend-mode: difference; will-change: transform;
-  transition: opacity .3s ease, width .25s ease, height .25s ease, background .25s ease;
+  mix-blend-mode: difference; will-change: transform, scale; scale: 1;
+  transition: opacity .3s ease, scale .25s ease, background .25s ease;
 }
-.cursor-ring.is-active { width: 58px; height: 58px; background: #fff; }
+.cursor-ring.is-active { scale: 1.5; background: #fff; }
 @media (pointer: fine) {
   html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
 }

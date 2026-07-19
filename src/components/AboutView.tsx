@@ -53,10 +53,13 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pt-14">
           {/* Aside */}
           <motion.div variants={item} className="lg:col-span-4 space-y-8">
-            <p className="font-serif italic text-xl text-ink leading-relaxed border-l-2 border-accent pl-5">
-              "For twenty years I solved problems by aligning people, processes, and budgets. Today
-              I solve the same problems by aligning systems, code, and automations."
-            </p>
+            <div className="space-y-2">
+              <span className="font-serif text-accent text-6xl leading-[0.6] block" aria-hidden="true">“</span>
+              <p className="font-serif italic text-xl text-ink leading-relaxed">
+                For twenty years I solved problems by aligning people, processes, and budgets. Today
+                I solve the same problems by aligning systems, code, and automations.
+              </p>
+            </div>
             <div className="space-y-1.5">
               <span className="kicker">Currently</span>
               <div className="text-ink font-semibold">Founding operator</div>

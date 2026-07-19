@@ -17,3 +17,10 @@ server.js
 # Editor
 .vscode/
 .idea/
+
+# AI agent skills / tooling (impeccable, ui-ux-pro-max, taste-skill, webgpu, etc.)
+# Kept out of the site repo; install locally or globally instead.
+.claude/
+.agents/
+.codex/
+.gemini/
