@@ -21,7 +21,7 @@ export default function HeroCanvas() {
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let raf = 0;
 
-    const ACCENT = '225, 74, 34'; // ember rgb
+    const ACCENT = '182, 99, 64'; // ember rgb
     const INK = '23, 19, 13'; // warm ink rgb (base lines on cream)
     const mouse = { x: -9999, y: -9999 };
 

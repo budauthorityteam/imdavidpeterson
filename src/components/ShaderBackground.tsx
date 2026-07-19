@@ -44,9 +44,9 @@ void main(){
   float md = distance(pp, m);
   float glow = smoothstep(0.55, 0.0, md) * 0.35;
 
-  vec3 ember = vec3(0.882, 0.290, 0.133);
-  vec3 warm  = vec3(0.965, 0.560, 0.320);
-  vec3 col = mix(warm, ember, clamp(f*1.6, 0.0, 1.0));
+  vec3 clay = vec3(0.714, 0.388, 0.251);
+  vec3 warm = vec3(0.850, 0.600, 0.470);
+  vec3 col = mix(warm, clay, clamp(f*1.6, 0.0, 1.0));
 
   float alpha = smoothstep(0.40, 0.98, f) * 0.42 + glow;
   gl_FragColor = vec4(col, clamp(alpha, 0.0, 0.6));

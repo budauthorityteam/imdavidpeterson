@@ -1,6 +1,10 @@
 /* Fonts are loaded asynchronously from index.html (preconnect + non-blocking stylesheet). */
 @import "tailwindcss";
 
+/* Do not scan committed AI-skill files for utility classes (their demo UIs would
+   bloat the bundle and trip the anti-pattern detector). Only our own app. */
+@source not "../.claude";
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Bricolage Grotesque", "Inter", sans-serif;
@@ -20,9 +24,10 @@
   --color-line:       #DCD3C1; /* hairlines / borders */
   --color-line-2:     #C8BDA6; /* stronger borders */
 
-  --color-accent:      #E14A22; /* ember, the signature accent */
-  --color-accent-deep: #B93A16; /* ember, pressed/hover */
-  --color-accent-soft: #F6E4DA; /* ember wash for chips/highlights */
+  --color-accent:      #B66340; /* terracotta / clay, the signature accent */
+  --color-accent-deep: #A4512E; /* clay, pressed/hover */
+  --color-accent-soft: #EEE1D5; /* clay wash for chips/highlights */
+  --color-teal:        #0FA6BC; /* secondary pop, used sparingly */
 }
 
 html {
@@ -126,13 +131,13 @@ body {
 
 /* Pulsing accent dot */
 .pulse-dot {
-  box-shadow: 0 0 0 0 rgba(225, 74, 34, 0.55);
+  box-shadow: 0 0 0 0 rgba(182, 99, 64, 0.55);
   animation: pulseDot 2.2s infinite;
 }
 @keyframes pulseDot {
-  0%   { box-shadow: 0 0 0 0 rgba(225, 74, 34, 0.5); }
-  70%  { box-shadow: 0 0 0 9px rgba(225, 74, 34, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(225, 74, 34, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(182, 99, 64, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(182, 99, 64, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(182, 99, 64, 0); }
 }
 
 /* Marquee ticker */
@@ -158,7 +163,7 @@ body {
   border-radius: inherit;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(240px circle at var(--mx, -600px) var(--my, -600px), rgba(225, 74, 34, 0.10), transparent 62%);
+  background: radial-gradient(240px circle at var(--mx, -600px) var(--my, -600px), rgba(182, 99, 64, 0.10), transparent 62%);
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -174,12 +179,12 @@ body {
 }
 .aurora-a {
   width: 540px; height: 540px; top: -180px; right: 4%;
-  background: radial-gradient(circle at center, rgba(225, 74, 34, 0.18), transparent 68%);
+  background: radial-gradient(circle at center, rgba(182, 99, 64, 0.18), transparent 68%);
   animation: auroraDrift 26s ease-in-out infinite;
 }
 .aurora-b {
   width: 440px; height: 440px; top: 8%; left: -140px;
-  background: radial-gradient(circle at center, rgba(225, 74, 34, 0.10), transparent 70%);
+  background: radial-gradient(circle at center, rgba(182, 99, 64, 0.10), transparent 70%);
   animation: auroraDrift 34s ease-in-out infinite reverse;
 }
 @keyframes auroraDrift {
