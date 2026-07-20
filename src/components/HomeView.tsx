@@ -182,17 +182,69 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
         </div>
       </section>
 
+      {/* ============================== MEET DAVID (story band + B&W portrait) ============================== */}
+      <section className="bg-paper-2">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* B&W portrait on a clean white panel (white bg melts, no filters) */}
+            <Item className="lg:col-span-5">
+              <div className="relative rounded-[1.75rem] bg-white border border-line/60 shadow-[0_36px_80px_-46px_rgba(23,19,13,0.5)] overflow-hidden aspect-[4/5]">
+                <img
+                  src="/david-hero.png"
+                  alt="David Peterson"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-[center_20%] select-none"
+                />
+                <div className="absolute left-5 bottom-5 bg-ink/90 text-paper px-4 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase backdrop-blur-sm">
+                  Rhode Island, USA
+                </div>
+              </div>
+            </Item>
+
+            {/* Story */}
+            <div className="lg:col-span-7 space-y-6">
+              <Item as="h2" className="font-display font-extrabold text-ink text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-[0.98]">
+                The operator behind
+                <br />
+                the build.
+              </Item>
+              <Item as="p" className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-2xl">
+                I started in the independent music industry, running a 350-person operation under
+                razor-thin timelines. From there: scaling a software channel from{' '}
+                <strong className="text-ink font-semibold">$5M to $30M+</strong>, launching a venture
+                out of Hong Kong, moving a national org 100% online, and 300%+ sales turnarounds.
+              </Item>
+              <Item as="p" className="text-ink-soft text-lg leading-relaxed max-w-2xl">
+                Now I build my own portfolio, software, AI systems, and boring, cash-flowing
+                companies, and share the playbook without the yes-man filter.
+              </Item>
+              <Item className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
+                <button
+                  onClick={() => handleNavClick('/about')}
+                  className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold tracking-wide cursor-pointer"
+                >
+                  <span>Read my full story</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <div className="mono text-[12px] uppercase tracking-[0.14em] text-ink-faint">
+                  Music → SaaS → Retail → AI
+                </div>
+              </Item>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
       {/* ============================== TRACK RECORD (cream) ============================== */}
       <section id="track-record" className="bg-paper scroll-mt-24">
         <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
           <div className="max-w-2xl space-y-4 mb-14">
-            <Eyebrow n="01" label="The receipts" />
-            <Item as="h2" className="font-display font-bold text-ink text-4xl md:text-5xl tracking-tight leading-[1.02]">
+            <Item as="h2" className="font-display font-extrabold text-ink text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-[0.98]">
               Before I built for myself,
               <br />
               I built for everyone else.
             </Item>
-            <Item as="p" className="text-ink-soft text-lg">
+            <Item as="p" className="text-ink-soft text-lg md:text-xl">
               Two decades of hard numbers across operations, marketing, retail, and software. Not
               slideware. Outcomes.
             </Item>
