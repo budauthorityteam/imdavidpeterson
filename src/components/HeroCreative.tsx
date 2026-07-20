@@ -154,18 +154,22 @@ export default function HeroCreative({ onNav }: { onNav: (t: string) => void }) 
           </motion.div>
         </motion.div>
 
-        {/* Portrait + floating sticker-tags */}
-        <div className="lg:col-span-5 order-1 lg:order-2 relative min-h-[440px] sm:min-h-[520px] lg:min-h-[620px]">
-          <motion.img
-            src="/david-hero.png"
-            alt="David Peterson"
-            loading="eager"
+        {/* Portrait (white rounded box) + floating sticker-tags */}
+        <div className="lg:col-span-5 order-1 lg:order-2 relative flex items-center justify-center min-h-[460px] sm:min-h-[540px] lg:min-h-[600px]">
+          <motion.div
             style={{ x: portX, y: portY }}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 26 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="absolute inset-0 mx-auto w-auto h-full max-h-[660px] object-contain object-center -scale-x-100 select-none"
-          />
+            className="relative w-full max-w-[380px] lg:max-w-[420px] aspect-[4/5] rounded-[2rem] bg-white overflow-hidden ring-1 ring-white/10 shadow-[0_50px_110px_-40px_rgba(0,0,0,0.85)]"
+          >
+            <img
+              src="/david-hero.png"
+              alt="David Peterson"
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover object-top -scale-x-100 select-none"
+            />
+          </motion.div>
 
           {badges.map((b, i) => {
             return (
