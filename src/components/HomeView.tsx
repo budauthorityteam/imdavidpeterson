@@ -76,7 +76,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           className="max-w-[1240px] mx-auto rounded-[1.75rem] md:rounded-[2.25rem] bg-white border border-line/60 shadow-[0_40px_100px_-50px_rgba(23,19,13,0.45)] overflow-hidden grid grid-cols-1 lg:grid-cols-2"
         >
           {/* Left: statement */}
-          <div className="order-2 lg:order-1 px-7 sm:px-10 lg:px-14 py-12 lg:py-0 flex flex-col justify-center gap-6">
+          <div className="order-2 lg:order-1 px-7 sm:px-10 lg:px-14 py-12 lg:py-20 flex flex-col justify-center gap-6">
             <Item className="flex items-center gap-2.5 text-ink font-semibold text-base md:text-lg">
               <span className="w-2 h-2 rounded-full bg-accent pulse-dot" />
               Operator turned owner
@@ -122,13 +122,13 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             initial={{ opacity: 0, scale: 1.02 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="order-1 lg:order-2 relative bg-white min-h-[380px] sm:min-h-[460px] lg:min-h-[600px]"
+            className="order-1 lg:order-2 relative bg-white min-h-[380px] sm:min-h-[460px] lg:min-h-[640px]"
           >
             <img
-              src="/david-about.png"
+              src="/david-hero.png"
               alt="David Peterson"
               loading="eager"
-              className="absolute inset-0 w-full h-full object-cover object-[center_top] select-none"
+              className="absolute inset-0 w-full h-full object-cover object-[center_top] -scale-x-100 select-none"
             />
             {/* soft feather where the photo meets the text column (desktop) */}
             <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
@@ -190,10 +190,10 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             <Item className="lg:col-span-5">
               <div className="relative rounded-[1.75rem] bg-white border border-line/60 shadow-[0_36px_80px_-46px_rgba(23,19,13,0.5)] overflow-hidden aspect-[4/5]">
                 <img
-                  src="/david-hero.png"
+                  src="/david-about.png"
                   alt="David Peterson"
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-[center_20%] select-none"
+                  className="absolute inset-0 w-full h-full object-cover object-[center_12%] select-none"
                 />
                 <div className="absolute left-5 bottom-5 bg-ink/90 text-paper px-4 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase backdrop-blur-sm">
                   Rhode Island, USA
