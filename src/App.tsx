@@ -166,7 +166,7 @@ export default function App() {
   };
 
   return (
-    <div id="app-root" className="relative min-h-screen flex flex-col bg-paper text-ink overflow-x-hidden">
+    <div id="app-root" className="relative min-h-screen flex flex-col bg-paper text-ink overflow-x-clip">
       {/* Intro preloader + bespoke cursor */}
       <Preloader />
       <Cursor />
