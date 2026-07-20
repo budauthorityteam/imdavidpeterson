@@ -11,7 +11,7 @@ export const PROFILE = {
   location: 'Rhode Island, USA',
   agency: { name: 'BudAuthority', url: 'https://budauthority.com' },
   social: {
-    linkedin: 'https://linkedin.com/in/imdavidpeterson-placeholder',
+    linkedin: 'https://linkedin.com/in/imdavidpeterson',
     twitter: 'https://twitter.com/imdavidpeterson-placeholder',
     instagram: 'https://instagram.com/imdavidpeterson-placeholder',
     youtube: 'https://youtube.com/imdavidpeterson-placeholder',
@@ -216,106 +216,116 @@ export const PROJECTS: MediaProject[] = [
 
 export const TIMELINE: TimelineStop[] = [
   {
-    id: "budauthority-timeline",
-    period: "2025 - Present",
-    role: "Founder & Principal",
-    company: "Multi-Vertical Marketing Agency",
-    location: "Rhode Island",
-    description: "Established a leading boutique digital marketing agency. Engineered proprietary custom search engine optimization algorithms and intelligence software that empowers clients to dominate search real estate.",
+    id: "deeproots",
+    period: "2025",
+    role: "Head of Operations (Contract)",
+    company: "deeproots partners",
+    location: "Los Angeles, CA",
+    description: "Partnered directly with the CEO to turn strategic vision into an actionable operating roadmap, building company-wide infrastructure that boosted productivity and scalability across a fast-growing SEO agency.",
     achievements: [
-      "Scale to 30+ recurring retainer clients through purely organic, outcome-driven consulting.",
-      "Developed internal tech stack for keyword monitoring, competitor audits, and automated SEO reporting.",
-      "Serve as chief consultant for high-growth consumer brands and SaaS platforms."
+      "Commanded local-SEO client delivery, overseeing content production and web development pipelines to guarantee measurable partner ROI.",
+      "Architected the org structure and recruited, trained, and led a high-performing remote team through rapid growth.",
+      "Used the full SEO tech stack (GA4, GSC, Looker Studio, Ahrefs, SEMrush) to drive data-informed strategy."
     ],
-    highlightMetric: {
-      value: "30+",
-      label: "Retainer Clients"
-    }
+    highlightMetric: { value: "100%", label: "Delivery Owned" }
   },
   {
-    id: "inside-sales-ops",
+    id: "dylan-jahraus",
+    period: "2023 - 2024",
+    role: "Chief Operating Officer (Contract)",
+    company: "Dylan Jahraus",
+    location: "San Diego, CA",
+    description: "COO for a high-ticket info-product business. Built the entire operational backbone from scratch and scaled it to consistent million-dollar months.",
+    achievements: [
+      "Scaled to consecutive $1M+ revenue months while holding 60%+ profit margins.",
+      "Built the full operating system: SOPs, KPIs, CRM, and performance management.",
+      "Launched a micro-SaaS product and doubled the client base in under 12 months."
+    ],
+    highlightMetric: { value: "$1M+", label: "Monthly Revenue" }
+  },
+  {
+    id: "wordagents",
+    period: "2021 - 2023",
+    role: "Chief Operating Officer (Contract)",
+    company: "WordAgents",
+    location: "Brightwaters, NY",
+    description: "Led day-to-day operations for a large content-production company, aligning service delivery, customer success, HR, and finance behind the CEO's growth plan.",
+    achievements: [
+      "Led a remote team of 350+ employees.",
+      "Ran operations on OKRs and KPIs, installing corrective systems where needed.",
+      "Oversaw service delivery, Customer Success, HR, project management, and finance."
+    ],
+    highlightMetric: { value: "350+", label: "Team Members" }
+  },
+  {
+    id: "namco",
     period: "2020 - 2021",
-    role: "Operations & Sales Expansion Lead",
-    company: "Retail & Inside Sales Operation",
+    role: "VP of Sales & Marketing",
+    company: "Namco Pools",
     location: "Rocky Hill, CT",
-    description: "Brought in to optimize performance across multiple channels, managing both digital sales streams and physical footprint retail networks during a historically volatile period.",
+    description: "Drove a full digital transformation and revenue turnaround across inside sales, e-commerce, and retail during a volatile period.",
     achievements: [
-      "Accelerated US inside sales revenue by 300%+ YTD.",
-      "Drove e-commerce platform revenue up 150% YTD through rapid UX optimization and retargeting.",
-      "Increased walk-in customer foot traffic by 200%+ YTD across 17 brick-and-mortar retail locations."
+      "Grew inside-sales revenue 300% and e-commerce revenue 150% YTD.",
+      "Led ERP migration, website transition, and POS implementation.",
+      "Held a 62% gross margin and cut customer-service wait times by 75%."
     ],
-    highlightMetric: {
-      value: "300%+",
-      label: "Sales Growth"
-    }
+    highlightMetric: { value: "300%", label: "Sales Growth" }
   },
   {
-    id: "aurea-timeline",
-    period: "2012 - 2015",
-    role: "Senior Operations Leader",
-    company: "Aurea Software",
-    location: "Austin, TX",
-    description: "Charged with scaling the channel business unit and introducing strict operational discipline across divisions. Pioneered organic key-account expansion strategies.",
-    achievements: [
-      "Grew channel business unit from $5M to $30M+ ARR in under 3 years.",
-      "Designed and executed an 80/20 organic account expansion protocol that dramatically lowered customer acquisition cost.",
-      "Led cross-functional international teams to align product support and sales operations."
-    ],
-    highlightMetric: {
-      value: "$30M",
-      label: "ARR Scaled"
-    }
-  },
-  {
-    id: "national-education-timeline",
-    period: "Mid-Career",
-    role: "Infrastructure & Digital Rebuild Director",
-    company: "National Education Organization",
-    location: "Tucson, AZ",
-    description: "Spearheaded a complete technical migration and structural rebrand to shift a national brick-and-mortar educational network fully online.",
-    achievements: [
-      "Designed a custom membership system that handles seamless student onboarding and progression.",
-      "Engineered full payment processing gateways capable of handling millions in recurring membership fees.",
-      "Dramatically reduced administrative overhead by automating classroom scheduling and database syncs."
-    ],
-    highlightMetric: {
-      value: "100%",
-      label: "Moved Online"
-    }
-  },
-  {
-    id: "onthegosystems-timeline",
-    period: "Early-to-Mid Career",
-    role: "Product development, Sales, & Marketing Lead",
+    id: "onthegosystems",
+    period: "2019",
+    role: "Head of Sales, Marketing & Product (Contract)",
     company: "OnTheGoSystems",
-    location: "Wan Chai, Hong Kong",
-    description: "Led the commercialization, early-stage product development, and initial market entry for a brand-new corporate subsidiary.",
+    location: "Hong Kong (Remote)",
+    description: "Led product development plus sales and marketing for the business, driving commercialization and market entry.",
     achievements: [
-      "Established brand identity and ran high-converting global outreach campaigns.",
-      "Worked closely with engineering to map user experience flows and build a highly responsive feedback loop.",
-      "Landed initial key accounts, establishing immediate product-market fit."
+      "Owned product, sales, and marketing for the entire entity.",
+      "Built go-to-market and demand generation for a global, remote-first operation.",
+      "Established brand-market fit across international channels."
     ],
-    highlightMetric: {
-      value: "1st",
-      label: "Product Lead"
-    }
+    highlightMetric: { value: "1st", label: "Product & GTM Lead" }
   },
   {
-    id: "music-executive-timeline",
-    period: "Early Career",
-    role: "Music Industry Executive & Operator",
-    company: "Independent Music Label & Artist Representation",
-    location: "New York, NY",
-    description: "Acquired critical foundational skills in management, contract negotiations, promotion, and business P&Ls as a senior leader in the highly competitive music ecosystem.",
+    id: "crossover",
+    period: "2016 - 2018",
+    role: "Senior Marketing Strategist / Advisor to CEO",
+    company: "Crossover (Trilogy Software)",
+    location: "Austin, TX (Remote)",
+    description: "Advisor to the CEO on global marketing strategy, owning budget and campaigns that drove multi-million-dollar revenue.",
     achievements: [
-      "Led operations managing 350+ team members, artists, and event staff.",
-      "Negotiated distribution and sync-licensing deals with major national entertainment networks.",
-      "Managed tour logistics, press campaigns, and marketing spends with strict ROI standards."
+      "Managed a $600K annual marketing budget contributing to $5.5M+ in revenue.",
+      "Optimized global digital campaigns for significant performance gains.",
+      "Advised leadership on positioning, demand, and channel strategy."
     ],
-    highlightMetric: {
-      value: "350+",
-      label: "Staff Managed"
-    }
+    highlightMetric: { value: "$5.5M+", label: "Revenue Driven" }
+  },
+  {
+    id: "aurea",
+    period: "2012 - 2016",
+    role: "Head of Global Channel Business Operations",
+    company: "Aurea Software (Trilogy)",
+    location: "Austin, TX (Remote)",
+    description: "Scaled the channel business unit from $5M to $30M+ ARR while building the operating systems and partner network that made the growth durable.",
+    achievements: [
+      "Grew channel business from $400K to $2.5M+ MRR ($5M to $30M+ ARR).",
+      "Built operating systems supporting 600+ partners with a team of 50+.",
+      "Installed performance management and accountability across a global remote team."
+    ],
+    highlightMetric: { value: "$30M+", label: "ARR Scaled" }
+  },
+  {
+    id: "versata",
+    period: "2011 - 2012",
+    role: "Global M&A Operations Manager",
+    company: "Versata Software (Trilogy)",
+    location: "Austin, TX (Remote)",
+    description: "Ran post-merger operations across a portfolio of software acquisitions, wringing out cost and inefficiency.",
+    achievements: [
+      "Reduced acquisition debt 75%, saving over $7M across 10 company purchases.",
+      "Directed post-merger efficiency programs across multiple departments.",
+      "Standardized operations to make acquired companies run lean."
+    ],
+    highlightMetric: { value: "$7M", label: "Saved / 10 Deals" }
   }
 ];
 

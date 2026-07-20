@@ -43,12 +43,12 @@ const TRUSTED_BY = [
 ];
 
 const PROOF = [
-  { metric: '$30M+', label: 'ARR grown from $5M', detail: 'Scaled a channel business unit in under three years with an 80/20 organic strategy.', where: 'Aurea Software · Austin, TX' },
-  { metric: '350+', label: 'People led', detail: 'Ran a 350-person operation across artists, staff, and logistics under razor-thin margins.', where: 'Music industry · New York, NY' },
-  { metric: '300%+', label: 'Sales growth YTD', detail: 'Grew inside sales 300%+, e-commerce 150%+, and foot traffic 200%+ across 17 stores.', where: 'Retail & inside sales · CT' },
-  { metric: '$5.5M+', label: 'Revenue driven', detail: 'Owned a $600K/year marketing budget and P&L that produced $5.5M+ over 2.5 years.', where: 'P&L ownership · Austin, TX' },
-  { metric: '100%', label: 'Moved online', detail: 'Rebuilt a national education org from brick-and-mortar to fully online, payments and all.', where: 'Digital rebuild · Tucson, AZ' },
-  { metric: '30+', label: 'Retainer clients', detail: 'Founder of BudAuthority, running proprietary SEO intelligence software for 30+ brands.', where: 'BudAuthority · Rhode Island' },
+  { metric: '$30M+', label: 'ARR scaled from $5M', detail: 'Grew a channel business from $400K to $2.5M+ MRR with 600+ partners and a team of 50+.', where: 'Aurea / Trilogy · Austin, TX' },
+  { metric: '350+', label: 'People led', detail: 'Ran day-to-day operations for a 350-person remote team as Chief Operating Officer.', where: 'WordAgents · Brightwaters, NY' },
+  { metric: '$1M+', label: 'Months, 60%+ margins', detail: 'Scaled a high-ticket business to consecutive million-dollar months as COO.', where: 'Dylan Jahraus · San Diego, CA' },
+  { metric: '300%', label: 'Sales growth YTD', detail: 'Drove inside sales +300% and e-commerce +150% through a full digital transformation.', where: 'Namco Pools · Rocky Hill, CT' },
+  { metric: '$5.5M+', label: 'Revenue driven', detail: 'Owned a $600K marketing budget as advisor to the CEO that produced $5.5M+ in revenue.', where: 'Crossover / Trilogy · Austin, TX' },
+  { metric: '$7M', label: 'Saved across 10 deals', detail: 'Cut acquisition debt 75% and led post-merger efficiency across 10 software acquisitions.', where: 'Versata / Trilogy · Austin, TX' },
 ];
 
 /* Section eyebrow: number + label, for rhythm between sections */
@@ -154,14 +154,14 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                 the build.
               </Item>
               <Item as="p" className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-2xl">
-                I started in the independent music industry, running a 350-person operation under
-                razor-thin timelines. From there: scaling a software channel from{' '}
-                <strong className="text-ink font-semibold">$5M to $30M+</strong>, launching a venture
-                out of Hong Kong, moving a national org 100% online, and 300%+ sales turnarounds.
+                Sixteen-plus years as the operator behind founder-led companies. I scaled a software
+                channel from <strong className="text-ink font-semibold">$5M to $30M+ ARR</strong> at
+                Trilogy, ran a <strong className="text-ink font-semibold">350-person</strong> team as
+                COO at WordAgents, and drove a high-ticket business to consecutive $1M+ months.
               </Item>
               <Item as="p" className="text-ink-soft text-lg leading-relaxed max-w-2xl">
-                Now I build my own portfolio, software, AI systems, and boring, cash-flowing
-                companies, and share the playbook without the yes-man filter.
+                Now I build my own: software, AI systems, and boring, cash-flowing companies, and I
+                share the playbook without the yes-man filter.
               </Item>
               <Item className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
                 <button
@@ -172,7 +172,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <div className="mono text-[12px] uppercase tracking-[0.14em] text-ink-faint">
-                  Music → SaaS → Retail → AI
+                  Trilogy → SaaS → Ops → AI
                 </div>
               </Item>
             </div>

@@ -144,14 +144,14 @@ export default function BuildingScene({
 
       addBox(fW + 0.6, baseH, fD + 0.5, baseH / 2, 0.0, { color: 0x0c1322, metalness: 0.2, roughness: 0.95, edge: true });
       for (let i = 0; i < FLOORS; i++) {
-        addBox(fW, fH, fD, baseH + fH / 2 + i * fH, 0.04 + (i / FLOORS) * 0.8, {
+        addBox(fW, fH, fD, baseH + fH / 2 + i * fH, 0.03 + (i / FLOORS) * 0.55, {
           color: 0x121a2e,
           edge: true,
           windows: true,
         });
       }
       const roofY = baseH + FLOORS * fH + 0.12;
-      addBox(fW + 0.14, 0.24, fD + 0.14, roofY, 0.9, { color: 0x0e1524, edge: true });
+      addBox(fW + 0.14, 0.24, fD + 0.14, roofY, 0.62, { color: 0x0e1524, edge: true });
 
       const beacon = new THREE.Mesh(
         new THREE.SphereGeometry(0.1, 20, 20),
@@ -170,7 +170,7 @@ export default function BuildingScene({
         const p = reduce ? 1 : clampf(progressRef.current);
 
         parts.forEach((part) => {
-          const placed = clampf((p - part.place) * 7);
+          const placed = clampf((p - part.place) * 6);
           part.mesh.position.y = part.targetY + (1 - placed) * 2.6;
           const s = reduce ? 1 : 0.7 + placed * 0.3;
           part.mesh.scale.set(s, s, s);
@@ -183,15 +183,18 @@ export default function BuildingScene({
           });
         });
 
-        const topOut = clampf((p - 0.9) * 10);
+        const topOut = clampf((p - 0.66) * 7);
         (beacon.material as MeshStandardMaterial).emissiveIntensity = topOut * 2.4;
         beacon.scale.setScalar(0.5 + topOut * (1 + Math.sin(t * 6) * 0.14));
         copperLight.intensity = topOut * 1.6 + p * 0.5;
 
+        // responsive framing: pull back + scale down on narrow screens
+        const narrow = w < 620;
+        group.scale.setScalar(narrow ? 0.78 : 1);
         const az = reduce ? -0.62 : -0.62 + Math.sin(t * 0.5) * 0.45;
-        const radius = 6.8;
-        camera.position.set(Math.sin(az) * radius, 3.0, Math.cos(az) * radius);
-        camera.lookAt(0, 1.15, 0);
+        const radius = narrow ? 8.8 : 6.8;
+        camera.position.set(Math.sin(az) * radius, narrow ? 3.4 : 3.0, Math.cos(az) * radius);
+        camera.lookAt(0, narrow ? 0.9 : 1.15, 0);
 
         renderer.render(scene, camera);
         raf = requestAnimationFrame(render);

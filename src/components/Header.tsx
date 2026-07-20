@@ -33,11 +33,12 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
   ];
 
   return (
+    <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 text-ink transition-all duration-300 border-b ${
         scrolled
-          ? 'py-3 bg-paper/80 backdrop-blur-xl border-line'
-          : 'py-4 bg-paper/40 backdrop-blur-md border-transparent'
+          ? 'py-3 bg-paper/90 backdrop-blur-xl border-line'
+          : 'py-4 bg-paper/50 backdrop-blur-md border-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -91,42 +92,51 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
-
-      {/* Mobile drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed top-[57px] left-0 right-0 bottom-0 bg-paper text-ink border-t border-line px-6 py-8 flex flex-col justify-between z-40">
-          <nav className="flex flex-col">
-            {navItems.map((item, idx) => {
-              const isActive = activeTab === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`text-left py-5 border-b border-line flex justify-between items-center font-display text-2xl tracking-tight ${
-                    isActive ? 'text-accent' : 'text-ink'
-                  }`}
-                >
-                  <span>{item.label}</span>
-                  <span className="text-ink-faint text-xs font-sans">0{idx + 1}</span>
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="space-y-6 pb-8">
-            <button
-              onClick={() => handleNavClick('/contact')}
-              className="btn-accent w-full text-center py-4 rounded-full text-sm font-semibold tracking-wide flex items-center justify-center gap-2"
-            >
-              <span>Work With Me</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </button>
-            <div className="text-center text-[11px] text-ink-faint tracking-wide">
-              © 2026 David Peterson
-            </div>
-          </div>
-        </div>
-      )}
     </header>
+
+    {/* Mobile full-screen menu (rendered outside the backdrop-blurred header so
+        fixed positioning is relative to the viewport, not the header) */}
+    {mobileMenuOpen && (
+      <div className="md:hidden fixed inset-0 z-[70] bg-paper text-ink flex flex-col">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-line">
+          <span className="script text-[30px] leading-none text-accent">David Peterson</span>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-ink hover:text-accent"
+            aria-label="Close menu"
+          >
+            <X className="w-7 h-7" />
+          </button>
+        </div>
+        <nav className="flex flex-col px-6 pt-2 flex-1">
+          {navItems.map((item, idx) => {
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`text-left py-5 border-b border-line flex justify-between items-center font-display font-bold text-3xl tracking-tight ${
+                  isActive ? 'text-accent' : 'text-ink'
+                }`}
+              >
+                <span>{item.label}</span>
+                <span className="mono text-ink-faint text-xs">0{idx + 1}</span>
+              </button>
+            );
+          })}
+        </nav>
+        <div className="px-6 pb-10 space-y-5">
+          <button
+            onClick={() => handleNavClick('/contact')}
+            className="btn-accent w-full text-center py-4 rounded-full text-base font-bold tracking-wide flex items-center justify-center gap-2"
+          >
+            <span>Work With Me</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+          <div className="text-center mono text-[11px] text-ink-faint tracking-wide">© 2026 David Peterson</div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

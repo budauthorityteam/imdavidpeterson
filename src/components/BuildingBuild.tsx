@@ -37,7 +37,7 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
   const fmtV = (n: number) => (n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1000)}K`);
 
   return (
-    <section ref={ref} className="relative bg-paper" style={{ height: reduce ? 'auto' : '400vh' }}>
+    <section ref={ref} className={`relative bg-paper ${reduce ? 'h-auto' : 'h-[300vh] md:h-[420vh]'}`}>
       <div className={`${reduce ? '' : 'sticky top-0'} min-h-screen flex items-center overflow-hidden`}>
         {/* ambient */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
