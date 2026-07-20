@@ -146,13 +146,15 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
               </Item>
             </div>
 
-            {/* Right: portrait */}
-            <div className="lg:col-span-5 order-1 lg:order-2 relative min-h-[360px] sm:min-h-[440px] lg:min-h-[620px]">
+            {/* Right: portrait — larger, bolder */}
+            <div className="lg:col-span-5 order-1 lg:order-2 relative min-h-[440px] sm:min-h-[560px] lg:min-h-[720px]">
+              {/* warm accent wash behind the figure for depth */}
+              <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(120%_80%_at_70%_20%,rgba(182,99,64,0.14),transparent_60%)] pointer-events-none" />
               <PhotoFrame
                 src="/david-hero.png"
                 alt="David Peterson, operator and builder"
                 mirror
-                className="absolute inset-0 h-full w-full"
+                className="absolute inset-0 h-full w-full scale-[1.06] origin-bottom"
                 imgClassName="object-top mix-blend-multiply"
               />
               <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#FBFAF5] to-transparent pointer-events-none" />

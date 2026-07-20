@@ -36,41 +36,64 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
       animate="visible"
       className="pb-28 pt-32 md:pt-44"
     >
-      {/* Bio */}
+      {/* Bio hero — bold, photo-led */}
       <section className="px-6 md:px-12 max-w-6xl mx-auto">
-        <motion.div variants={item} className="max-w-3xl space-y-5">
-          <span className="kicker">About</span>
-          <h1
-            id="about-title"
-            className="font-display font-bold text-ink text-5xl md:text-7xl tracking-tight leading-[0.98]"
-          >
-            Operator first.
-            <br />
-            <span className="mark serif-italic font-normal">Builder now.</span>
-          </h1>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* Text */}
+          <motion.div variants={item} className="lg:col-span-6 order-2 lg:order-1 space-y-7">
+            <span className="kicker">About</span>
+            <h1
+              id="about-title"
+              className="font-display font-bold text-ink text-6xl md:text-7xl xl:text-8xl tracking-[-0.03em] leading-[0.9]"
+            >
+              Operator first.
+              <br />
+              <span className="mark serif-italic font-normal">Builder now.</span>
+            </h1>
+            <p className="text-ink-soft text-xl md:text-2xl leading-relaxed max-w-xl font-light">
+              Twenty years spent aligning people, processes, and budgets. Today I align systems,
+              code, and automations, and I do it in the open.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-line max-w-md pt-6">
+              <div className="space-y-1">
+                <span className="kicker">Currently</span>
+                <div className="text-ink font-semibold">Founding operator</div>
+                <div className="text-ink-soft text-sm">Rhode Island, USA</div>
+              </div>
+              <div className="space-y-1">
+                <span className="kicker">Since</span>
+                <div className="text-ink font-semibold">Two decades in</div>
+                <div className="text-ink-soft text-sm">Music → SaaS → AI</div>
+              </div>
+            </div>
+          </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pt-14">
-          {/* Aside */}
-          <motion.div variants={item} className="lg:col-span-4 space-y-8">
+          {/* Big, bold portrait with offset clay frame */}
+          <motion.div variants={item} className="lg:col-span-6 order-1 lg:order-2 relative">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 translate-x-3 translate-y-3 md:translate-x-6 md:translate-y-6 rounded-[2.25rem] bg-accent"
+            />
             <PhotoFrame
               src="/david-about.png"
               alt="David Peterson"
-              className="aspect-[4/5] w-full rounded-2xl border border-line shadow-[0_30px_60px_-40px_rgba(23,19,13,0.4)]"
-              imgClassName="object-top"
+              className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] border border-line bg-paper-2 shadow-[0_50px_90px_-45px_rgba(23,19,13,0.6)]"
+              imgClassName="object-top mix-blend-multiply"
             />
-            <div className="space-y-2">
-              <span className="font-serif text-accent text-6xl leading-[0.6] block" aria-hidden="true">“</span>
-              <p className="font-serif italic text-xl text-ink leading-relaxed">
-                For twenty years I solved problems by aligning people, processes, and budgets. Today
-                I solve the same problems by aligning systems, code, and automations.
-              </p>
+            <div className="absolute z-20 -bottom-4 left-5 md:left-8 bg-ink text-paper px-5 py-2.5 rounded-full text-xs font-semibold tracking-[0.14em] uppercase shadow-xl">
+              David Peterson
             </div>
-            <div className="space-y-1.5">
-              <span className="kicker">Currently</span>
-              <div className="text-ink font-semibold">Founding operator</div>
-              <div className="text-ink-soft text-sm">Rhode Island, USA</div>
-            </div>
+          </motion.div>
+        </div>
+
+        {/* Pull quote + narrative */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 pt-24 md:pt-32">
+          <motion.div variants={item} className="lg:col-span-4 space-y-4 lg:sticky lg:top-28 self-start">
+            <span className="font-serif text-accent text-7xl leading-[0.5] block" aria-hidden="true">“</span>
+            <p className="font-serif italic text-2xl text-ink leading-relaxed">
+              For twenty years I solved problems by aligning people, processes, and budgets. Today
+              I solve the same problems by aligning systems, code, and automations.
+            </p>
           </motion.div>
 
           {/* Narrative */}
