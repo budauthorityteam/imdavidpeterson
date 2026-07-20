@@ -1,113 +1,118 @@
-import React from 'react';
 import { motion } from 'motion/react';
-import { Clock, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface NowViewProps {
   setActiveTab: (tab: string) => void;
 }
 
+const FOCUS = [
+  {
+    n: '01',
+    label: 'Software architecture',
+    body: "Architecting private, generative agent microservices that run customer-lifecycle and marketing automation end to end. Systematically stripping out operational bloat and replacing headcount with system design.",
+  },
+  {
+    n: '02',
+    label: 'Operations & services',
+    body: 'Running organic growth and search-visibility infrastructure through BudAuthority, my digital marketing and SEO platform, for a set of select enterprise retainers.',
+  },
+  {
+    n: '03',
+    label: 'Audio & media',
+    body: 'Recording weekly long-form conversations for Taking Back Entrepreneurship and We Tried, We Failed. The raw, survivor-bias-free version of operator reality.',
+  },
+  {
+    n: '04',
+    label: 'Real estate advisory',
+    body: 'Holding active brokerage licensing in Rhode Island and Massachusetts, advising on off-market commercial deals and localized search targeting for physical assets.',
+  },
+  {
+    n: '05',
+    label: 'Systems engineering',
+    body: 'Putting twenty years of operations into code instead of org charts: model chaining, context-window management, and automated workflow triggers.',
+  },
+];
+
 export default function NowView({ setActiveTab }: NowViewProps) {
-  // Navigation helper
   const handleNavClick = (tab: string) => {
     setActiveTab(tab);
     window.location.hash = tab;
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
   };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  const item = {
+    hidden: { opacity: 0, y: 14 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
   return (
     <motion.div
-      variants={containerVariants}
+      variants={container}
       initial="hidden"
       animate="visible"
-      className="max-w-3xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-36"
+      className="max-w-3xl mx-auto px-6 pt-32 pb-28 md:pt-44"
     >
-      <motion.div variants={itemVariants} className="space-y-4 mb-12">
-        <div className="flex items-center space-x-2.5 text-zinc-400 font-mono text-xs uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] pulse-dot"></span>
-          <Clock className="w-3.5 h-3.5 text-[#10B981]" />
-          <span>Status Page</span>
-          <span className="text-[#10B981]">•</span>
-          <span>Rhode Island, USA</span>
+      <motion.div variants={item} className="space-y-4 mb-12">
+        <div className="flex items-center gap-2.5 text-ink-soft text-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
+          <span className="font-medium">Currently in Rhode Island, USA</span>
         </div>
-        <h1 id="now-title" className="text-4xl md:text-6xl font-black font-display tracking-tighter">
-          <span className="text-gradient">Now</span>
+        <h1 id="now-title" className="font-display font-bold text-ink text-5xl md:text-7xl tracking-tight">
+          Now
         </h1>
-        <p className="text-zinc-500 font-mono text-xs uppercase tracking-wider">
-          Last updated: July 15, 2026
+        <p className="text-ink-faint text-sm">Last updated July 15, 2026 · refreshed quarterly</p>
+      </motion.div>
+
+      <motion.div variants={item} className="border-t border-line pt-10">
+        <p className="text-ink text-xl md:text-2xl leading-relaxed font-light">
+          A quarterly, no-spin snapshot of what I'm actually working on. Inspired by the{' '}
+          <a
+            href="https://nownownow.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent font-medium link-underline"
+          >
+            /now page
+          </a>{' '}
+          movement.
         </p>
       </motion.div>
 
-      <motion.div variants={itemVariants} className="space-y-12 border-t border-zinc-900 pt-10">
-        <p className="text-zinc-300 font-sans text-base md:text-lg leading-relaxed font-light">
-          This page is inspired by the <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-zinc-300 transition-colors">/now page</a> movement. It is a quarterly snapshot of current focus, priorities, and physical location.
-        </p>
+      <div className="mt-12 space-y-10">
+        {FOCUS.map((f) => (
+          <motion.div
+            key={f.n}
+            variants={item}
+            className="group grid grid-cols-[auto_1fr] gap-5 md:gap-7 items-start"
+          >
+            <span className="font-display font-bold text-3xl md:text-4xl text-line-2 group-hover:text-accent transition-colors tracking-tight">
+              {f.n}
+            </span>
+            <div className="space-y-2 border-b border-line pb-8">
+              <h2 className="font-display font-semibold text-xl md:text-2xl text-ink tracking-tight">
+                {f.label}
+              </h2>
+              <p className="text-ink-soft text-lg leading-relaxed">{f.body}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
 
-        {/* 
-          Refreshed quarterly in ten minutes.
-          Maintains momentum and quiet focus without public product disclosures.
-        */}
-        
-        <div className="space-y-8 font-sans">
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
-            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">01 / SOFTWARE ARCHITECTURE</span>
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
-              Architecting private, generative agent microservices that coordinate complex customer lifecycle and marketing automation workflows. I am systematically stripping out operational bloat and replacing traditional headcount with system design.
-            </p>
-          </div>
-
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
-            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">02 / OPERATIONS & SERVICES</span>
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
-              Managing organic growth systems and search visibility infrastructure under my primary digital marketing and SEO platform, servicing select enterprise retainers.
-            </p>
-          </div>
-
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
-            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">03 / AUDIO MEDIA</span>
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
-              Recording and producing weekly long-form discussions for <span className="text-white italic">Taking Back Entrepreneurship</span> and <span className="text-white italic">We Tried, We Failed</span>, analyzing raw, survivor-bias-free operator realities.
-            </p>
-          </div>
-
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
-            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">04 / ASSET ADVISORY</span>
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
-              Maintaining active real estate brokerage licensing in Rhode Island and Massachusetts. Advising select clients on off-market commercial property transactions and localized digital search targeting for physical assets.
-            </p>
-          </div>
-
-          <div className="group border-l border-zinc-800 pl-6 space-y-2 hover:border-[#10B981] transition-colors">
-            <span className="text-[10px] font-mono text-[#10B981] uppercase tracking-widest block font-semibold">05 / SYSTEMS ENGINEERING</span>
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed">
-              Applying twenty years of hard-won operations to writing code instead of managing bloated org charts. I'm currently focused on model chaining, optimizing context-window management, and automated workflow triggers.
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div variants={itemVariants} className="mt-16 pt-10 border-t border-zinc-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-        <p className="text-zinc-500 text-xs font-mono">
-          Are you aligned on any of these verticals?
-        </p>
+      <motion.div
+        variants={item}
+        className="mt-14 pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+      >
+        <p className="text-ink-soft text-lg">Aligned on any of these? Let's compare notes.</p>
         <button
           onClick={() => handleNavClick('/contact')}
-          className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-white hover:text-zinc-300 transition-all group"
+          className="btn-accent inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold tracking-wide group cursor-pointer"
         >
-          <span>Get in Touch</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          <span>Get in touch</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </button>
       </motion.div>
     </motion.div>

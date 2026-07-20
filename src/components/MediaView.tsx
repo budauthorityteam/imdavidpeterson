@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Play, Pause, ExternalLink, Mic, Volume2, Video, FileText, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { Play, Pause, ExternalLink, Mic, Check, ArrowRight } from 'lucide-react';
+import { TiltCard } from './Motion';
 
 interface MediaViewProps {
   setActiveTab: (tab: string) => void;
@@ -9,7 +10,6 @@ interface MediaViewProps {
 export default function MediaView({ setActiveTab }: MediaViewProps) {
   const [isPlaying, setIsPlaying] = useState<string | null>(null);
 
-  // Navigation helper
   const handleNavClick = (tab: string) => {
     setActiveTab(tab);
     window.location.hash = tab;
@@ -18,283 +18,210 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
 
   const episodes = [
     {
-      id: "tbe-ep48",
-      podcast: "Taking Back Entrepreneurship",
-      title: "Ep. 48: The Fractional COO Myth — Why Strategy Without Operations is Dead Weight",
-      duration: "42:15",
-      published: "July 10, 2026",
-      desc: "David breaks down the failure vectors of standard strategic consultants and details the exact operational checklist needed to step in, diagnose leaks, and turn business models around on day one.",
-      audioUrl: "#"
+      id: 'tbe-ep48',
+      podcast: 'Taking Back Entrepreneurship',
+      title: 'Ep. 48: The Fractional COO Myth: Why Strategy Without Operations Is Dead Weight',
+      duration: '42:15',
+      published: 'July 10, 2026',
+      desc: "David breaks down where standard strategic consultants fail and the exact operational checklist he uses to step in, find the leaks, and turn a business around on day one.",
     },
     {
-      id: "wtwf-ep31",
-      podcast: "We Tried, We Failed",
-      title: "Ep. 31: Moving Too Fast, Moving Too Late — Rebuilding Core Infrastructure Under Volatile Margins",
-      duration: "58:40",
-      published: "June 24, 2026",
-      desc: "Co-hosts explore the brutal operational lessons of a national education rebrand, detailing the infrastructure pivot to custom online member platforms and handling millions in transactional errors.",
-      audioUrl: "#"
+      id: 'wtwf-ep31',
+      podcast: 'We Tried, We Failed',
+      title: 'Ep. 31: Moving Too Fast, Moving Too Late: Rebuilding Core Infrastructure Under Volatile Margins',
+      duration: '58:40',
+      published: 'June 24, 2026',
+      desc: 'The brutal operational lessons of a national education rebrand: the pivot to custom online member platforms and handling millions in transactional errors.',
     },
     {
-      id: "tbe-ep45",
-      podcast: "Taking Back Entrepreneurship",
-      title: "Ep. 45: Channel Scaling & The 80/20 Account Retention Formula",
-      duration: "35:10",
-      published: "May 18, 2026",
-      desc: "How David grew Aurea's channel business unit from $5M to $30M+ ARR using zero ad spend and scaling organic relationships across existing customer pipelines.",
-      audioUrl: "#"
-    }
+      id: 'tbe-ep45',
+      podcast: 'Taking Back Entrepreneurship',
+      title: 'Ep. 45: Channel Scaling & The 80/20 Account Retention Formula',
+      duration: '35:10',
+      published: 'May 18, 2026',
+      desc: 'How David grew a channel business unit from $5M to $30M+ ARR with zero ad spend, scaling organic relationships across existing customer pipelines.',
+    },
   ];
 
   const speakingTopics = [
-    {
-      title: "Tactical Entrepreneurship",
-      desc: "Moving beyond survival bias and venture-backed hype. The practical realities of bootstrapping cash-flowing operations."
-    },
-    {
-      title: "Operations at Scale",
-      desc: "Surgical auditing of marketing technology, workflow structures, and P&L accountability."
-    },
-    {
-      title: "Applied AI in Real Businesses",
-      desc: "How to audit, implement, and run generative AI systems that replace repetitive human labor and manual workflows."
-    },
-    {
-      title: "Building with Agents",
-      desc: "Developing autonomous system architectures that operate 24/7 inside sales, support, and marketing."
-    }
+    { title: 'Tactical entrepreneurship', desc: 'Beyond survival bias and venture hype: the practical reality of bootstrapping cash-flowing operations.' },
+    { title: 'Operations at scale', desc: 'Surgical auditing of marketing technology, workflow structure, and P&L accountability.' },
+    { title: 'Applied AI in real businesses', desc: 'How to audit, implement, and run generative AI systems that replace repetitive human labor.' },
+    { title: 'Building with agents', desc: 'Autonomous system architectures that run 24/7 inside sales, support, and marketing.' },
   ];
 
   const speakingFormats = [
-    "Keynote Addresses",
-    "Panel Moderation & Participation",
-    "Podcast Guest Appearances",
-    "Remote Executive Workshops"
+    'Keynote addresses',
+    'Panel moderation & participation',
+    'Podcast guest appearances',
+    'Remote executive workshops',
   ];
 
   const pressMentions = [
-    {
-      outlet: "Forbes Business Council",
-      title: "The Rise of the Embedded Operator: Why Middle-Market Firms are Abandoning Traditional Advisors",
-      date: "March 2026",
-      link: "#"
-    },
-    {
-      outlet: "Wired Technology Review",
-      title: "Migrating Legacy IT Under Pressure: Custom Platforms vs. Monolithic SaaS",
-      date: "January 2026",
-      link: "#"
-    },
-    {
-      outlet: "Entrepreneur",
-      title: "Game Changer vs. Clout Chaser: How to Audit Your Service Agency for Real Outcomes",
-      date: "November 2025",
-      link: "#"
-    },
-    {
-      outlet: "Rhode Island Business Journal",
-      title: "BudAuthority: Local Agency Founders Launch Proprietary Search Intelligence Suite",
-      date: "August 2025",
-      link: "#"
-    }
+    { outlet: 'Forbes Business Council', title: 'The Rise of the Embedded Operator: Why Middle-Market Firms Are Abandoning Traditional Advisors', date: 'March 2026' },
+    { outlet: 'Wired Technology Review', title: 'Migrating Legacy IT Under Pressure: Custom Platforms vs. Monolithic SaaS', date: 'January 2026' },
+    { outlet: 'Entrepreneur', title: 'Game Changer vs. Clout Chaser: How to Audit Your Service Agency for Real Outcomes', date: 'November 2025' },
+    { outlet: 'Rhode Island Business Journal', title: 'BudAuthority: Local Founders Launch Proprietary Search Intelligence Suite', date: 'August 2025' },
   ];
 
-  const togglePlayback = (epId: string) => {
-    setIsPlaying(isPlaying === epId ? null : epId);
-  };
+  const togglePlayback = (epId: string) => setIsPlaying(isPlaying === epId ? null : epId);
 
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
   };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  const item = {
+    hidden: { opacity: 0, y: 14 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="space-y-24 md:space-y-32 pb-24 pt-32 md:pt-40"
-    >
-      {/* Header section */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto">
-        <div className="max-w-3xl space-y-4">
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Media & Speaking</span>
-          <h1 id="media-title" className="text-4xl md:text-6xl font-black font-display tracking-tight text-white leading-none">
-            Podcast Hub <span className="text-gradient">& Speaking</span>
+    <motion.div variants={container} initial="hidden" animate="visible" className="pb-28 pt-32 md:pt-44">
+      {/* Header */}
+      <section className="px-6 md:px-12 max-w-6xl mx-auto">
+        <motion.div variants={item} className="max-w-3xl space-y-4">
+          <span className="kicker">Podcasts &amp; speaking</span>
+          <h1 id="media-title" className="font-display font-bold text-ink text-5xl md:text-7xl tracking-tight leading-[0.98]">
+            Raw takes, on the record.
           </h1>
-          <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-2xl font-sans font-light">
-            Hear David's raw, unfiltered commentary on scale, organizational change, and digital marketing operations across active podcasts and publications.
+          <p className="text-ink-soft text-lg leading-relaxed">
+            Unfiltered conversations on scale, organizational change, and the operations behind
+            marketing that actually works. Two shows, a growing back catalog, and a keynote stage.
           </p>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Podcast Console & Player */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto">
-        <div className="space-y-8">
-          <div className="flex items-center justify-between border-b border-zinc-900 pb-4">
-            <div className="flex items-center space-x-2">
-              <Mic className="w-4 h-4 text-zinc-500" />
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-bold">Featured Episodes</h3>
-            </div>
-            <span className="text-[10px] text-zinc-600 font-mono tracking-widest hidden sm:inline">SELECT TO PLAY SAMPLE</span>
+      {/* Episodes */}
+      <section className="px-6 md:px-12 max-w-6xl mx-auto pt-16">
+        <motion.div variants={item} className="flex items-center justify-between border-b border-line pb-4 mb-6">
+          <div className="flex items-center gap-2 text-ink">
+            <Mic className="w-4 h-4 text-accent" />
+            <h2 className="kicker !text-ink">Featured episodes</h2>
           </div>
+          <span className="text-sm text-ink-faint hidden sm:inline">Tap play for a sample</span>
+        </motion.div>
 
-          <div className="space-y-4">
-            {episodes.map((ep) => {
-              const isEpPlaying = isPlaying === ep.id;
-              return (
-                <div 
-                  key={ep.id}
-                  className={`p-6 rounded-lg border transition-all duration-300 ${
-                    isEpPlaying
-                      ? 'bg-zinc-900/60 border-[#10B981]/50 shadow-lg shadow-[#10B981]/10'
-                      : 'bg-zinc-950 border-zinc-900 hover:border-zinc-800'
-                  }`}
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                    <div className="flex items-start space-x-4">
-                      <button
-                        onClick={() => togglePlayback(ep.id)}
-                        className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border transition-all ${
-                          isEpPlaying
-                            ? 'bg-[#10B981] border-[#10B981] text-black shadow-lg shadow-[#10B981]/30'
-                            : 'bg-zinc-900 border-zinc-850 text-zinc-400 hover:text-[#10B981] hover:border-[#10B981]'
-                        }`}
-                        aria-label={isEpPlaying ? "Pause episode" : "Play episode"}
-                      >
-                        {isEpPlaying ? (
-                          <Pause className="w-4.5 h-4.5 fill-current" />
-                        ) : (
-                          <Play className="w-4.5 h-4.5 fill-current translate-x-0.5" />
-                        )}
-                      </button>
-                      
-                      <div className="space-y-1.5">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-[9px] font-mono font-bold text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded tracking-wider">
-                            {ep.podcast}
-                          </span>
-                          <span className="text-[10px] font-mono text-zinc-500">{ep.published}</span>
-                        </div>
-                        
-                        <h4 className="text-sm md:text-base font-bold tracking-tight text-white font-display">
-                          {ep.title}
-                        </h4>
-                        
-                        <p className="text-xs text-zinc-400 leading-relaxed font-sans max-w-2xl font-light">
-                          {ep.desc}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="sm:text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-4 shrink-0 border-t sm:border-t-0 border-zinc-900 pt-3 sm:pt-0">
-                      <span className="text-[10px] font-mono text-zinc-500">{ep.duration}</span>
-                      
-                      {isEpPlaying && (
-                        <div className="flex items-end space-x-0.5 h-4 pb-0.5">
-                          <span className="w-0.5 bg-[#10B981] animate-[pulse_0.8s_infinite] h-3"></span>
-                          <span className="w-0.5 bg-[#10B981] animate-[pulse_1.2s_infinite] h-4"></span>
-                          <span className="w-0.5 bg-[#34D399] animate-[pulse_0.9s_infinite] h-2"></span>
-                          <span className="w-0.5 bg-[#34D399] animate-[pulse_1.4s_infinite] h-3.5"></span>
-                        </div>
+        <div className="space-y-4">
+          {episodes.map((ep) => {
+            const playing = isPlaying === ep.id;
+            return (
+              <motion.div
+                key={ep.id}
+                variants={item}
+                className={`rounded-2xl border p-6 transition-all ${
+                  playing ? 'bg-paper-2 border-line-2 shadow-sm' : 'bg-paper-2/50 border-line hover:border-line-2'
+                }`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <button
+                      onClick={() => togglePlayback(ep.id)}
+                      className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                        playing ? 'bg-accent text-white' : 'bg-paper-2 border border-line text-ink hover:bg-accent'
+                      }`}
+                      aria-label={playing ? 'Pause episode' : 'Play episode'}
+                    >
+                      {playing ? (
+                        <Pause className="w-5 h-5 fill-current" />
+                      ) : (
+                        <Play className="w-5 h-5 fill-current translate-x-0.5" />
                       )}
+                    </button>
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xs font-semibold text-accent bg-accent-soft px-2.5 py-0.5 rounded-full">
+                          {ep.podcast}
+                        </span>
+                        <span className="text-xs text-ink-faint">{ep.published}</span>
+                      </div>
+                      <h3 className="font-display font-semibold text-lg text-ink tracking-tight leading-snug">
+                        {ep.title}
+                      </h3>
+                      <p className="text-ink-soft leading-relaxed max-w-2xl">{ep.desc}</p>
                     </div>
                   </div>
+                  <div className="flex sm:flex-col items-center sm:items-end justify-between gap-3 shrink-0">
+                    <span className="text-sm text-ink-faint">{ep.duration}</span>
+                    {playing && (
+                      <div className="flex items-end gap-0.5 h-4">
+                        <span className="w-0.5 bg-accent animate-[pulse_0.8s_infinite] h-3" />
+                        <span className="w-0.5 bg-accent animate-[pulse_1.2s_infinite] h-4" />
+                        <span className="w-0.5 bg-accent animate-[pulse_0.9s_infinite] h-2" />
+                        <span className="w-0.5 bg-accent animate-[pulse_1.4s_infinite] h-3.5" />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
-      {/* Speaking Topics & Formats */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900 pt-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Speaking Topics Left */}
-          <div className="lg:col-span-8 space-y-8">
-            <div className="flex items-center space-x-2 border-b border-zinc-900 pb-4">
-              <Video className="w-4 h-4 text-zinc-500" />
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-bold">Speaking Topics</h3>
+      {/* Speaking */}
+      <section className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <motion.div variants={item} className="lg:col-span-8 space-y-6">
+            <h2 className="kicker">Speaking topics</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {speakingTopics.map((t, i) => (
+                <TiltCard key={i} className="ed-card rounded-2xl p-6" max={6}>
+                  <div className="space-y-2">
+                    <h3 className="font-display font-semibold text-lg text-ink tracking-tight">{t.title}</h3>
+                    <p className="text-ink-soft leading-relaxed">{t.desc}</p>
+                  </div>
+                </TiltCard>
+              ))}
             </div>
+          </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {speakingTopics.map((topic, i) => (
-                <div key={i} className="glow-card bg-zinc-950 border border-zinc-900 rounded-lg p-5 space-y-2">
-                  <h4 className="text-sm md:text-base font-bold font-display text-white">{topic.title}</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed font-sans font-light">{topic.desc}</p>
+          <motion.div variants={item} className="lg:col-span-4 space-y-5">
+            <h2 className="kicker">Formats</h2>
+            <div className="ed-card rounded-2xl p-6 space-y-3.5">
+              {speakingFormats.map((f, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <Check className="w-4 h-4 text-accent shrink-0" />
+                  <span className="text-ink-soft">{f}</span>
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Formats Right */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="border-b border-zinc-900 pb-4">
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-bold">Available Formats</h3>
-            </div>
-
-            <div className="bg-zinc-950 border border-zinc-900 rounded-lg p-5 space-y-3.5">
-              {speakingFormats.map((format, i) => (
-                <div key={i} className="flex items-center space-x-3">
-                  <CheckCircle2 className="w-4 h-4 text-zinc-500 shrink-0" />
-                  <span className="text-xs text-zinc-300 font-sans font-light">{format}</span>
-                </div>
-              ))}
-            </div>
-
             <button
               onClick={() => handleNavClick('/contact')}
-              className="w-full text-center py-3.5 bg-zinc-950 border border-zinc-900 hover:border-white text-xs font-mono uppercase tracking-widest text-zinc-300 hover:text-white transition-all rounded-lg font-bold"
+              className="btn-ink w-full py-3.5 rounded-full text-sm font-semibold tracking-wide flex items-center justify-center gap-2 cursor-pointer"
             >
-              Inquire for Speaking
+              <span>Book me to speak</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Press Mentions List */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900 pt-20">
-        <div className="space-y-8">
-          <div className="border-b border-zinc-900 pb-4">
-            <div className="flex items-center space-x-2">
-              <FileText className="w-4 h-4 text-zinc-500" />
-              <h3 className="text-xs font-mono uppercase tracking-widest text-white font-bold">Press & Editorials</h3>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {pressMentions.map((press, i) => (
-              <div 
-                key={i} 
-                className="glow-card p-5 bg-zinc-950 border border-zinc-900 rounded-lg flex justify-between items-center group"
-              >
-                <div className="space-y-1 pr-4">
-                  <div className="flex items-center space-x-2 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-                    <span>{press.outlet}</span>
-                    <span>•</span>
+      {/* Press */}
+      <section className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
+        <motion.h2 variants={item} className="kicker mb-6">
+          Press &amp; editorials
+        </motion.h2>
+        <motion.div variants={item} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pressMentions.map((press, i) => (
+            <TiltCard key={i} className="ed-card rounded-2xl p-5 group" max={5}>
+              <a href="#" className="flex justify-between items-center gap-4 h-full">
+                <div className="space-y-1 pr-2">
+                  <div className="flex items-center gap-2 text-xs text-ink-faint">
+                    <span className="font-medium text-accent">{press.outlet}</span>
+                    <span>·</span>
                     <span>{press.date}</span>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-white tracking-tight leading-snug group-hover:text-zinc-300 transition-colors">
+                  <h3 className="font-display font-semibold text-ink tracking-tight leading-snug">
                     {press.title}
-                  </h4>
+                  </h3>
                 </div>
-                
-                <a 
-                  href={press.link} 
-                  className="w-8 h-8 rounded bg-zinc-900 border border-zinc-850 flex items-center justify-center shrink-0 text-zinc-500 group-hover:text-white group-hover:bg-zinc-800 transition-all"
-                  title="Read editorial placeholder"
-                >
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
+                <span className="w-9 h-9 rounded-full bg-paper border border-line flex items-center justify-center shrink-0 text-ink-soft group-hover:bg-paper-2 group-hover:text-ink group-hover:border-ink transition-all">
+                  <ExternalLink className="w-4 h-4" />
+                </span>
+              </a>
+            </TiltCard>
+          ))}
+        </motion.div>
       </section>
     </motion.div>
   );

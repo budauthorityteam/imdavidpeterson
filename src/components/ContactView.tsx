@@ -1,89 +1,86 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Send, CheckCircle2, MapPin, Linkedin, Twitter, Mail, ArrowUpRight } from 'lucide-react';
+import { Send, Check, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
 import { PROFILE } from '../data';
 
 export default function ContactView() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate quiet transmission
     setTimeout(() => {
       setLoading(false);
       setFormSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-    }, 1000);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }, 900);
   };
 
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+  const item = {
+    hidden: { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
-  };
+  const inputClass =
+    'w-full bg-paper border border-line rounded-xl px-4 py-3.5 text-ink placeholder:text-ink-faint focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all';
 
   return (
     <motion.div
-      variants={containerVariants}
+      variants={container}
       initial="hidden"
       animate="visible"
-      className="max-w-2xl mx-auto px-6 pt-32 pb-24 md:pt-40 md:pb-36"
+      className="max-w-2xl mx-auto px-6 pt-32 pb-28 md:pt-44"
     >
-      <motion.div variants={itemVariants} className="space-y-4 mb-10">
-        <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Communications Desk</span>
-        <h1 id="contact-title" className="text-4xl md:text-6xl font-black font-display text-white tracking-tighter">
-          Get in <span className="text-gradient">Touch</span>
+      <motion.div variants={item} className="space-y-4 mb-10">
+        <span className="kicker">Work with me</span>
+        <h1 id="contact-title" className="font-display font-bold text-ink text-5xl md:text-6xl tracking-tight">
+          Let's talk.
         </h1>
-        <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-sans font-light">
-          This inbox is actively filtered. David replies to operations and advisory challenges where there is immediate mathematical alignment.
+        <p className="text-ink-soft text-lg leading-relaxed">
+          Advisory, speaking, a partnership, or just a hard question you want answered straight.
+          Tell me what you're building. I read everything and reply where there's real alignment.
         </p>
       </motion.div>
 
-      <motion.div variants={itemVariants} className="border-t border-zinc-900 pt-10">
+      <motion.div variants={item} className="border-t border-line pt-10">
         {formSubmitted ? (
-          <div className="p-8 bg-zinc-950 border border-zinc-900 rounded-lg text-center space-y-4">
-            <div className="w-12 h-12 bg-[#10B981]/10 border border-[#10B981]/50 text-[#10B981] flex items-center justify-center rounded-full mx-auto shadow-lg shadow-[#10B981]/10">
-              <CheckCircle2 className="w-6 h-6" />
+          <div className="ed-card rounded-2xl p-8 text-center space-y-4">
+            <div className="w-12 h-12 bg-accent flex items-center justify-center rounded-full mx-auto">
+              <Check className="w-6 h-6 text-white" />
             </div>
-            <h4 className="text-base font-bold text-white font-display">Transmission Completed</h4>
-            <p className="text-xs text-zinc-400 max-w-md mx-auto leading-relaxed font-sans">
-              Your inquiry has been logged. David reviews submissions on a rolling basis. If your project has clear operational context, we will be in touch.
+            <h4 className="text-xl font-bold text-ink font-display tracking-tight">Got it, thanks.</h4>
+            <p className="text-ink-soft max-w-md mx-auto leading-relaxed">
+              Your note is in. I review these on a rolling basis and will be in touch if there's a
+              fit. If it's time-sensitive, email me directly.
             </p>
             <button
               type="button"
               onClick={() => setFormSubmitted(false)}
-              className="text-xs font-mono text-zinc-500 hover:text-white underline"
+              className="text-sm text-accent font-medium link-underline"
             >
-              Submit another transmission
+              Send another message
             </button>
           </div>
         ) : (
-          <form onSubmit={handleFormSubmit} className="space-y-6">
+          <form onSubmit={handleFormSubmit} className="space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="input-name" className="block text-[10px] font-mono uppercase text-zinc-500 mb-1.5 font-bold tracking-wider">Your Name *</label>
+                <label htmlFor="input-name" className="block text-sm font-medium text-ink mb-1.5">
+                  Your name
+                </label>
                 <input
                   id="input-name"
                   type="text"
@@ -91,12 +88,14 @@ export default function ContactView() {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans"
-                  placeholder="e.g. Marcus Aurelius"
+                  className={inputClass}
+                  placeholder="Jane Founder"
                 />
               </div>
               <div>
-                <label htmlFor="input-email" className="block text-[10px] font-mono uppercase text-zinc-500 mb-1.5 font-bold tracking-wider">Email Address *</label>
+                <label htmlFor="input-email" className="block text-sm font-medium text-ink mb-1.5">
+                  Email
+                </label>
                 <input
                   id="input-email"
                   type="email"
@@ -104,23 +103,27 @@ export default function ContactView() {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans"
-                  placeholder="e.g. marcus@empire.com"
+                  className={inputClass}
+                  placeholder="jane@company.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="input-subject" className="block text-[10px] font-mono uppercase text-zinc-500 mb-1.5 font-bold tracking-wider">What's this about? *</label>
+              <label htmlFor="input-subject" className="block text-sm font-medium text-ink mb-1.5">
+                What's this about?
+              </label>
               <select
                 id="input-subject"
                 name="subject"
                 required
                 value={formData.subject}
                 onChange={handleInputChange}
-                className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-zinc-300 focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans appearance-none cursor-pointer"
+                className={`${inputClass} appearance-none cursor-pointer`}
               >
-                <option value="" disabled>Select an option...</option>
+                <option value="" disabled>
+                  Pick one…
+                </option>
                 <option value="Advisory engagement">Advisory engagement</option>
                 <option value="Partnership or investment">Partnership or investment</option>
                 <option value="Speaking or podcast">Speaking or podcast</option>
@@ -130,25 +133,28 @@ export default function ContactView() {
             </div>
 
             {formData.subject === 'Real estate' && (
-              <div className="p-4 bg-zinc-950 border border-zinc-900 rounded text-xs text-zinc-400 space-y-1.5 font-sans">
-                <p className="font-mono text-[10px] uppercase text-zinc-500 font-bold">REAL ESTATE NOTICE:</p>
-                <p className="font-light">
-                  I'm a licensed real estate agent in Rhode Island and Massachusetts. For residential or commercial asset inquiries, you can also access my real estate platform:
+              <div className="p-4 bg-paper-2 border border-line rounded-xl text-sm text-ink-soft space-y-1.5">
+                <p className="font-semibold text-ink">Real estate note</p>
+                <p>
+                  I'm a licensed real estate agent in Rhode Island and Massachusetts. For property
+                  inquiries you can also reach my real estate practice:
                 </p>
                 <a
                   href={PROFILE.realEstate}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1 text-white hover:underline font-mono text-[10px]"
+                  className="inline-flex items-center gap-1 text-accent font-medium link-underline"
                 >
-                  <span>David Peterson Real Estate Brokerage</span>
-                  <ArrowUpRight className="w-3 h-3" />
+                  <span>David Peterson Real Estate</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             )}
 
             <div>
-              <label htmlFor="input-message" className="block text-[10px] font-mono uppercase text-zinc-500 mb-1.5 font-bold tracking-wider">Message *</label>
+              <label htmlFor="input-message" className="block text-sm font-medium text-ink mb-1.5">
+                Message
+              </label>
               <textarea
                 id="input-message"
                 name="message"
@@ -156,61 +162,61 @@ export default function ContactView() {
                 rows={5}
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full bg-zinc-950 border border-zinc-900 rounded px-4 py-3 text-xs text-white focus:outline-none focus:border-[#10B981]/60 focus:ring-1 focus:ring-[#10B981]/20 transition-all font-sans leading-relaxed"
-                placeholder="Skip the pitch deck. Two sentences on why this is worth both our time."
-              ></textarea>
+                className={`${inputClass} leading-relaxed`}
+                placeholder="Two sentences on what you're building and why it's worth both our time."
+              />
             </div>
 
-            <div className="pt-2">
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn-shine w-full text-black py-4 text-xs font-mono font-bold uppercase tracking-widest transition-transform hover:scale-[1.01] flex items-center justify-center space-x-2 rounded font-black cursor-pointer shadow-lg shadow-[#10B981]/10"
-              >
-                {loading ? (
-                  <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
-                ) : (
-                  <>
-                    <Send className="w-3.5 h-3.5" />
-                    <span>Transmit Brief</span>
-                  </>
-                )}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-accent w-full py-4 rounded-full text-sm font-semibold tracking-wide flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+            >
+              {loading ? (
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <Send className="w-4 h-4" />
+                  <span>Send message</span>
+                </>
+              )}
+            </button>
           </form>
         )}
       </motion.div>
 
-      {/* Footer social deck details */}
-      <motion.div variants={itemVariants} className="mt-16 pt-10 border-t border-zinc-900 grid grid-cols-1 sm:grid-cols-2 gap-8 text-xs font-sans text-zinc-500 font-light">
-        <div className="space-y-2">
-          <span className="block font-mono text-[10px] uppercase text-zinc-400 font-bold">Direct Channel</span>
-          <a href={`mailto:${PROFILE.email}`} className="text-white hover:underline font-mono">
+      {/* Direct channels */}
+      <motion.div
+        variants={item}
+        className="mt-14 pt-10 border-t border-line grid grid-cols-1 sm:grid-cols-2 gap-8"
+      >
+        <div className="space-y-1.5">
+          <span className="kicker">Direct</span>
+          <a href={`mailto:${PROFILE.email}`} className="block text-ink font-medium link-underline w-fit">
             {PROFILE.email}
           </a>
-          <p className="text-[10px]">Located in Rhode Island, servicing projects globally.</p>
+          <p className="text-sm text-ink-faint">Rhode Island, USA · working globally.</p>
         </div>
-
-        <div className="space-y-2">
-          <span className="block font-mono text-[10px] uppercase text-zinc-400 font-bold">Professional Logs</span>
-          <div className="flex items-center space-x-4 pt-1 text-[10px] font-mono uppercase tracking-wider">
+        <div className="space-y-2.5">
+          <span className="kicker">Elsewhere</span>
+          <div className="flex items-center gap-3">
             <a
               href={PROFILE.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-white transition-colors inline-flex items-center space-x-1"
+              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
+              aria-label="LinkedIn"
             >
-              <Linkedin className="w-3 h-3" />
-              <span>LinkedIn</span>
+              <Linkedin className="w-4 h-4" />
             </a>
             <a
               href={PROFILE.social.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 hover:text-white transition-colors inline-flex items-center space-x-1"
+              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
+              aria-label="X / Twitter"
             >
-              <Twitter className="w-3 h-3" />
-              <span>Twitter</span>
+              <Twitter className="w-4 h-4" />
             </a>
           </div>
         </div>

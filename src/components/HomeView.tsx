@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowUpRight, ArrowDown, Mic, BookOpen, Volume2, Calendar, ShieldCheck, Play } from 'lucide-react';
-import HeroCanvas from './HeroCanvas';
+import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check, Building2, Wrench, TrendingUp } from 'lucide-react';
 import CountUp from './CountUp';
+import LiveOps from './LiveOps';
+import {
+  Reveal,
+  Item,
+  MaskLine,
+  TiltCard,
+  Magnetic,
+  stagger,
+} from './Motion';
 
 interface HomeViewProps {
   setActiveTab: (tab: string) => void;
@@ -12,17 +20,37 @@ const MARQUEE_ITEMS = [
   'Operations',
   'Growth',
   'Applied AI',
-  'Fractional Executive',
+  'Turnarounds',
   'SEO Intelligence',
-  'Austin, TX',
-  'New York, NY',
-  'Hong Kong',
-  'Tucson, AZ',
-  'Rocky Hill, CT',
-  'Rhode Island',
+  'Fractional Leadership',
+  'Systems over Headcount',
 ];
 
+const OUTLINE_WORDS = ['Grow', 'Build', 'Buy', 'Grow', 'Build', 'Buy'];
+
+const PROOF = [
+  { metric: '$30M+', label: 'ARR grown from $5M', detail: 'Scaled a channel business unit in under three years with an 80/20 organic strategy.', where: 'Aurea Software · Austin, TX' },
+  { metric: '350+', label: 'People led', detail: 'Ran a 350-person operation across artists, staff, and logistics under razor-thin margins.', where: 'Music industry · New York, NY' },
+  { metric: '300%+', label: 'Sales growth YTD', detail: 'Grew inside sales 300%+, e-commerce 150%+, and foot traffic 200%+ across 17 stores.', where: 'Retail & inside sales · CT' },
+  { metric: '$5.5M+', label: 'Revenue driven', detail: 'Owned a $600K/year marketing budget and P&L that produced $5.5M+ over 2.5 years.', where: 'P&L ownership · Austin, TX' },
+  { metric: '100%', label: 'Moved online', detail: 'Rebuilt a national education org from brick-and-mortar to fully online, payments and all.', where: 'Digital rebuild · Tucson, AZ' },
+  { metric: '30+', label: 'Retainer clients', detail: 'Founder of BudAuthority, running proprietary SEO intelligence software for 30+ brands.', where: 'BudAuthority · Rhode Island' },
+];
+
+/* Section eyebrow: number + label, for rhythm between sections */
+function Eyebrow({ n, label, light = false }: { n: string; label: string; light?: boolean }) {
+  return (
+    <Item className="flex items-center gap-3">
+      <span className={`font-display font-bold text-sm ${light ? 'text-ink-faint' : 'text-line-2'}`}>{n}</span>
+      <span className="h-px w-6 bg-current opacity-30" />
+      <span className="kicker">{label}</span>
+    </Item>
+  );
+}
+
 export default function HomeView({ setActiveTab }: HomeViewProps) {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
 
   const handleNavClick = (tab: string) => {
     setActiveTab(tab);
@@ -30,403 +58,550 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const proofPoints = [
-    {
-      metric: "350+",
-      label: "Team Members Led",
-      detail: "Orchestrated scale and cross-functional alignment as senior operations leader.",
-      location: "New York, NY"
-    },
-    {
-      metric: "$30M+",
-      label: "ARR Growth from $5M",
-      detail: "Scaled channel business unit using an 80/20 organic strategy focused on the existing account base.",
-      location: "Austin, TX"
-    },
-    {
-      metric: "300%+",
-      label: "Sales Growth",
-      detail: "Grew inside sales 300%+, e-commerce 150%+, and retail foot traffic 200%+ YTD in under a year.",
-      location: "Rocky Hill, CT"
-    },
-    {
-      metric: "$5.5M+",
-      label: "Revenue Generated",
-      detail: "Managed a $600K/year marketing budget and P&L that drove $5.5M+ in revenue over 2.5 years.",
-      location: "Austin, TX"
-    },
-    {
-      metric: "100%",
-      label: "Digital Migration Success",
-      detail: "Executed organizational rebrand and rebuilt technology infrastructure to move a national network fully online.",
-      location: "Tucson, AZ"
-    },
-    {
-      metric: "Hong Kong",
-      label: "Subsidiary Launch",
-      detail: "Led product development, sales, and marketing for a brand-new commercial entity owned by OnTheGoSystems.",
-      location: "Hong Kong"
-    }
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubscribed(true);
+    setEmail('');
   };
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="space-y-24 md:space-y-36 pb-24"
-    >
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden pt-32 md:pt-40 pb-4">
-        {/* Interactive agent-network backdrop */}
-        <div className="absolute inset-0 pointer-events-none">
-          <HeroCanvas />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+    <div>
+      {/* ============================== HERO (dark, cinematic) ============================== */}
+      <section className="relative overflow-hidden pt-32 md:pt-40 pb-16 md:pb-20 px-6 md:px-12">
+        {/* Ambient dark field: copper + cyan aurora, faint tech grid */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="aurora aurora-a" />
+          <div className="aurora aurora-b" />
+          <div className="absolute inset-0 tech-grid" />
         </div>
 
-        <div className="relative z-10 px-6 md:px-12 max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-center">
-          
-          {/* Left: Text Details */}
-          <div className="md:col-span-8 space-y-6">
-            <div className="inline-flex items-center space-x-2.5 bg-zinc-900/80 border border-[#10B981]/30 px-3 py-1.5 rounded-full text-[10px] font-mono uppercase tracking-widest text-zinc-300 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] pulse-dot"></span>
-              <span>Available for Selective Advisory</span>
-            </div>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center"
+        >
+          {/* Statement */}
+          <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col gap-6">
+            <Item className="mono text-[11px] uppercase tracking-[0.2em] text-accent flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
+              Operator × Builder — Rhode Island, USA
+            </Item>
 
-            <h1 id="hero-h1" className="text-4xl md:text-6xl font-black font-display text-white tracking-tight leading-none">
-              I spent twenty years running other people's businesses. <br />
-              <span className="text-gradient">Now I build my own.</span>
+            <h1
+              id="hero-h1"
+              className="font-display font-bold text-ink tracking-[-0.035em] leading-[0.9] text-[3rem] sm:text-6xl lg:text-[4.6rem] xl:text-[5.2rem]"
+              style={{ textWrap: 'balance' as any }}
+            >
+              I scaled companies to{' '}
+              <span className="text-accent [text-shadow:0_0_40px_rgba(224,138,79,0.45)]">$30M+</span>.
+              <span className="block">Now I build my own.</span>
             </h1>
-            
-            <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl font-sans font-light">
-              Currently: building software that replaces headcount with systems. More when it's time.
-            </p>
 
-            <div className="pt-4 flex items-center space-x-4">
-              <button
-                onClick={() => handleNavClick('/contact')}
-                className="btn-shine text-black px-6 py-3.5 text-xs font-mono font-bold uppercase tracking-widest transition-transform hover:scale-[1.03] rounded cursor-pointer shadow-lg shadow-[#10B981]/10"
-              >
-                Get in Touch
-              </button>
+            <Item className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-xl">
+              Two decades operating and scaling other people&apos;s businesses. Now I pour it into my
+              own: software, AI systems, and boring companies that quietly print cash.
+            </Item>
+
+            <Item className="flex flex-wrap items-center gap-3.5 pt-1">
+              <Magnetic>
+                <button
+                  onClick={() => handleNavClick('/contact')}
+                  className="btn-accent px-7 py-4 rounded-full text-[15px] tracking-wide cursor-pointer flex items-center gap-2"
+                >
+                  <span>Work With Me</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Magnetic>
               <a
-                href="#the-public-part"
-                className="group text-zinc-400 hover:text-[#34D399] transition-colors text-xs font-mono uppercase tracking-widest flex items-center space-x-1.5"
+                href="#track-record"
+                className="group glass text-ink font-semibold text-[15px] flex items-center gap-2 px-6 py-4 rounded-full hover:border-accent/50 transition-colors"
               >
-                <span>Track Record</span>
-                <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
+                <span>See the track record</span>
+                <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
               </a>
-            </div>
+            </Item>
+
+            {/* Stat row */}
+            <Item className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-6 mt-1 border-t border-line">
+              {[
+                ['$30M+', 'ARR scaled'],
+                ['350+', 'people led'],
+                ['300%+', 'sales growth'],
+                ['30+', 'clients'],
+              ].map(([n, l], i) => (
+                <div key={i} className="flex items-baseline gap-2">
+                  <span className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight tabular-nums">
+                    <CountUp value={n} />
+                  </span>
+                  <span className="text-xs text-ink-faint uppercase tracking-wider">{l}</span>
+                </div>
+              ))}
+            </Item>
           </div>
 
-          {/* Right: Stealth Profile Headshot */}
-          <div className="md:col-span-4 flex justify-center">
-            <div className="gradient-ring relative w-48 h-48 md:w-56 md:h-56 bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col justify-between p-6 shadow-2xl group">
-              {/* Artistic Grid Mask lines representing technical building */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.10),transparent_55%)] pointer-events-none" />
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
+          {/* Portrait emerging from the dark */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="lg:col-span-5 order-1 lg:order-2 relative flex items-end justify-center min-h-[420px] sm:min-h-[500px] lg:min-h-[620px]"
+          >
+            <img
+              src="/david-hero.png"
+              alt="David Peterson"
+              loading="eager"
+              className="relative z-10 w-auto max-w-full max-h-[400px] sm:max-h-[500px] lg:max-h-[640px] object-contain -scale-x-100 select-none [mask-image:radial-gradient(115%_125%_at_52%_42%,#000_55%,transparent_96%)]"
+            />
+          </motion.div>
+        </motion.div>
+      </section>
 
-              <div className="text-[10px] font-mono text-[#34D399]/80 uppercase tracking-widest relative z-10">
-                PROFILE ID: DP // 2026
-              </div>
-
-              {/* Minimalist Graphic Element acting as high contrast headshot */}
-              <div className="flex flex-col items-center justify-center space-y-3 relative z-10 my-4">
-                <div className="w-14 h-14 rounded-full bg-zinc-950 border border-[#10B981]/40 flex items-center justify-center text-white group-hover:border-[#10B981] transition-colors duration-500 shadow-lg shadow-[#10B981]/10">
-                  <span className="font-display font-black text-sm tracking-tighter">DP</span>
-                </div>
-                <div className="text-center">
-                  <span className="block text-[11px] text-white font-mono uppercase tracking-wider font-semibold">David Peterson</span>
-                  <span className="block text-[9px] text-zinc-600 font-mono uppercase tracking-widest mt-0.5">Founding Operator</span>
-                </div>
-              </div>
-
-              <div className="text-[8px] font-mono text-zinc-600 text-center uppercase tracking-wider">
-                Rhode Island / Massachusetts // US
-              </div>
-            </div>
-          </div>
-
+      {/* ========================= KNOWN FOR MARQUEE (paper-2 band) ========================= */}
+      <section className="border-y border-line bg-paper-2 py-7 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 mb-4">
+          <span className="kicker">Known for</span>
         </div>
+        <div className="marquee-track relative">
+          <div className="marquee">
+            {[0, 1].map((dup) => (
+              <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
+                {MARQUEE_ITEMS.map((it, i) => (
+                  <span key={i} className="flex items-center text-ink font-display font-semibold text-2xl md:text-3xl whitespace-nowrap">
+                    <span className="mx-6">{it}</span>
+                    <span className="text-accent">/</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-paper-2 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-paper-2 to-transparent" />
         </div>
       </section>
 
-      {/* MARQUEE BAND */}
-      <div className="marquee-track relative overflow-hidden border-y border-zinc-900 bg-zinc-950/40 py-4">
-        <div className="marquee">
+      {/* ============================== MEET DAVID (story band + B&W portrait) ============================== */}
+      <section className="bg-paper-2">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Color half-body on a clean white panel (white bg melts, no filters) */}
+            <Item className="lg:col-span-6">
+              <div className="relative rounded-[1.75rem] bg-paper border border-line shadow-[0_36px_80px_-46px_rgba(0,0,0,0.7)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+                <img
+                  src="/david-about.png"
+                  alt="David Peterson"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-top select-none"
+                />
+              </div>
+            </Item>
+
+            {/* Story */}
+            <div className="lg:col-span-6 space-y-6">
+              <Item as="h2" className="font-display font-extrabold text-ink text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-[0.98]">
+                The operator behind
+                <br />
+                the build.
+              </Item>
+              <Item as="p" className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-2xl">
+                I started in the independent music industry, running a 350-person operation under
+                razor-thin timelines. From there: scaling a software channel from{' '}
+                <strong className="text-ink font-semibold">$5M to $30M+</strong>, launching a venture
+                out of Hong Kong, moving a national org 100% online, and 300%+ sales turnarounds.
+              </Item>
+              <Item as="p" className="text-ink-soft text-lg leading-relaxed max-w-2xl">
+                Now I build my own portfolio, software, AI systems, and boring, cash-flowing
+                companies, and share the playbook without the yes-man filter.
+              </Item>
+              <Item className="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
+                <button
+                  onClick={() => handleNavClick('/about')}
+                  className="btn-ink inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold tracking-wide cursor-pointer"
+                >
+                  <span>Read my full story</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <div className="mono text-[12px] uppercase tracking-[0.14em] text-ink-faint">
+                  Music → SaaS → Retail → AI
+                </div>
+              </Item>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ============================== TRACK RECORD (cream) ============================== */}
+      <section id="track-record" className="bg-paper scroll-mt-24">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="max-w-2xl space-y-4 mb-14">
+            <Item as="h2" className="font-display font-extrabold text-ink text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-[0.98]">
+              Before I built for myself,
+              <br />
+              I built for everyone else.
+            </Item>
+            <Item as="p" className="text-ink-soft text-lg md:text-xl">
+              Two decades of hard numbers across operations, marketing, retail, and software. Not
+              slideware. Outcomes.
+            </Item>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {PROOF.map((p, index) => (
+              <TiltCard key={index} className="ed-card rounded-2xl p-6" max={9}>
+                <div className="flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex items-start justify-between">
+                      <div className="font-display font-bold text-5xl text-ink tracking-tight">
+                        <CountUp value={p.metric} />
+                      </div>
+                      <span className="text-xs text-ink-faint font-medium mt-1">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <div className="h-1 w-10 bg-accent rounded-full mt-3" />
+                    <div className="text-ink font-semibold text-base mt-3">{p.label}</div>
+                    <p className="text-ink-soft text-sm leading-relaxed mt-2">{p.detail}</p>
+                  </div>
+                  <div className="mt-6 pt-4 border-t border-line text-xs text-ink-faint tracking-wide">
+                    {p.where}
+                  </div>
+                </div>
+              </TiltCard>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ============================== THESIS: GROW / BUILD / BUY (dark band) ============================== */}
+      <section className="bg-paper-2 border border-line text-ink">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="max-w-2xl space-y-5 mb-14">
+            <Eyebrow n="02" label="The thesis" light />
+            <Item as="h2" className="font-display font-bold text-5xl md:text-7xl tracking-tight leading-[0.95]">
+              I don't chase unicorns.
+              <br />
+              I grow <span className="serif-italic font-normal text-accent">boring</span> ones.
+            </Item>
+            <Item as="p" className="text-ink-soft text-lg leading-relaxed">
+              The best businesses are unglamorous: local, essential, and quietly profitable, doing
+              $500K to $1M in revenue. I help operators take them to $2M to $10M in sales, and I help
+              the right people buy into or work with that kind of company.
+            </Item>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { icon: TrendingUp, tag: 'Grow', desc: 'Take a real, boring business doing $500K to $1M and help it reach $2M to $10M in sales, with operating systems and demand that compound.' },
+              { icon: Wrench, tag: 'Build', desc: 'Software and AI systems built from scratch, where clean code replaces headcount and lifts margin.' },
+              { icon: Building2, tag: 'Buy', desc: 'Help the right operator find, acquire, or partner into a boring, cash-flowing company worth owning.' },
+            ].map((c, i) => (
+              <TiltCard key={c.tag} className="bg-white/[0.04] border border-white/10 rounded-2xl p-6" max={8}>
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center justify-between">
+                    <span className="w-11 h-11 rounded-full bg-accent flex items-center justify-center">
+                      <c.icon className="w-5 h-5 text-white" />
+                    </span>
+                    <span className="font-display font-bold text-4xl text-ink/15">0{i + 1}</span>
+                  </div>
+                  <h3 className="font-display font-bold text-2xl tracking-tight mt-5">{c.tag}</h3>
+                  <p className="text-ink-soft leading-relaxed mt-2">{c.desc}</p>
+                </div>
+              </TiltCard>
+            ))}
+          </div>
+
+          <Item className="mt-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <p className="text-ink-soft text-lg">Growing one of these, or want to get into one?</p>
+            <Magnetic>
+              <button
+                onClick={() => handleNavClick('/contact')}
+                className="btn-accent inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold tracking-wide cursor-pointer"
+              >
+                <span>Let's talk</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </Magnetic>
+          </Item>
+        </Reveal>
+      </section>
+
+      {/* ============================== WHAT I'M BUILDING (soft) ============================== */}
+      <section className="bg-paper-2">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-4 space-y-4">
+              <Eyebrow n="03" label="Right now" />
+              <Item as="h2" className="font-display font-bold text-ink text-4xl md:text-5xl tracking-tight">
+                What I'm
+                <br />
+                building
+              </Item>
+            </div>
+            <div className="lg:col-span-8 space-y-6">
+              <Item as="p" className="text-ink text-xl md:text-2xl leading-relaxed font-light">
+                I'm founding and operating my own portfolio of software and marketing companies. The
+                daily work is architecting private, generative{' '}
+                <span className="font-medium mark">AI agent systems</span> that automate the
+                workflows entire teams used to run, applying twenty years of operating lessons
+                directly to code instead of org charts.
+              </Item>
+              <Item as="p" className="text-ink-soft text-lg leading-relaxed">
+                The specifics go live piece by piece. The{' '}
+                <button onClick={() => handleNavClick('/now')} className="text-accent font-medium link-underline cursor-pointer">
+                  Now page
+                </button>{' '}
+                is where I keep the honest, quarterly snapshot.
+              </Item>
+              <Item>
+                <button
+                  onClick={() => handleNavClick('/now')}
+                  className="inline-flex items-center gap-2 text-ink font-semibold text-sm group"
+                >
+                  <span className="link-underline">Read what I'm focused on</span>
+                  <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Item>
+            </div>
+          </div>
+
+          {/* Live operations panel — a real look at the software I build */}
+          <Item className="mt-14 space-y-4">
+            <div className="flex items-baseline justify-between gap-4 flex-wrap">
+              <p className="font-display font-semibold text-ink text-xl md:text-2xl tracking-tight">
+                Systems that do the work of teams.
+              </p>
+              <p className="text-ink-faint text-sm max-w-xs">
+                A live look at one of them: agents scanning, ranking, and shipping fixes.
+              </p>
+            </div>
+            <LiveOps />
+          </Item>
+        </Reveal>
+      </section>
+
+      {/* ============================== NEWSLETTER (deep cream + ink card) ============================== */}
+      <section className="bg-paper-3">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <Reveal className="bg-paper-2 border border-line text-ink rounded-[2rem] px-8 py-12 md:px-16 md:py-16 relative overflow-hidden">
+            <div className="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
+            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-7 space-y-4">
+                <Item as="span" className="kicker block">The Operator's Memo</Item>
+                <Item as="h2" className="font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.02]">
+                  The playbook I wish
+                  <br />
+                  someone had handed me.
+                </Item>
+                <Item as="p" className="text-ink-soft text-lg max-w-xl">
+                  A short, occasional note on scaling operations, building with AI, and the ugly
+                  parts nobody puts on LinkedIn. No spam. Unsubscribe anytime.
+                </Item>
+              </div>
+              <Item className="lg:col-span-5">
+                {subscribed ? (
+                  <div className="bg-white/10 border border-white/10 rounded-2xl p-6 flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-full bg-accent flex items-center justify-center shrink-0">
+                      <Check className="w-5 h-5 text-white" />
+                    </span>
+                    <div>
+                      <div className="font-semibold">You're in.</div>
+                      <div className="text-ink-faint text-sm">Watch your inbox for the next memo.</div>
+                    </div>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubscribe} className="space-y-3">
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      aria-label="Email address"
+                      className="w-full bg-white/10 border border-white/15 rounded-full px-6 py-4 text-ink placeholder:text-ink-faint focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                    />
+                    <Magnetic className="w-full" strength={0.2}>
+                      <button
+                        type="submit"
+                        className="btn-accent w-full py-4 rounded-full text-sm font-semibold tracking-wide flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>Get the memo</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </Magnetic>
+                    <p className="text-ink-faint text-xs text-center">Join operators reading along as I build.</p>
+                  </form>
+                )}
+              </Item>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================== OUTLINED MARQUEE BAND ============================== */}
+      <section className="py-10 md:py-14 border-y border-line bg-paper overflow-hidden marquee-track">
+        <div className="marquee marquee--slow">
           {[0, 1].map((dup) => (
-            <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
-              {MARQUEE_ITEMS.map((item, i) => (
-                <span key={i} className="flex items-center text-[11px] font-mono uppercase tracking-[0.25em] text-zinc-500 whitespace-nowrap">
-                  <span className="mx-6">{item}</span>
-                  <span className="text-[#10B981]">/</span>
+            <div key={dup} className="flex shrink-0 items-center" aria-hidden={dup === 1}>
+              {OUTLINE_WORDS.map((w, i) => (
+                <span key={i} className="flex items-center">
+                  <span className="text-outline font-display font-bold text-6xl md:text-8xl uppercase tracking-tight mx-8">
+                    {w}
+                  </span>
+                  <span className="text-accent text-5xl md:text-7xl">·</span>
                 </span>
               ))}
             </div>
           ))}
         </div>
-        {/* edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0A0A0A] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0A0A0A] to-transparent" />
-      </div>
+      </section>
 
-      {/* 2. TRACK RECORD */}
-      <section id="the-public-part" className="px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900 pt-20 scroll-mt-20">
-        <div className="space-y-12">
-          <div className="space-y-4 max-w-2xl">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">The Public Part</span>
-            <h2 className="text-2xl md:text-4xl font-bold font-display text-white tracking-tight">
-              Before I built for myself, I built for others. <br className="hidden sm:inline" />
-              <span className="text-zinc-500">That part I can talk about.</span>
-            </h2>
-            <p className="text-zinc-500 text-xs font-mono">
-              / Hard metrics from twenty years of scaling enterprise operations, marketing networks, and products.
-            </p>
+      {/* ============================== PODCAST / MEDIA (soft) ============================== */}
+      <section className="bg-paper-2">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+            <div className="space-y-3">
+              <Eyebrow n="04" label="Listen in" />
+              <Item as="h2" className="font-display font-bold text-ink text-4xl md:text-5xl tracking-tight">
+                Podcasts &amp; publications
+              </Item>
+            </div>
+            <Item>
+              <button
+                onClick={() => handleNavClick('/media')}
+                className="text-ink font-semibold text-sm flex items-center gap-2 group cursor-pointer"
+              >
+                <span className="link-underline">All episodes &amp; speaking</span>
+                <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Item>
           </div>
 
-          {/* Cards Grid: Only loud elements on the site */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {proofPoints.map((point, index) => (
-              <div
-                key={index}
-                onMouseMove={(e) => {
-                  const r = e.currentTarget.getBoundingClientRect();
-                  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
-                  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
-                }}
-                className="spotlight glow-card bg-zinc-950 border border-zinc-900 rounded-xl p-6 flex flex-col justify-between space-y-4 relative overflow-hidden group"
-              >
-                {/* Visual accent inside card */}
-                <div className="absolute top-0 right-0 p-3 text-[9px] font-mono text-zinc-700 group-hover:text-[#10B981]/70 transition-colors select-none z-10">
-                  [S.{index+1}]
-                </div>
-
-                <div className="space-y-2 relative z-10">
-                  <div className="text-3xl md:text-4xl font-black font-display text-gradient tracking-tight">
-                    <CountUp value={point.metric} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[
+              { tag: 'Podcast · Host', title: 'Taking Back Entrepreneurship', desc: 'Direct, no-nonsense breakdowns of what it actually takes to build a business. Zero survival bias, zero sugar-coating.' },
+              { tag: 'Podcast · Co-Host', title: 'We Tried, We Failed', desc: 'Candid post-mortems of pivots, close calls, and hard-won resilience from builders who lost it and came back.' },
+            ].map((c) => (
+              <TiltCard key={c.title} className="ed-card rounded-2xl p-7 min-h-[220px] group" max={6}>
+                <div className="flex flex-col justify-between h-full">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-accent">
+                      <Mic className="w-4 h-4" />
+                      <span className="kicker">{c.tag}</span>
+                    </div>
+                    <h3 className="font-display font-bold text-2xl text-ink tracking-tight">{c.title}</h3>
+                    <p className="text-ink-soft leading-relaxed">{c.desc}</p>
                   </div>
-                  <div className="text-xs font-semibold font-mono text-zinc-300 uppercase tracking-wide">
-                    {point.label}
+                  <div className="mt-5 pt-4 border-t border-line flex items-center gap-2 text-ink font-semibold text-sm">
+                    <span className="link-underline">Listen to episodes</span>
+                    <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <p className="text-xs text-zinc-400 font-sans leading-relaxed font-light">
-                    {point.detail}
-                  </p>
                 </div>
-
-                <div className="relative z-10 pt-4 border-t border-zinc-900/60 flex justify-between items-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                  <span>{point.location}</span>
-                  <span className="text-[#10B981]/70">• Verified</span>
-                </div>
-              </div>
+              </TiltCard>
             ))}
           </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+            {[
+              { icon: BookOpen, tag: 'Publication', title: 'Game Changer vs Clout Chaser', desc: 'A framework auditing real business innovators against loud, superficial industry personalities.' },
+              { icon: Sparkles, tag: 'Speaking · Keynotes', title: 'Operations, scale & applied AI', desc: 'Raw keynotes and workshops on marketing waste, agent software, and business restructuring.' },
+            ].map((c) => (
+              <TiltCard key={c.title} className="ed-card rounded-2xl p-6" max={6}>
+                <div className="flex items-start gap-4 h-full">
+                  <span className="w-11 h-11 rounded-full bg-accent-soft flex items-center justify-center shrink-0">
+                    <c.icon className="w-5 h-5 text-accent" />
+                  </span>
+                  <div className="space-y-1.5">
+                    <span className="kicker">{c.tag}</span>
+                    <h4 className="font-display font-bold text-lg text-ink tracking-tight">{c.title}</h4>
+                    <p className="text-ink-soft text-sm leading-relaxed">{c.desc}</p>
+                  </div>
+                </div>
+              </TiltCard>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ============================== PULL QUOTE (deep cream) ============================== */}
+      <section className="bg-paper">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <Reveal className="bg-paper-3 rounded-[2rem] px-8 py-16 md:px-16 md:py-24 text-center relative overflow-hidden">
+            <Item as="div" className="text-accent font-serif text-7xl leading-none mb-4">“</Item>
+            <blockquote className="font-serif italic text-3xl md:text-5xl text-ink leading-[1.15] max-w-4xl mx-auto tracking-tight">
+              <MaskLine>I'll give you my truthful, unfiltered</MaskLine>
+              <MaskLine>two cents. If you want a yes-man,</MaskLine>
+              <MaskLine>I'm genuinely not your guy.</MaskLine>
+            </blockquote>
+            <Item className="mt-8 flex items-center justify-center gap-3">
+              <span className="h-px w-8 bg-line-2" />
+              <span className="kicker">Operating principle no. 1</span>
+              <span className="h-px w-8 bg-line-2" />
+            </Item>
+          </Reveal>
         </div>
       </section>
 
-      {/* 3. NOW (WHAT I'M BUILDING) */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900 pt-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-4 space-y-3">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">What I'm Building</span>
-            <h2 className="text-2xl md:text-3xl font-bold font-display text-white tracking-tight">
-              Now
-            </h2>
-          </div>
-          <div className="lg:col-span-8 bg-zinc-950 border border-zinc-900 p-8 rounded-2xl relative overflow-hidden space-y-6">
-            {/* Locked Door effect: beautiful ambient glow */}
-            <div className="absolute -right-24 -bottom-24 w-56 h-56 bg-[radial-gradient(circle,rgba(16,185,129,0.16),transparent_70%)] rounded-full blur-2xl pointer-events-none" />
-            
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-sans font-light max-w-2xl">
-              I am currently founding and operating my own portfolio of software and digital marketing companies. My daily focus is architecting private generative AI systems and agent networks that automate workflows traditionally managed by entire teams. By applying twenty years of operational lessons directly to code rather than complex organizational structures, I build lean systems that scale.
-            </p>
-            <p className="text-zinc-400 text-xs md:text-sm font-sans font-light">
-              The specifics aren't public yet. If you have a reason to know more, the contact page works.
-            </p>
-
-            <div className="pt-2 flex items-center space-x-6">
-              <button
-                onClick={() => handleNavClick('/now')}
-                className="text-white hover:text-zinc-300 font-mono text-xs uppercase tracking-widest flex items-center space-x-1.5 transition-colors font-semibold cursor-pointer"
-              >
-                <span>Read Current focus Page</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />
-              </button>
+      {/* ============================== ADVISORY (soft) ============================== */}
+      <section className="bg-paper-2">
+        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-4 space-y-4">
+              <Eyebrow n="05" label="Work with me" />
+              <Item as="h2" className="font-display font-bold text-ink text-4xl md:text-5xl tracking-tight">
+                Advisory
+              </Item>
+            </div>
+            <div className="lg:col-span-8 space-y-6">
+              <Item as="p" className="text-ink text-xl md:text-2xl leading-relaxed font-light">
+                I take a very small number of advisory engagements each year: operations, growth, and
+                applied AI for real businesses. Engagements start at{' '}
+                <span className="mark font-medium">$10,000/month</span>. If that number didn't scare
+                you off, we should talk.
+              </Item>
+              <Item>
+                <Magnetic>
+                  <button
+                    onClick={() => handleNavClick('/contact')}
+                    className="btn-ink inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold tracking-wide cursor-pointer"
+                  >
+                    <span>Start a conversation</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Magnetic>
+              </Item>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* 4. THE UNFILTERED BIT */}
-      <section className="relative bg-zinc-950 border-y border-zinc-900 py-20 px-6 md:px-12 overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[320px] bg-[radial-gradient(ellipse,rgba(16,185,129,0.14),transparent_70%)] pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto text-center space-y-6">
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Fair Warning</span>
-          <h2 className="text-2xl md:text-5xl font-black font-display text-white tracking-tight leading-tight max-w-3xl mx-auto">
-            <span className="text-gradient">“</span>I give my truthful, unfiltered two cents to anyone who asks. If you want a yes-man, I'm not your guy.<span className="text-gradient">”</span>
-          </h2>
-          <div className="accent-hairline h-[1px] w-12 mx-auto mt-6"></div>
-          <p className="text-[#34D399]/70 font-mono text-xs uppercase tracking-widest">
-            - OPERATIONAL PRINCIPLE NO. 1
-          </p>
-        </div>
-      </section>
-
-      {/* 5. MEDIA */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto">
-        <div className="space-y-12">
-          <div className="border-b border-zinc-900 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-2">
-              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Audio & Publications</span>
-              <h2 className="text-2xl md:text-3xl font-bold font-display text-white tracking-tight">
-                Where You've Maybe Heard Me
+      {/* ============================== FINAL CTA (dark band) ============================== */}
+      <section className="bg-paper">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <Reveal className="bg-paper-2 border border-line text-ink rounded-[2rem] px-8 py-14 md:px-16 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+            <div className="absolute -left-20 -bottom-24 w-80 h-80 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
+            <Item className="relative space-y-3 text-center md:text-left max-w-xl">
+              <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
+                Building something and want a straight answer?
               </h2>
-            </div>
-            <button
-              onClick={() => handleNavClick('/media')}
-              className="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white border-b border-zinc-900 pb-0.5 hover:border-white transition-all text-left cursor-pointer"
-            >
-              All episodes & speakings →
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Card 1: TBE */}
-            <div className="glow-card bg-zinc-950 border border-zinc-900 p-5 rounded-lg flex flex-col justify-between h-48">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-                  <Mic className="w-3.5 h-3.5" />
-                  <span>Podcast • Host</span>
-                </div>
-                <h4 className="text-sm font-bold font-display text-white leading-snug">
-                  Taking Back Entrepreneurship
-                </h4>
-                <p className="text-[11px] text-zinc-400 font-sans leading-relaxed font-light line-clamp-3">
-                  Direct, no-nonsense breakdowns of the realities of business building, minus the survival bias.
-                </p>
-              </div>
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block pt-2 border-t border-zinc-900/60">Listen to Episodes</span>
-            </div>
-
-            {/* Card 2: WTWF */}
-            <div className="glow-card bg-zinc-950 border border-zinc-900 p-5 rounded-lg flex flex-col justify-between h-48">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-                  <Mic className="w-3.5 h-3.5" />
-                  <span>Podcast • Co-Host</span>
-                </div>
-                <h4 className="text-sm font-bold font-display text-white leading-snug">
-                  We Tried, We Failed
-                </h4>
-                <p className="text-[11px] text-zinc-400 font-sans leading-relaxed font-light line-clamp-3">
-                  Candid post-mortems of business pivot decisions, structural failures, and hard-won resilience.
-                </p>
-              </div>
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block pt-2 border-t border-zinc-900/60">Listen to Episodes</span>
-            </div>
-
-            {/* Card 3: Publication */}
-            <div className="glow-card bg-zinc-950 border border-zinc-900 p-5 rounded-lg flex flex-col justify-between h-48">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>Strategic Publication</span>
-                </div>
-                <h4 className="text-sm font-bold font-display text-white leading-snug">
-                  Game Changer vs Clout Chaser
-                </h4>
-                <p className="text-[11px] text-zinc-400 font-sans leading-relaxed font-light line-clamp-3">
-                  An analytical operational framework auditing corporate innovation against loud media profiles.
-                </p>
-              </div>
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block pt-2 border-t border-zinc-900/60 font-semibold text-white">Creator</span>
-            </div>
-
-            {/* Card 4: Speaking */}
-            <div className="glow-card bg-zinc-950 border border-zinc-900 p-5 rounded-lg flex flex-col justify-between h-48">
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-[9px] font-mono text-zinc-500 uppercase tracking-widest">
-                  <Play className="w-3.5 h-3.5" />
-                  <span>speaking & keynotes</span>
-                </div>
-                <h4 className="text-sm font-bold font-display text-white leading-snug">
-                  Operations & Scale
-                </h4>
-                <p className="text-[11px] text-zinc-400 font-sans leading-relaxed font-light line-clamp-3">
-                  Delivering raw keynotes on marketing waste, custom agent software, and business restructuring.
-                </p>
-              </div>
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block pt-2 border-t border-zinc-900/60">View Speaking Topics</span>
-            </div>
-
-          </div>
+              <p className="text-ink-soft text-lg">
+                Skip the pitch deck. Tell me what you're working on and I'll tell you the truth.
+              </p>
+            </Item>
+            <Item className="relative shrink-0">
+              <Magnetic>
+                <button
+                  onClick={() => handleNavClick('/contact')}
+                  className="btn-accent px-8 py-4 rounded-full text-sm font-semibold tracking-wide cursor-pointer flex items-center gap-2"
+                >
+                  <span>Work With Me</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Magnetic>
+            </Item>
+          </Reveal>
         </div>
       </section>
-
-      {/* 6. ADVISORY */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900 pt-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-4 space-y-3">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#10B981] font-bold block">Working With Me</span>
-            <h2 className="text-2xl md:text-3xl font-bold font-display text-white tracking-tight">
-              Advisory
-            </h2>
-          </div>
-          
-          <div className="lg:col-span-8 bg-zinc-950 border border-zinc-900 p-8 rounded-2xl space-y-6">
-            <p className="text-zinc-200 text-sm md:text-base leading-relaxed font-sans font-light max-w-2xl">
-              I take on a very small number of advisory engagements: operations, growth, and applied AI for real businesses. Engagements start at <span className="text-gradient font-medium">$5,000/month</span>. If that number didn't scare you, get in touch.
-            </p>
-            <div className="pt-2">
-              <button
-                onClick={() => handleNavClick('/contact')}
-                className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-white hover:text-zinc-300 transition-colors font-bold cursor-pointer"
-              >
-                <span>Initiate Advisory Inquiry</span>
-                <ArrowUpRight className="w-4 h-4 text-zinc-500 animate-[bounce_1.5s_infinite]" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. CTA BAND */}
-      <section className="px-6 md:px-12 max-w-5xl mx-auto pt-12 pb-16">
-        <div className="p-8 md:p-12 bg-gradient-to-br from-zinc-900 via-zinc-950 to-black border border-[#10B981]/20 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
-          <div className="absolute -left-24 -bottom-24 w-72 h-72 bg-[radial-gradient(circle,rgba(16,185,129,0.18),transparent_70%)] pointer-events-none" />
-          <div className="absolute top-0 right-0 p-4 opacity-[0.03] pointer-events-none select-none">
-            <ShieldCheck className="w-64 h-64 text-[#10B981]" />
-          </div>
-
-          <div className="space-y-2 text-center md:text-left">
-            <h3 className="text-xl md:text-2xl font-bold font-display text-white tracking-tight">
-              Ready to automate operations or scale?
-            </h3>
-            <p className="text-zinc-400 text-xs md:text-sm font-sans font-light">
-              Skip the pitch deck. Get in touch directly to review strategic alignment.
-            </p>
-          </div>
-
-          <button
-            onClick={() => handleNavClick('/contact')}
-            className="btn-shine text-black px-8 py-4 text-xs font-mono font-bold uppercase tracking-widest rounded cursor-pointer shrink-0 transition-transform hover:scale-[1.03] shadow-lg shadow-[#10B981]/10 relative"
-          >
-            Get in Touch
-          </button>
-        </div>
-      </section>
-    </motion.div>
+    </div>
   );
 }

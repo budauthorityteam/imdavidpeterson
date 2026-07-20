@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// PROFILE — single source of truth for identity + external links.
+// PROFILE: single source of truth for identity + external links.
 // TODO(David): replace the `-placeholder` URLs below with your real profiles.
 // These feed the footer, contact page, and (for the real ones) the JSON-LD in
 // index.html. Leave a value as null to hide that link everywhere.
@@ -16,7 +16,7 @@ export const PROFILE = {
     instagram: 'https://instagram.com/imdavidpeterson-placeholder',
     youtube: 'https://youtube.com/imdavidpeterson-placeholder',
   },
-  realEstate: 'https://davidpeterson.realestate-placeholder.com',
+  realEstate: 'https://petersonhomes.com',
 } as const;
 
 export interface ProofPoint {
@@ -217,9 +217,9 @@ export const PROJECTS: MediaProject[] = [
 export const TIMELINE: TimelineStop[] = [
   {
     id: "budauthority-timeline",
-    period: "2016 - Present",
+    period: "2025 - Present",
     role: "Founder & Principal",
-    company: "BudAuthority",
+    company: "Multi-Vertical Marketing Agency",
     location: "Rhode Island",
     description: "Established a leading boutique digital marketing agency. Engineered proprietary custom search engine optimization algorithms and intelligence software that empowers clients to dominate search real estate.",
     achievements: [

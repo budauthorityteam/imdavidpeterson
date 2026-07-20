@@ -17,3 +17,11 @@ server.js
 # Editor
 .vscode/
 .idea/
+
+# AI agent skills (impeccable, ui-ux-pro-max, taste-skill, webgpu, etc.) are
+# committed under .claude/skills/. Settings/hooks and other-harness mirrors stay local.
+.claude/settings.json
+.claude/settings.local.json
+.agents/
+.codex/
+.gemini/

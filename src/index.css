@@ -1,177 +1,326 @@
 /* Fonts are loaded asynchronously from index.html (preconnect + non-blocking stylesheet). */
 @import "tailwindcss";
 
+/* Do not scan committed AI-skill files for utility classes (their demo UIs would
+   bloat the bundle and trip the anti-pattern detector). Only our own app. */
+@source not "../.claude";
+
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Inter Tight", "Inter", sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif; /* legacy, largely unused */
+  --font-script: "Mr Dafoe", "Segoe Script", cursive; /* signature wordmark */
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  /* Signature accent — warm "ember". Swap these two lines to re-theme the whole site. */
-  --color-accent: #10B981;
-  --color-accent-soft: #34D399;
+  /* --------------------------------------------------------------------- *
+   *  INSTITUTIONAL TECH palette: deep cool navy + warm copper accent.
+   *  Menghrani / BlackRock / Apple-dark structure + NVIDIA forward energy.
+   *  NOTE: this theme is DARK. `paper` = dark base, `ink` = light text.
+   *  Sections written as `bg-ink text-paper` become bright contrast panels.
+   * --------------------------------------------------------------------- */
+  --color-paper:      #0B1120; /* page background (deep navy, darkest) */
+  --color-paper-2:    #121A2C; /* raised panels / alt sections */
+  --color-paper-3:    #1A2338; /* highest elevation panel */
+  --color-ink:        #EEF2F9; /* headlines / primary text (cool near-white) */
+  --color-ink-soft:   #A2ADC0; /* body copy */
+  --color-ink-faint:  #6B7793; /* meta / captions */
+  --color-line:       #1E2941; /* hairlines / borders */
+  --color-line-2:     #2C3A57; /* stronger borders */
+
+  --color-accent:      #E08A4F; /* warm copper/amber, signature accent */
+  --color-accent-deep: #C46F38; /* copper, pressed/hover */
+  --color-accent-soft: #26201A; /* dark copper wash for chips */
+  --color-cyan:        #38D6E6; /* cool secondary for tech glow / data */
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #0A0A0A;
+  background-color: #0B1120;
 }
 
 body {
-  color: #FFFFFF;
-  background-color: #0A0A0A;
+  color: #EEF2F9;
+  background-color: #0B1120;
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #E08A4F;
+  color: #0B1120;
+}
+
+/* Signature wordmark */
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
 }
 
 /* ------------------------------------------------------------------ *
- *  Pizzazz layer: ambient aurora, grain, gradient text, glows
+ *  Editorial helpers
  * ------------------------------------------------------------------ */
 
-/* Gradient headline text */
-.text-gradient {
-  background-image: linear-gradient(120deg, #34D399 0%, #10B981 45%, #14B8A6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Kicker / eyebrow label */
+.kicker {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
-.text-gradient-cool {
-  background-image: linear-gradient(120deg, #ffffff 0%, #a1a1aa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Editorial serif for pull-quotes and emphasis */
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
 }
 
-/* Ambient aurora blobs behind everything */
-.aurora {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(90px);
-  will-change: transform;
-}
-.aurora-1 {
-  width: 640px; height: 640px;
-  top: -220px; left: -160px;
-  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.30), transparent 68%);
-  animation: auroraDrift 24s ease-in-out infinite;
-}
-.aurora-2 {
-  width: 560px; height: 560px;
-  top: 4%; right: -180px;
-  background: radial-gradient(circle at center, rgba(20, 184, 166, 0.20), transparent 68%);
-  animation: auroraDrift 30s ease-in-out infinite reverse;
-}
-.aurora-3 {
-  width: 720px; height: 720px;
-  bottom: -280px; left: 30%;
-  background: radial-gradient(circle at center, rgba(52, 211, 153, 0.16), transparent 70%);
-  animation: auroraDrift 34s ease-in-out infinite;
+/* Accent-marked headline word */
+.mark {
+  color: var(--color-accent);
 }
 
-@keyframes auroraDrift {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  33%  { transform: translate3d(6%, 8%, 0) scale(1.12); }
-  66%  { transform: translate3d(-5%, 4%, 0) scale(0.94); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
-}
-
-/* Fine film grain for depth */
-.grain-overlay {
-  position: absolute;
-  inset: 0;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Subtle top hairline of accent light */
-.accent-hairline {
-  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-}
-
-/* Accent glow on hover for cards */
-.glow-card {
-  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-.glow-card:hover {
-  border-color: rgba(16, 185, 129, 0.45) !important;
-  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.10), 0 18px 50px -24px rgba(16, 185, 129, 0.45);
-  transform: translateY(-3px);
-}
-
-/* Animated conic gradient ring (used on the hero profile card) */
-.gradient-ring {
+/* Hand-drawn accent underline swash under a headline word */
+.underline-swash {
   position: relative;
-  isolation: isolate;
+  display: inline-block;
 }
-.gradient-ring::before {
+.underline-swash::after {
   content: "";
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(from 0deg, transparent 0deg, var(--color-accent) 90deg, #14B8A6 180deg, transparent 260deg, transparent 360deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: spin 6s linear infinite;
+  left: -2%;
+  right: -2%;
+  bottom: 0.02em;
+  height: 0.34em;
+  background: var(--color-accent);
+  opacity: 0.22;
   z-index: -1;
+  border-radius: 2px;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* Very faint paper grain for warmth (light, not the old dark grain) */
+.paper-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
 }
+
+/* Glass panel: translucent dark surface with blur + hairline */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Tech card: dark elevated panel that lifts + glows on hover */
+.ed-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+  border: 1px solid var(--color-line);
+  transition: transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s ease, border-color .35s ease;
+}
+.ed-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(224, 138, 79, 0.4);
+  box-shadow: 0 24px 60px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(224,138,79,0.14), 0 0 40px -12px rgba(224,138,79,0.28);
+}
+
+/* Primary (light) button — bright on the dark canvas */
+.btn-ink {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.btn-ink:hover { background: #FFFFFF; transform: translateY(-2px); box-shadow: 0 12px 30px -12px rgba(255,255,255,0.25); }
+
+/* Accent button (copper) with glow */
+.btn-accent {
+  background: var(--color-accent);
+  color: #1A1206;
+  font-weight: 600;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  box-shadow: 0 0 0 0 rgba(224,138,79,0);
+}
+.btn-accent:hover { background: var(--color-accent-deep); transform: translateY(-2px); box-shadow: 0 14px 40px -12px rgba(224,138,79,0.55); }
 
 /* Pulsing accent dot */
 .pulse-dot {
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: pulseDot 2s infinite;
+  box-shadow: 0 0 0 0 rgba(224, 138, 79, 0.55);
+  animation: pulseDot 2.2s infinite;
 }
 @keyframes pulseDot {
-  0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-  70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(224, 138, 79, 0.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(224, 138, 79, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 138, 79, 0); }
 }
-
-/* Animated gradient sweep for the primary CTA */
-.btn-shine {
-  background-size: 200% 100%;
-  background-image: linear-gradient(110deg, #ffffff 0%, #ffffff 40%, #D1FAE5 50%, #ffffff 60%, #ffffff 100%);
-  animation: shine 6s linear infinite;
-}
-@keyframes shine {
-  to { background-position: -200% 0; }
-}
-
-/* Cursor spotlight on cards */
-.spotlight::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  background: radial-gradient(180px circle at var(--mx, -200px) var(--my, -200px), rgba(16, 185, 129, 0.12), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-.spotlight:hover::before { opacity: 1; }
 
 /* Marquee ticker */
 .marquee {
   display: flex;
   width: max-content;
-  animation: marquee 32s linear infinite;
+  animation: marquee 34s linear infinite;
 }
+.marquee--slow { animation-duration: 48s; }
+.marquee--rev { animation-direction: reverse; }
 .marquee-track:hover .marquee { animation-play-state: paused; }
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
+/* Cursor spotlight (used on tilt cards) */
+.spotlight { position: relative; }
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(240px circle at var(--mx, -600px) var(--my, -600px), rgba(224, 138, 79, 0.10), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Aurora glow blobs — copper + cyan bloom on the dark canvas */
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+  pointer-events: none;
+}
+.aurora-a {
+  width: 600px; height: 600px; top: -220px; left: 8%;
+  background: radial-gradient(circle at center, rgba(224, 138, 79, 0.26), transparent 68%);
+  animation: auroraDrift 26s ease-in-out infinite;
+}
+.aurora-b {
+  width: 480px; height: 480px; top: 24%; left: -180px;
+  background: radial-gradient(circle at center, rgba(56, 214, 230, 0.12), transparent 70%);
+  animation: auroraDrift 34s ease-in-out infinite reverse;
+}
+
+/* Warm accent glow utility */
+.glow-warm { box-shadow: 0 0 60px -12px rgba(224, 138, 79, 0.45); }
+
+/* Faint tech grid overlay */
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+}
+@keyframes auroraDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(5%, 7%, 0) scale(1.12); }
+  66%  { transform: translate3d(-4%, 3%, 0) scale(0.94); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* Outlined display type (for the big kinetic band) */
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--color-ink);
+  color: transparent;
+}
+.text-outline-accent {
+  -webkit-text-stroke: 1.5px var(--color-accent);
+  color: transparent;
+}
+
+/* Link underline that draws in on hover */
+.link-underline {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size .3s ease;
+  padding-bottom: 2px;
+}
+.link-underline:hover { background-size: 100% 2px; }
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Custom cursor */
+.cursor-dot {
+  position: fixed; top: 0; left: 0; width: 7px; height: 7px; border-radius: 9999px;
+  background: var(--color-accent); z-index: 120; pointer-events: none; opacity: 0;
+  transition: opacity .3s ease; will-change: transform;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 38px; height: 38px; border-radius: 9999px;
+  border: 1.5px solid #fff; z-index: 119; pointer-events: none; opacity: 0;
+  mix-blend-mode: difference; will-change: transform, scale; scale: 1;
+  transition: opacity .3s ease, scale .25s ease, background .25s ease;
+}
+.cursor-ring.is-active { scale: 1.5; background: #fff; }
+@media (pointer: fine) {
+  html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Operator / signal language (bold art-direction layer)
+ * ------------------------------------------------------------------ */
+
+/* Real monospace for data/labels — the "terminal" voice. */
+.mono {
+  font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Blinking caret after the meta line */
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  margin-left: 0.15em;
+  translate: 0 0.12em;
+  background: var(--color-accent);
+  animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+/* Hairline rule with a label notch — replaces the tiny-eyebrow scaffold */
+.rule-label {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+.rule-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-line-2);
+}
+
+/* Index number for a section, set as data not decoration */
+.section-index {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 /* Respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .aurora, .gradient-ring::before, .pulse-dot, .btn-shine, .marquee {
-    animation: none !important;
-  }
+  .pulse-dot, .marquee, .aurora, .caret::after { animation: none !important; }
   html { scroll-behavior: auto; }
+  .ed-card:hover { transform: none; }
 }

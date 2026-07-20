@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useSpring } from 'motion/react';
+import Lenis from 'lenis';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeView from './components/HomeView';
@@ -6,9 +8,54 @@ import NowView from './components/NowView';
 import AboutView from './components/AboutView';
 import MediaView from './components/MediaView';
 import ContactView from './components/ContactView';
+import ShaderBackground from './components/ShaderBackground';
+import Cursor from './components/Cursor';
+import Preloader from './components/Preloader';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.2 });
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // Momentum smooth scroll + smooth in-page anchor jumps
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    lenisRef.current = lenis;
+    let raf = 0;
+    const loop = (t: number) => {
+      lenis.raf(t);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+
+    const onAnchorClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!a) return;
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (el) {
+        e.preventDefault();
+        lenis.scrollTo(el as HTMLElement, { offset: -90 });
+      }
+    };
+    document.addEventListener('click', onAnchorClick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener('click', onAnchorClick);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
+
+  // Jump to top when the active view changes
+  useEffect(() => {
+    lenisRef.current?.scrollTo(0, { immediate: true });
+  }, [activeTab]);
 
   // Sync hash changes with the active tab for deep linking
   useEffect(() => {
@@ -50,28 +97,28 @@ export default function App() {
   // Update dynamic SEO page metadata & Schema injection
   useEffect(() => {
     let title = "David Peterson | Operator & Builder";
-    let description = "Two decades operating and scaling businesses. Now building AI-driven systems that do the work of teams. Occasionally available for advisory.";
+    let description = "I scaled other people's companies to $30M+. Now I build my own, and I share exactly how. Systems, growth, and applied AI for operators who'd rather build than talk.";
 
     switch (activeTab) {
       case 'home':
         title = "David Peterson | Operator & Builder";
-        description = "Two decades operating and scaling businesses. Now building AI-driven systems that do the work of teams. Occasionally available for advisory.";
+        description = "I scaled other people's companies to $30M+. Now I build my own, and I share exactly how. Systems, growth, and applied AI for operators who'd rather build than talk.";
         break;
       case '/now':
-        title = "Now | What David Peterson Is Working On";
-        description = "The current operational focus and live status page for David Peterson. Understated, updated quarterly.";
+        title = "Now | What David Peterson Is Building";
+        description = "A quarterly, no-spin snapshot of what David Peterson is actually working on right now: the systems, the software, and the operating focus.";
         break;
       case '/about':
         title = "About | David Peterson";
-        description = "The professional arc of David Peterson, entrepreneur, former music industry executive, and hands-on operational scaling leader.";
+        description = "From a 350-person music operation to $30M+ ARR turnarounds to building AI systems that replace headcount. The full operator's arc, told straight.";
         break;
       case '/media':
-        title = "Media | David Peterson";
-        description = "Listen to episodes of Taking Back Entrepreneurship and We Tried, We Failed. Review active keynotes and publications.";
+        title = "Podcasts & Speaking | David Peterson";
+        description = "Taking Back Entrepreneurship and We Tried, We Failed. Raw, survivor-bias-free conversations on building. Plus keynotes, workshops, and press.";
         break;
       case '/contact':
-        title = "Get in Touch | David Peterson";
-        description = "Audit, partner, or enquire. Direct, actively filtered inbox for operational scaling and advisory.";
+        title = "Work With David Peterson";
+        description = "Advisory, speaking, partnerships, or a straight answer to a hard question. Tell me what you're building and I'll tell you the truth.";
         break;
     }
 
@@ -119,13 +166,22 @@ export default function App() {
   };
 
   return (
-    <div id="app-root" className="relative min-h-screen flex flex-col bg-[#0A0A0A] text-white overflow-x-hidden">
-      {/* Ambient aurora + grain background */}
+    <div id="app-root" className="relative min-h-screen flex flex-col bg-paper text-ink overflow-x-hidden">
+      {/* Intro preloader + bespoke cursor */}
+      <Preloader />
+      <Cursor />
+
+      {/* Scroll progress bar */}
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: progress }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-accent origin-left z-[60]"
+      />
+
+      {/* Living shader field + warm paper texture */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="aurora aurora-1" />
-        <div className="aurora aurora-2" />
-        <div className="aurora aurora-3" />
-        <div className="grain-overlay" />
+        <ShaderBackground />
+        <div className="paper-grain" />
       </div>
 
       {/* Elegant Header */}
@@ -155,9 +211,9 @@ export default function App() {
               window.location.hash = '/contact';
               window.scrollTo({ top: 0, behavior: 'instant' });
             }}
-            className="w-full bg-white text-black py-4 rounded-lg text-xs font-mono font-bold uppercase tracking-widest shadow-2xl flex items-center justify-center space-x-2 border border-zinc-200 cursor-pointer"
+            className="btn-accent w-full py-4 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] shadow-xl flex items-center justify-center space-x-2 cursor-pointer"
           >
-            <span>Get in Touch</span>
+            <span>Work With Me</span>
           </button>
         </div>
       )}

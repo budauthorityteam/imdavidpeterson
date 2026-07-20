@@ -1,5 +1,4 @@
-import React from 'react';
-import { Linkedin, Twitter, Mail, ArrowUpRight, ShieldCheck, MapPin } from 'lucide-react';
+import { Linkedin, Twitter, Mail, ArrowUpRight, MapPin } from 'lucide-react';
 import { PROFILE } from '../data';
 
 interface FooterProps {
@@ -7,7 +6,6 @@ interface FooterProps {
 }
 
 export default function Footer({ setActiveTab }: FooterProps) {
-  
   const handleNavClick = (tabId: string) => {
     setActiveTab(tabId);
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -18,69 +16,58 @@ export default function Footer({ setActiveTab }: FooterProps) {
     { id: 'home', label: 'Home' },
     { id: '/now', label: 'Now' },
     { id: '/about', label: 'About' },
-    { id: '/media', label: 'Media' },
-    { id: '/contact', label: 'Contact' }
+    { id: '/media', label: 'Podcast' },
+    { id: '/contact', label: 'Contact' },
   ];
 
   return (
-    <footer className="bg-[#050505] border-t border-zinc-900 pt-16 pb-12 px-6 md:px-12">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 pb-12 border-b border-zinc-900">
-          
-          {/* Column 1: Core branding */}
-          <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center space-x-2.5">
-              <div className="w-5 h-5 rounded bg-white flex items-center justify-center text-black font-display font-black text-[10px]">
-                DP
+    <footer className="bg-paper-2 border-t border-line pt-16 pb-10 px-6 md:px-12">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 pb-12 border-b border-line">
+          {/* Brand */}
+          <div className="md:col-span-5 space-y-5">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-paper-2 flex items-center justify-center text-ink font-display font-bold text-[12px]">
+                D
               </div>
-              <span className="font-display font-bold tracking-widest uppercase text-xs text-white">
+              <span className="font-display font-semibold tracking-tight text-[15px] text-ink">
                 David Peterson
               </span>
             </div>
-            <p className="text-zinc-500 text-xs leading-relaxed max-w-sm font-light">
-              Two decades running, scaling, and automating operations. Currently founding and building systemized AI software, automation frameworks, and digital portfolio assets.
+            <p className="text-ink-soft text-sm leading-relaxed max-w-sm">
+              Two decades scaling other people's companies. Now building my own portfolio of
+              software and AI systems, and sharing the operator's playbook along the way.
             </p>
-            <div className="flex items-center space-x-4 pt-2">
-              <a
-                href={PROFILE.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-zinc-600 hover:text-[#10B981] transition-colors"
-                aria-label="David Peterson on LinkedIn"
-                title="LinkedIn Profile"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href={PROFILE.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-zinc-600 hover:text-[#10B981] transition-colors"
-                aria-label="David Peterson on X (Twitter)"
-                title="Twitter Profile"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a
-                href={`mailto:${PROFILE.email}`}
-                className="text-zinc-600 hover:text-[#10B981] transition-colors"
-                aria-label="Email David Peterson"
-                title="Email David"
-              >
-                <Mail className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-3 pt-1">
+              {[
+                { href: PROFILE.social.linkedin, Icon: Linkedin, label: 'LinkedIn' },
+                { href: PROFILE.social.twitter, Icon: Twitter, label: 'X / Twitter' },
+                { href: `mailto:${PROFILE.email}`, Icon: Mail, label: 'Email' },
+              ].map(({ href, Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="w-9 h-9 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Column 2: Navigation Links */}
+          {/* Nav */}
           <div className="md:col-span-3 space-y-4 md:pl-8">
-            <h4 className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">Navigation</h4>
-            <ul className="space-y-2 text-xs text-zinc-400 font-mono">
+            <h4 className="kicker">Explore</h4>
+            <ul className="space-y-2.5 text-sm text-ink-soft">
               {navItems.map((item) => (
                 <li key={item.id}>
-                  <button 
-                    onClick={() => handleNavClick(item.id)} 
-                    className="hover:text-white transition-colors text-left cursor-pointer uppercase text-[10px] tracking-wider"
+                  <button
+                    onClick={() => handleNavClick(item.id)}
+                    className="hover:text-accent transition-colors text-left cursor-pointer"
                   >
                     {item.label}
                   </button>
@@ -89,52 +76,38 @@ export default function Footer({ setActiveTab }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 3: Credentials & Disclosures */}
+          {/* Disclosure */}
           <div className="md:col-span-4 space-y-4">
-            <h4 className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">Professional Disclosure</h4>
-            
-            <div className="space-y-3">
-              <div className="p-4 bg-zinc-950 rounded border border-zinc-900 flex items-start space-x-3">
-                <ShieldCheck className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
-                <p className="text-[10px] text-zinc-400 leading-relaxed font-sans font-light">
-                  Licensed Real Estate Agent in Rhode Island & Massachusetts. Affiliated with premier brokerage networks.
-                  <a
-                    href={PROFILE.realEstate}
-                    target="_blank"
-                    rel="noopener noreferrer" 
-                    className="text-white hover:underline ml-1 inline-flex items-center font-mono"
-                  >
-                    <span>Practice Link</span>
-                    <ArrowUpRight className="w-2.5 h-2.5 ml-0.5" />
-                  </a>
-                </p>
-              </div>
-
-              <div className="text-[9px] text-zinc-600 leading-relaxed font-mono flex items-center space-x-1 uppercase">
-                <MapPin className="w-3 h-3 text-zinc-700" />
-                <span>Rhode Island Hub • global operational range</span>
-              </div>
+            <h4 className="kicker">Also</h4>
+            <div className="p-4 bg-paper rounded-xl border border-line text-sm text-ink-soft leading-relaxed">
+              Licensed real estate agent in Rhode Island &amp; Massachusetts.
+              <a
+                href={PROFILE.realEstate}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent-deep ml-1 inline-flex items-center font-medium"
+              >
+                <span>See practice</span>
+                <ArrowUpRight className="w-3.5 h-3.5 ml-0.5" />
+              </a>
+            </div>
+            <div className="text-xs text-ink-faint flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Rhode Island, USA · working globally</span>
             </div>
           </div>
-
         </div>
 
-        {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-[9px] text-zinc-600 font-mono tracking-wider uppercase gap-4">
-          <div>
-            © 2026 DAVID PETERSON. ALL RIGHTS RESERVED.
-          </div>
-          <div className="flex items-center space-x-6">
-            <span>STEALTH CONFIDENCE OPERATOR ARCHITECTURE</span>
-            <button 
-              onClick={() => handleNavClick('/contact')} 
-              className="hover:text-white transition-colors cursor-pointer text-zinc-500 font-bold"
-            >
-              Get In Touch
-            </button>
-          </div>
+        {/* Bottom */}
+        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-ink-faint gap-4">
+          <div>© 2026 David Peterson. All rights reserved.</div>
+          <button
+            onClick={() => handleNavClick('/contact')}
+            className="hover:text-accent transition-colors cursor-pointer font-medium"
+          >
+            Get in touch →
+          </button>
         </div>
-
       </div>
     </footer>
   );
