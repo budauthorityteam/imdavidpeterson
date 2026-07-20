@@ -97,8 +97,8 @@ export default function LiveOps() {
             <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
             <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
           </div>
-          <span className="text-[13px] font-semibold tracking-tight text-ink">
-            Sentinel <span className="text-ink-faint">/ agent operations</span>
+          <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-ink">
+            Agent Operations
           </span>
         </div>
         <div className="flex items-center gap-2">

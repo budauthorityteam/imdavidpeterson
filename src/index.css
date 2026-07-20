@@ -197,13 +197,13 @@ body {
   pointer-events: none;
 }
 .aurora-a {
-  width: 620px; height: 620px; top: -200px; right: 2%;
-  background: radial-gradient(circle at center, rgba(224, 138, 79, 0.30), transparent 68%);
+  width: 600px; height: 600px; top: -220px; left: 8%;
+  background: radial-gradient(circle at center, rgba(224, 138, 79, 0.26), transparent 68%);
   animation: auroraDrift 26s ease-in-out infinite;
 }
 .aurora-b {
-  width: 520px; height: 520px; top: 10%; left: -160px;
-  background: radial-gradient(circle at center, rgba(56, 214, 230, 0.14), transparent 70%);
+  width: 480px; height: 480px; top: 24%; left: -180px;
+  background: radial-gradient(circle at center, rgba(56, 214, 230, 0.12), transparent 70%);
   animation: auroraDrift 34s ease-in-out infinite reverse;
 }
 

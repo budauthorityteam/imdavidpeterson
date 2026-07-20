@@ -146,19 +146,13 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="lg:col-span-5 order-1 lg:order-2 relative min-h-[380px] sm:min-h-[460px] lg:min-h-[600px]"
+            className="lg:col-span-5 order-1 lg:order-2 relative flex items-end justify-center min-h-[420px] sm:min-h-[500px] lg:min-h-[620px]"
           >
-            {/* warm glow behind the figure */}
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] rounded-full blur-[60px]"
-              style={{ background: 'radial-gradient(circle, rgba(224,138,79,0.32), transparent 68%)' }}
-            />
             <img
               src="/david-hero.png"
               alt="David Peterson"
               loading="eager"
-              className="absolute inset-0 w-full h-full object-contain object-bottom -scale-x-100 select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
+              className="relative z-10 w-auto max-w-full max-h-[400px] sm:max-h-[500px] lg:max-h-[640px] object-contain -scale-x-100 select-none [mask-image:radial-gradient(115%_125%_at_52%_42%,#000_55%,transparent_96%)]"
             />
           </motion.div>
         </motion.div>
@@ -193,12 +187,12 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Color half-body on a clean white panel (white bg melts, no filters) */}
             <Item className="lg:col-span-6">
-              <div className="relative rounded-[1.75rem] bg-gradient-to-b from-paper-2 to-paper border border-line shadow-[0_36px_80px_-46px_rgba(0,0,0,0.7)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+              <div className="relative rounded-[1.75rem] bg-paper border border-line shadow-[0_36px_80px_-46px_rgba(0,0,0,0.7)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
                 <img
                   src="/david-about.png"
                   alt="David Peterson"
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-[center_top] select-none"
+                  className="absolute inset-0 w-full h-full object-cover object-top select-none"
                 />
               </div>
             </Item>

@@ -44,12 +44,9 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
         {/* Signature wordmark + DP monogram */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3 group text-left cursor-pointer"
+          className="flex items-center group text-left cursor-pointer"
         >
-          <span className="relative grid place-items-center w-9 h-9 rounded-full border border-accent/50 text-accent font-display font-bold text-[13px] tracking-tight glow-warm">
-            DP
-          </span>
-          <span className="script text-[26px] md:text-[30px] leading-none text-ink group-hover:text-accent transition-colors pr-1 -mt-1">
+          <span className="script text-[28px] md:text-[32px] leading-none text-accent transition-opacity group-hover:opacity-80 pr-1 -mt-1">
             David Peterson
           </span>
         </button>

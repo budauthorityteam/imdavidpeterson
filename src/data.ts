@@ -16,7 +16,7 @@ export const PROFILE = {
     instagram: 'https://instagram.com/imdavidpeterson-placeholder',
     youtube: 'https://youtube.com/imdavidpeterson-placeholder',
   },
-  realEstate: 'https://davidpeterson.realestate-placeholder.com',
+  realEstate: 'https://petersonhomes.com',
 } as const;
 
 export interface ProofPoint {
@@ -217,9 +217,9 @@ export const PROJECTS: MediaProject[] = [
 export const TIMELINE: TimelineStop[] = [
   {
     id: "budauthority-timeline",
-    period: "2016 - Present",
+    period: "2025 - Present",
     role: "Founder & Principal",
-    company: "BudAuthority",
+    company: "Multi-Vertical Marketing Agency",
     location: "Rhode Island",
     description: "Established a leading boutique digital marketing agency. Engineered proprietary custom search engine optimization algorithms and intelligence software that empowers clients to dominate search real estate.",
     achievements: [
