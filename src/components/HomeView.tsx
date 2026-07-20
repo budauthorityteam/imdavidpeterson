@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check, Building2, Wrench, TrendingUp } from 'lucide-react';
 import CountUp from './CountUp';
-import SystemsField from './SystemsField';
+import LiveOps from './LiveOps';
 import {
   Reveal,
   Item,
@@ -322,28 +322,17 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             </div>
           </div>
 
-          {/* Interactive systems visual (WebGPU, 2D fallback) */}
-          <Item className="mt-14">
-            <div className="relative overflow-hidden rounded-[2rem] bg-ink min-h-[320px] md:min-h-[420px]">
-              <div className="absolute -left-24 -bottom-28 w-96 h-96 rounded-full bg-accent/15 blur-3xl pointer-events-none" />
-              <SystemsField />
-              <div className="relative z-10 h-full min-h-[320px] md:min-h-[420px] flex flex-col justify-between p-7 md:p-9 pointer-events-none">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2 h-2 rounded-full bg-accent pulse-dot" />
-                  <span className="text-[11px] font-semibold tracking-[0.22em] uppercase text-paper/70">
-                    Live · agent systems
-                  </span>
-                </div>
-                <div className="max-w-md">
-                  <p className="font-display font-semibold text-paper text-xl md:text-2xl tracking-tight">
-                    Systems that do the work of teams.
-                  </p>
-                  <p className="text-paper/55 text-sm mt-2">
-                    Private agent networks, running the workflows that used to need headcount.
-                  </p>
-                </div>
-              </div>
+          {/* Live operations panel — a real look at the software I build */}
+          <Item className="mt-14 space-y-4">
+            <div className="flex items-baseline justify-between gap-4 flex-wrap">
+              <p className="font-display font-semibold text-ink text-xl md:text-2xl tracking-tight">
+                Systems that do the work of teams.
+              </p>
+              <p className="text-ink-faint text-sm max-w-xs">
+                A live look at one of them: agents scanning, ranking, and shipping fixes.
+              </p>
             </div>
+            <LiveOps />
           </Item>
         </Reveal>
       </section>
