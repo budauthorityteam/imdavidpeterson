@@ -186,14 +186,14 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       <section className="bg-paper-2">
         <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* B&W portrait on a clean white panel (white bg melts, no filters) */}
-            <Item className="lg:col-span-5">
-              <div className="relative rounded-[1.75rem] bg-white border border-line/60 shadow-[0_36px_80px_-46px_rgba(23,19,13,0.5)] overflow-hidden aspect-[4/5]">
+            {/* Color half-body on a clean white panel (white bg melts, no filters) */}
+            <Item className="lg:col-span-6">
+              <div className="relative rounded-[1.75rem] bg-white border border-line/60 shadow-[0_36px_80px_-46px_rgba(23,19,13,0.5)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
                 <img
                   src="/david-about.png"
                   alt="David Peterson"
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-[center_12%] select-none"
+                  className="absolute inset-0 w-full h-full object-cover object-[center_top] select-none"
                 />
                 <div className="absolute left-5 bottom-5 bg-ink/90 text-paper px-4 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase backdrop-blur-sm">
                   Rhode Island, USA
@@ -202,7 +202,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             </Item>
 
             {/* Story */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-6 space-y-6">
               <Item as="h2" className="font-display font-extrabold text-ink text-4xl md:text-5xl lg:text-6xl tracking-[-0.03em] leading-[0.98]">
                 The operator behind
                 <br />
