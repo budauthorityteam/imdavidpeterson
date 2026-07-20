@@ -218,7 +218,7 @@ export const TIMELINE: TimelineStop[] = [
   {
     id: "deeproots",
     period: "2025",
-    role: "Head of Operations (Contract)",
+    role: "Head of Operations",
     company: "deeproots partners",
     location: "Los Angeles, CA",
     description: "Partnered directly with the CEO to turn strategic vision into an actionable operating roadmap, building company-wide infrastructure that boosted productivity and scalability across a fast-growing SEO agency.",
@@ -232,7 +232,7 @@ export const TIMELINE: TimelineStop[] = [
   {
     id: "dylan-jahraus",
     period: "2023 - 2024",
-    role: "Chief Operating Officer (Contract)",
+    role: "Chief Operating Officer",
     company: "Dylan Jahraus",
     location: "San Diego, CA",
     description: "COO for a high-ticket info-product business. Built the entire operational backbone from scratch and scaled it to consistent million-dollar months.",
@@ -246,7 +246,7 @@ export const TIMELINE: TimelineStop[] = [
   {
     id: "wordagents",
     period: "2021 - 2023",
-    role: "Chief Operating Officer (Contract)",
+    role: "Chief Operating Officer",
     company: "WordAgents",
     location: "Brightwaters, NY",
     description: "Led day-to-day operations for a large content-production company, aligning service delivery, customer success, HR, and finance behind the CEO's growth plan.",
@@ -274,7 +274,7 @@ export const TIMELINE: TimelineStop[] = [
   {
     id: "onthegosystems",
     period: "2019",
-    role: "Head of Sales, Marketing & Product (Contract)",
+    role: "Head of Sales, Marketing & Product",
     company: "OnTheGoSystems",
     location: "Hong Kong (Remote)",
     description: "Led product development plus sales and marketing for the business, driving commercialization and market entry.",

@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Calendar, MapPin, Check, ChevronRight, ArrowRight, Wrench, Building2, TrendingUp } from 'lucide-react';
 import { TIMELINE } from '../data';
 import CountUp from './CountUp';
-import { Reveal, Item, PhotoFrame } from './Motion';
+import { Reveal, Item } from './Motion';
 
 interface AboutViewProps {
   setActiveTab: (tab: string) => void;
@@ -68,18 +68,23 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
             </div>
           </motion.div>
 
-          {/* Big, bold portrait with offset clay frame */}
+          {/* Big, bold portrait — full figure (no crop) with offset copper frame */}
           <motion.div variants={item} className="lg:col-span-6 order-1 lg:order-2 relative">
             <div
               aria-hidden="true"
               className="absolute inset-0 translate-x-3 translate-y-3 md:translate-x-6 md:translate-y-6 rounded-[2.25rem] bg-accent"
             />
-            <PhotoFrame
-              src="/david-about.png"
-              alt="David Peterson"
-              className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] overflow-hidden"
-              imgClassName="object-contain object-bottom"
-            />
+            <div className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] overflow-hidden bg-paper border border-line">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_14%,rgba(224,138,79,0.16),transparent_62%)]"
+              />
+              <img
+                src="/david-about.png"
+                alt="David Peterson"
+                className="absolute inset-0 w-full h-full object-contain object-bottom select-none"
+              />
+            </div>
           </motion.div>
         </div>
 

@@ -26,13 +26,10 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
   const progressRef = useRef(0);
   const [val, setVal] = useState(0);
   const [stage, setStage] = useState(0);
-  const [pieces, setPieces] = useState(0);
-  const TOTAL_PIECES = 396;
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     progressRef.current = v;
     setVal(Math.round((v < 0.85 ? v / 0.85 : 1) * 10_000_000));
     setStage(Math.min(5, Math.floor(v * 6)));
-    setPieces(Math.round(Math.min(1, v / 0.82) * TOTAL_PIECES));
   });
 
   const fmtV = (n: number) => (n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1000)}K`);
@@ -74,12 +71,6 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
                 {STAGES.map((s, i) => (
                   <div key={s} className={`h-1 flex-1 rounded-full transition-colors duration-300 ${i <= stage ? 'bg-accent' : 'bg-white/10'}`} />
                 ))}
-              </div>
-              <div className="flex items-center justify-between border-t border-line pt-3">
-                <span className="mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">Pieces placed</span>
-                <span className="font-display font-bold text-ink tabular-nums">
-                  {pieces}<span className="text-ink-faint"> / {TOTAL_PIECES}</span>
-                </span>
               </div>
             </div>
 
