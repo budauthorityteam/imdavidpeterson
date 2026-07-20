@@ -4,6 +4,7 @@ import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check, Building2, Wrenc
 import CountUp from './CountUp';
 import LiveOps from './LiveOps';
 import HeroCreative from './HeroCreative';
+import BusinessInABox from './BusinessInABox';
 import {
   Reveal,
   Item,
@@ -239,6 +240,9 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           </Item>
         </Reveal>
       </section>
+
+      {/* ============================== BUSINESS IN A BOX (scroll assembly) ============================== */}
+      <BusinessInABox onNav={handleNavClick} />
 
       {/* ============================== WHAT I'M BUILDING (soft) ============================== */}
       <section className="bg-paper-2">
