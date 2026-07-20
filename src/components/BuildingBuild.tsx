@@ -1,28 +1,19 @@
 import { useRef, useState } from 'react';
 import {
-  motion,
   useScroll,
   useSpring,
   useMotionValueEvent,
   useReducedMotion,
 } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
+import BuildingScene from './BuildingScene';
 
 /**
- * "Built brick by brick" — a scroll-pinned construction sequence. An office
- * tower assembles from the foundation up: bricks rise into place, windows light
- * up copper floor by floor, a crane tops it off, and enterprise value climbs.
- * All 50 bricks are driven by ONE scroll value through CSS calc (--p), so it
- * stays perfectly smooth.
+ * "Built brick by brick" — a scroll-pinned construction sequence. A real 3D
+ * office tower (BuildingScene) assembles from the foundation up as you scroll:
+ * floors rise and lock into place, window bands light up copper, and enterprise
+ * value climbs from $0 to $10M.
  */
-
-const COLS = 6;
-const FLOORS = 6;
-const BASE_COLS = 8;
-const N_FOUNDATION = BASE_COLS;
-const N_FLOORS = COLS * FLOORS;
-const N_ROOF = COLS;
-const N_TOTAL = N_FOUNDATION + N_FLOORS + N_ROOF;
 
 // Floor labels, top (built last) to bottom (built first)
 const FLOOR_LABELS = ['Headquarters', 'AI layer', 'Systems', 'Sales engine', 'Operations', 'The business'];
@@ -34,23 +25,16 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const p = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.3 });
 
+  const progressRef = useRef(0);
   const [val, setVal] = useState(0);
   const [stage, setStage] = useState(0);
   useMotionValueEvent(p, 'change', (v) => {
+    progressRef.current = v;
     setVal(Math.round((v < 0.9 ? v / 0.9 : 1) * 10_000_000));
     setStage(Math.min(5, Math.floor(v * 6)));
   });
 
   const fmtV = (n: number) => (n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1000)}K`);
-
-  // build-order index helpers
-  const floorBrickI = (rowFromTop: number, c: number) => {
-    const rowFromBottom = FLOORS - 1 - rowFromTop; // bottom floor builds first
-    return N_FOUNDATION + rowFromBottom * COLS + c;
-  };
-  const roofBrickI = (c: number) => N_FOUNDATION + N_FLOORS + c;
-
-  const brickStyle = (i: number) => ({ ['--i' as any]: i, ['--n' as any]: N_TOTAL });
 
   return (
     <section ref={ref} className="relative bg-paper" style={{ height: reduce ? 'auto' : '400vh' }}>
@@ -98,79 +82,25 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
             </button>
           </div>
 
-          {/* Right: the rising tower */}
-          <div className="lg:col-span-7 relative flex items-end justify-center min-h-[460px] lg:min-h-[560px]">
-            {/* crane */}
-            <div aria-hidden="true" className="absolute -top-2 right-6 sm:right-16 bottom-0 hidden sm:block">
-              <div className="relative h-full w-px bg-line ml-auto mr-8">
-                <div className="absolute top-6 -left-24 w-32 h-px bg-line" />
-                <div className="absolute top-6 -left-24 w-2 h-2 -mt-1 rounded-full bg-accent" />
-                <motion.div
-                  className="absolute top-6 -left-16 w-px bg-accent/60"
-                  initial={{ height: 20 }}
-                  animate={reduce ? {} : { height: [20, 60, 20] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <div className="absolute -bottom-1 -left-[3px] w-[7px] h-[7px] border-2 border-accent rounded-sm" />
-                </motion.div>
-              </div>
-            </div>
-
-            {/* rooftop beacon (reveals near the top-out) */}
-            <motion.div
-              aria-hidden="true"
-              className="brickfield absolute z-10 flex flex-col items-center"
-              style={reduce ? undefined : ({ ['--p' as any]: p } as any)}
-            >
-              <div className="brick" style={brickStyle(N_TOTAL - 1)}>
-                <div className="w-2.5 h-2.5 rounded-full bg-accent glow-warm mb-1 mx-auto" />
-              </div>
-            </motion.div>
-
-            {/* the tower */}
-            <motion.div
-              className="brickfield relative"
-              style={reduce ? undefined : ({ ['--p' as any]: p } as any)}
-            >
-              {/* roof cap */}
-              <div className="flex gap-[3px] justify-center mb-[3px] mx-1">
-                {Array.from({ length: COLS }, (_, c) => (
-                  <div key={c} className="brick brick-solid !bg-accent/80 w-[42px] sm:w-[48px] h-[10px]" style={brickStyle(roofBrickI(c))} />
-                ))}
-              </div>
-              {/* floors */}
-              <div className="flex flex-col gap-[3px]">
-                {Array.from({ length: FLOORS }, (_, r) => (
-                  <div key={r} className="flex gap-[3px] justify-center relative">
-                    {Array.from({ length: COLS }, (_, c) => {
-                      const isWin = c >= 1 && c <= COLS - 2;
-                      return (
-                        <div
-                          key={c}
-                          className={`brick ${isWin ? 'brick-win' : 'brick-solid'} w-[42px] sm:w-[48px] h-[30px] sm:h-[34px]`}
-                          style={brickStyle(floorBrickI(r, c))}
-                        />
-                      );
-                    })}
-                    {/* floor label */}
-                    <div
-                      className="brick absolute left-full ml-4 top-1/2 -translate-y-1/2 whitespace-nowrap mono text-[10px] uppercase tracking-[0.14em] text-ink-faint hidden md:block"
-                      style={brickStyle(floorBrickI(r, 0))}
-                    >
-                      {FLOOR_LABELS[r]}
-                    </div>
+          {/* Right: the 3D rising tower */}
+          <div className="lg:col-span-7 relative min-h-[460px] sm:min-h-[520px] lg:min-h-[600px]">
+            <BuildingScene progressRef={progressRef} reduce={reduce} />
+            {/* floating floor labels sync with construction phase */}
+            <div className="absolute top-4 right-2 md:right-6 space-y-1.5 text-right pointer-events-none hidden md:block">
+              {FLOOR_LABELS.map((label, i) => {
+                const shown = stage >= 5 - i;
+                return (
+                  <div
+                    key={label}
+                    className={`mono text-[10px] uppercase tracking-[0.14em] transition-all duration-500 ${
+                      shown ? 'text-ink-faint opacity-100 translate-x-0' : 'opacity-0 translate-x-2'
+                    }`}
+                  >
+                    {label}
                   </div>
-                ))}
-              </div>
-              {/* foundation */}
-              <div className="flex gap-[3px] justify-center mt-[3px]">
-                {Array.from({ length: BASE_COLS }, (_, c) => (
-                  <div key={c} className="brick brick-base w-[42px] sm:w-[48px] h-[14px]" style={brickStyle(c)} />
-                ))}
-              </div>
-              {/* ground line */}
-              <div className="mt-2 h-px w-[130%] -ml-[15%] bg-gradient-to-r from-transparent via-line-2 to-transparent" />
-            </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

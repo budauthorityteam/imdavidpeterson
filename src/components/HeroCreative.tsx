@@ -184,10 +184,10 @@ export default function HeroCreative({ onNav }: { onNav: (t: string) => void }) 
                 <motion.div
                   animate={reduce ? {} : { y: [0, -7, 0] }}
                   transition={{ duration: 3.4 + i, repeat: Infinity, ease: 'easeInOut' }}
-                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] shadow-xl ${
+                  className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] shadow-xl border ${
                     b.accent
-                      ? 'bg-accent text-[#1A1206] shadow-[0_10px_30px_-8px_rgba(224,138,79,0.6)]'
-                      : 'glass text-ink'
+                      ? 'bg-accent text-[#1A1206] border-accent/40 shadow-[0_10px_30px_-8px_rgba(224,138,79,0.6)]'
+                      : 'bg-[#0E1524] text-ink border-white/15 backdrop-blur-sm'
                   }`}
                 >
                   {b.label}
