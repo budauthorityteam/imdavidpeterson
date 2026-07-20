@@ -408,72 +408,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
         </div>
       </section>
 
-      {/* ============================== PODCAST / MEDIA (soft) ============================== */}
-      <section className="bg-paper-2">
-        <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-            <div className="space-y-3">
-              <Eyebrow n="04" label="Listen in" />
-              <Item as="h2" className="font-display font-bold text-ink text-4xl md:text-5xl tracking-tight">
-                Podcasts &amp; publications
-              </Item>
-            </div>
-            <Item>
-              <button
-                onClick={() => handleNavClick('/media')}
-                className="text-ink font-semibold text-sm flex items-center gap-2 group cursor-pointer"
-              >
-                <span className="link-underline">All episodes &amp; speaking</span>
-                <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Item>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {[
-              { tag: 'Podcast · Host', title: 'Taking Back Entrepreneurship', desc: 'Direct, no-nonsense breakdowns of what it actually takes to build a business. Zero survival bias, zero sugar-coating.' },
-              { tag: 'Podcast · Co-Host', title: 'We Tried, We Failed', desc: 'Candid post-mortems of pivots, close calls, and hard-won resilience from builders who lost it and came back.' },
-            ].map((c) => (
-              <TiltCard key={c.title} className="ed-card rounded-2xl p-7 min-h-[220px] group" max={6}>
-                <div className="flex flex-col justify-between h-full">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-accent">
-                      <Mic className="w-4 h-4" />
-                      <span className="kicker">{c.tag}</span>
-                    </div>
-                    <h3 className="font-display font-bold text-2xl text-ink tracking-tight">{c.title}</h3>
-                    <p className="text-ink-soft leading-relaxed">{c.desc}</p>
-                  </div>
-                  <div className="mt-5 pt-4 border-t border-line flex items-center gap-2 text-ink font-semibold text-sm">
-                    <span className="link-underline">Listen to episodes</span>
-                    <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </TiltCard>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
-            {[
-              { icon: BookOpen, tag: 'Publication', title: 'Game Changer vs Clout Chaser', desc: 'A framework auditing real business innovators against loud, superficial industry personalities.' },
-              { icon: Sparkles, tag: 'Speaking · Keynotes', title: 'Operations, scale & applied AI', desc: 'Raw keynotes and workshops on marketing waste, agent software, and business restructuring.' },
-            ].map((c) => (
-              <TiltCard key={c.title} className="ed-card rounded-2xl p-6" max={6}>
-                <div className="flex items-start gap-4 h-full">
-                  <span className="w-11 h-11 rounded-full bg-accent-soft flex items-center justify-center shrink-0">
-                    <c.icon className="w-5 h-5 text-accent" />
-                  </span>
-                  <div className="space-y-1.5">
-                    <span className="kicker">{c.tag}</span>
-                    <h4 className="font-display font-bold text-lg text-ink tracking-tight">{c.title}</h4>
-                    <p className="text-ink-soft text-sm leading-relaxed">{c.desc}</p>
-                  </div>
-                </div>
-              </TiltCard>
-            ))}
-          </div>
-        </Reveal>
-      </section>
+      {/* Podcast / media section hidden for now (restore when assets are ready) */}
 
       {/* ============================== PULL QUOTE (deep cream) ============================== */}
       <section className="bg-paper">
