@@ -1,13 +1,11 @@
 import { useEffect, useRef } from 'react';
-import type { Mesh, MeshStandardMaterial, LineBasicMaterial } from 'three';
 
 /**
- * 3D construction scene. An office tower assembles floor by floor in real
- * perspective: the foundation lays, floors rise and lock into place, their
- * window bands light up copper, copper edges trace the architecture, and a
- * rooftop beacon switches on. The camera slowly orbits for depth. Progress is
- * read from `progressRef` (0..1), driven by the parent's scroll. Three.js is
- * dynamically imported so it code-splits out of the initial bundle.
+ * LEGO-style construction scene. ~430 individual bricks (with studs) start
+ * scattered in the air and fly into place as you scroll, assembling an office
+ * tower from the foundation up — a visceral picture of how much it takes to
+ * build a business. Window bricks glow copper. Instanced rendering keeps
+ * hundreds of bricks smooth; Three.js is dynamically imported (code-split).
  */
 export default function BuildingScene({
   progressRef,
@@ -26,9 +24,11 @@ export default function BuildingScene({
 
     (async () => {
       const THREE = await import('three');
+      const { mergeGeometries } = await import('three/examples/jsm/utils/BufferGeometryUtils.js');
       if (disposed) return;
 
-      const COPPER = 0xe08a4f;
+      const COPPER = new THREE.Color(0xe08a4f);
+      const DARK = new THREE.Color(0x33405c);
       let w = host.clientWidth || 600;
       let h = host.clientHeight || 520;
 
@@ -41,160 +41,143 @@ export default function BuildingScene({
       renderer.domElement.style.cssText = 'width:100%;height:100%;display:block';
 
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
+      const camera = new THREE.PerspectiveCamera(42, w / h, 0.1, 100);
 
-      scene.add(new THREE.HemisphereLight(0x3a5680, 0x05080f, 0.85));
-      const key = new THREE.DirectionalLight(0xdfe8ff, 1.25);
-      key.position.set(6, 12, 7);
+      scene.add(new THREE.HemisphereLight(0x50709e, 0x0a1020, 1.15));
+      const fill = new THREE.DirectionalLight(0x9fc0ff, 0.6);
+      fill.position.set(-6, 4, 6);
+      scene.add(fill);
+      const key = new THREE.DirectionalLight(0xeaf1ff, 1.6);
+      key.position.set(7, 13, 8);
       key.castShadow = true;
       key.shadow.mapSize.set(1024, 1024);
       key.shadow.camera.near = 1;
-      key.shadow.camera.far = 40;
+      key.shadow.camera.far = 44;
+      (key.shadow.camera as any).left = -8;
+      (key.shadow.camera as any).right = 8;
+      (key.shadow.camera as any).top = 8;
+      (key.shadow.camera as any).bottom = -8;
       scene.add(key);
-      const copperLight = new THREE.PointLight(COPPER, 0, 20, 2);
-      copperLight.position.set(1.4, 4.4, 2);
+      const copperLight = new THREE.PointLight(0xe08a4f, 0, 22, 2);
+      copperLight.position.set(1.5, 5, 2.4);
       scene.add(copperLight);
 
-      // Ground + grid
       const ground = new THREE.Mesh(
-        new THREE.CircleGeometry(18, 56),
-        new THREE.MeshStandardMaterial({ color: 0x080d18, roughness: 1, metalness: 0 }),
+        new THREE.CircleGeometry(20, 60),
+        new THREE.MeshStandardMaterial({ color: 0x070c16, roughness: 1, metalness: 0 }),
       );
       ground.rotation.x = -Math.PI / 2;
       ground.receiveShadow = true;
       scene.add(ground);
-      const grid = new THREE.GridHelper(30, 30, 0x223050, 0x111a2c);
+      const grid = new THREE.GridHelper(34, 34, 0x223050, 0x0f1826);
       (grid.material as any).transparent = true;
-      (grid.material as any).opacity = 0.45;
+      (grid.material as any).opacity = 0.4;
       scene.add(grid);
 
-      const group = new THREE.Group();
-      scene.add(group);
-
-      const FLOORS = 7;
-      const fW = 1.95;
-      const fH = 0.56;
-      const fD = 1.5;
-      const baseH = 0.42;
-
-      type Part = {
-        mesh: Mesh;
-        mat: MeshStandardMaterial;
-        edge?: LineBasicMaterial;
-        wins: MeshStandardMaterial[];
-        targetY: number;
-        place: number;
-      };
-      const parts: Part[] = [];
-
-      const addBox = (
-        wd: number,
-        ht: number,
-        dp: number,
-        y: number,
-        place: number,
-        opts: { color: number; metalness?: number; roughness?: number; edge?: boolean; windows?: boolean },
-      ) => {
-        const mat = new THREE.MeshStandardMaterial({
-          color: opts.color,
-          emissive: COPPER,
-          emissiveIntensity: 0,
-          metalness: opts.metalness ?? 0.55,
-          roughness: opts.roughness ?? 0.45,
-          transparent: true,
-          opacity: 1,
-        });
-        const mesh = new THREE.Mesh(new THREE.BoxGeometry(wd, ht, dp), mat);
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-
-        let edge: LineBasicMaterial | undefined;
-        if (opts.edge) {
-          const em = new THREE.LineBasicMaterial({ color: COPPER, transparent: true, opacity: 0 });
-          mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), em));
-          edge = em;
-        }
-
-        const wins: MeshStandardMaterial[] = [];
-        if (opts.windows) {
-          // lit window bands on the front and right faces
-          const bandGeo = new THREE.BoxGeometry(wd * 0.82, ht * 0.42, 0.02);
-          const sideGeo = new THREE.BoxGeometry(0.02, ht * 0.42, dp * 0.82);
-          const mkWin = (geo: any, px: number, pz: number) => {
-            const wm = new THREE.MeshStandardMaterial({
-              color: 0x120a04,
-              emissive: COPPER,
-              emissiveIntensity: 0,
-              transparent: true,
-              opacity: 0,
-            });
-            const m = new THREE.Mesh(geo, wm);
-            m.position.set(px, 0, pz);
-            mesh.add(m);
-            wins.push(wm);
-          };
-          mkWin(bandGeo, 0, dp / 2 + 0.011);
-          mkWin(sideGeo, wd / 2 + 0.011, 0);
-        }
-
-        group.add(mesh);
-        parts.push({ mesh, mat, edge, wins, targetY: y, place });
-        return mesh;
-      };
-
-      addBox(fW + 0.6, baseH, fD + 0.5, baseH / 2, 0.0, { color: 0x0c1322, metalness: 0.2, roughness: 0.95, edge: true });
-      for (let i = 0; i < FLOORS; i++) {
-        addBox(fW, fH, fD, baseH + fH / 2 + i * fH, 0.03 + (i / FLOORS) * 0.55, {
-          color: 0x121a2e,
-          edge: true,
-          windows: true,
-        });
+      // ---- LEGO brick geometry: body + 2x2 studs, merged ----
+      const BW = 0.5, BH = 0.32, BD = 0.5;
+      const body = new THREE.BoxGeometry(BW * 0.96, BH, BD * 0.96);
+      const geos = [body];
+      const studR = 0.085, studH = 0.1;
+      for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+        const stud = new THREE.CylinderGeometry(studR, studR, studH, 12);
+        stud.translate(sx * BW * 0.24, BH / 2 + studH / 2, sz * BD * 0.24);
+        geos.push(stud);
       }
-      const roofY = baseH + FLOORS * fH + 0.12;
-      addBox(fW + 0.14, 0.24, fD + 0.14, roofY, 0.62, { color: 0x0e1524, edge: true });
+      const brickGeo = mergeGeometries(geos, false)!;
 
-      const beacon = new THREE.Mesh(
-        new THREE.SphereGeometry(0.1, 20, 20),
-        new THREE.MeshStandardMaterial({ color: COPPER, emissive: COPPER, emissiveIntensity: 0, transparent: true, opacity: 1 }),
-      );
-      beacon.position.set(0, roofY + 0.32, 0);
-      group.add(beacon);
+      // ---- generate brick placements (shell + solid foundation + roof) ----
+      const COLS = 6, DEP = 5, ROWS = 20;
+      const width = COLS * BW, depth = DEP * BD;
+      type B = { tx: number; ty: number; tz: number; sx: number; sy: number; sz: number; rot: number; order: number };
+      const wall: B[] = [];
+      const win: B[] = [];
+      const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+      for (let row = 0; row < ROWS; row++) {
+        for (let x = 0; x < COLS; x++) {
+          for (let z = 0; z < DEP; z++) {
+            const perimeter = x === 0 || x === COLS - 1 || z === 0 || z === DEP - 1;
+            const foundation = row < 2;
+            const roof = row === ROWS - 1;
+            if (!perimeter && !foundation && !roof) continue; // hollow shell
+            const tx = x * BW - width / 2 + BW / 2;
+            const ty = row * BH + BH / 2;
+            const tz = z * BD - depth / 2 + BD / 2;
+            const b: B = {
+              tx, ty, tz,
+              sx: tx + rnd(-4.5, 4.5),
+              sy: ty + rnd(2.5, 7),
+              sz: tz + rnd(-4.5, 4.5),
+              rot: rnd(-Math.PI, Math.PI),
+              order: row + Math.random() * 0.85, // bottom-up with jitter
+            };
+            const corner = (x === 0 || x === COLS - 1) && (z === 0 || z === DEP - 1);
+            const isWindow = perimeter && !corner && !foundation && !roof && row % 2 === 0;
+            (isWindow ? win : wall).push(b);
+          }
+        }
+      }
+      // global build order -> place threshold
+      const all = [...wall, ...win].sort((a, b) => a.order - b.order);
+      all.forEach((b, i) => (b.order = i / all.length));
+      const TOTAL = all.length;
 
-      group.position.y = -1.9;
+      const mkInstanced = (arr: B[], color: any, emissive: number) => {
+        const mat = new THREE.MeshStandardMaterial({ color, emissive, emissiveIntensity: emissive ? 0.55 : 0, metalness: 0.4, roughness: 0.5 });
+        const im = new THREE.InstancedMesh(brickGeo, mat, arr.length);
+        im.castShadow = true;
+        im.receiveShadow = true;
+        scene.add(im);
+        return im;
+      };
+      const wallMesh = mkInstanced(wall, DARK, 0);
+      const winMesh = mkInstanced(win, COPPER, 0xe08a4f);
 
+      const group = new THREE.Group();
+      group.position.y = 0.02; // sit the building ON the ground, not below it
+      scene.add(group);
+      // note: instanced meshes are in scene; apply group offset manually via y shift
+      const yOff = group.position.y;
+
+      const dummy = new THREE.Object3D();
       const clampf = (v: number) => Math.max(0, Math.min(1, v));
+      const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
+
+      const updateMesh = (im: any, arr: B[], p: number) => {
+        for (let i = 0; i < arr.length; i++) {
+          const b = arr[i];
+          const placed = reduce ? 1 : clampf((p - b.order) * 9);
+          const e = easeOut(placed);
+          dummy.position.set(
+            b.sx + (b.tx - b.sx) * e,
+            (b.sy + (b.ty - b.sy) * e) + yOff,
+            b.sz + (b.tz - b.sz) * e,
+          );
+          const s = reduce ? 1 : 0.001 + placed * 0.999;
+          dummy.scale.set(s, s, s);
+          const r = (1 - e) * b.rot;
+          dummy.rotation.set(r * 0.6, r, r * 0.4);
+          dummy.updateMatrix();
+          im.setMatrixAt(i, dummy.matrix);
+        }
+        im.instanceMatrix.needsUpdate = true;
+      };
+
       let raf = 0;
       let t = 0;
       const render = () => {
         t += 0.006;
         const p = reduce ? 1 : clampf(progressRef.current);
+        updateMesh(wallMesh, wall, p);
+        updateMesh(winMesh, win, p);
 
-        parts.forEach((part) => {
-          const placed = clampf((p - part.place) * 6);
-          part.mesh.position.y = part.targetY + (1 - placed) * 2.6;
-          const s = reduce ? 1 : 0.7 + placed * 0.3;
-          part.mesh.scale.set(s, s, s);
-          part.mat.opacity = reduce ? 1 : 0.04 + placed * 0.96;
-          part.mat.emissiveIntensity = placed * 0.05;
-          if (part.edge) part.edge.opacity = placed * 0.7;
-          part.wins.forEach((wm) => {
-            wm.opacity = placed;
-            wm.emissiveIntensity = placed * (0.65 + Math.sin(t * 2 + part.targetY) * 0.12);
-          });
-        });
+        copperLight.intensity = clampf((p - 0.4) * 2) * 2.2;
 
-        const topOut = clampf((p - 0.66) * 7);
-        (beacon.material as MeshStandardMaterial).emissiveIntensity = topOut * 2.4;
-        beacon.scale.setScalar(0.5 + topOut * (1 + Math.sin(t * 6) * 0.14));
-        copperLight.intensity = topOut * 1.6 + p * 0.5;
-
-        // responsive framing: pull back + scale down on narrow screens
         const narrow = w < 620;
-        group.scale.setScalar(narrow ? 0.78 : 1);
-        const az = reduce ? -0.62 : -0.62 + Math.sin(t * 0.5) * 0.45;
-        const radius = narrow ? 8.8 : 6.8;
-        camera.position.set(Math.sin(az) * radius, narrow ? 3.4 : 3.0, Math.cos(az) * radius);
-        camera.lookAt(0, narrow ? 0.9 : 1.15, 0);
+        const az = reduce ? -0.6 : -0.6 + Math.sin(t * 0.42) * 0.4;
+        const radius = narrow ? 13 : 11.5;
+        camera.position.set(Math.sin(az) * radius, narrow ? 4.8 : 4.2, Math.cos(az) * radius);
+        camera.lookAt(0, 3.0, 0);
 
         renderer.render(scene, camera);
         raf = requestAnimationFrame(render);
@@ -211,16 +194,17 @@ export default function BuildingScene({
       const ro = new ResizeObserver(onResize);
       ro.observe(host);
 
+      // expose total for the counter
+      (host as any).__brickTotal = TOTAL;
+
       cleanup = () => {
         cancelAnimationFrame(raf);
         ro.disconnect();
         renderer.dispose();
+        brickGeo.dispose();
         scene.traverse((o: any) => {
-          if (o.geometry) o.geometry.dispose();
-          if (o.material) {
-            if (Array.isArray(o.material)) o.material.forEach((m: any) => m.dispose());
-            else o.material.dispose();
-          }
+          if (o.geometry && o.geometry !== brickGeo) o.geometry.dispose();
+          if (o.material) (Array.isArray(o.material) ? o.material : [o.material]).forEach((m: any) => m.dispose());
         });
         renderer.domElement.remove();
       };
