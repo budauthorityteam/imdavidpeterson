@@ -117,7 +117,7 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
                     <button
                       onClick={() => togglePlayback(ep.id)}
                       className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all ${
-                        playing ? 'bg-accent text-white' : 'bg-ink text-paper hover:bg-accent'
+                        playing ? 'bg-accent text-white' : 'bg-paper-2 border border-line text-ink hover:bg-accent'
                       }`}
                       aria-label={playing ? 'Pause episode' : 'Play episode'}
                     >
@@ -215,7 +215,7 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
                     {press.title}
                   </h3>
                 </div>
-                <span className="w-9 h-9 rounded-full bg-paper border border-line flex items-center justify-center shrink-0 text-ink-soft group-hover:bg-ink group-hover:text-paper group-hover:border-ink transition-all">
+                <span className="w-9 h-9 rounded-full bg-paper border border-line flex items-center justify-center shrink-0 text-ink-soft group-hover:bg-paper-2 group-hover:text-ink group-hover:border-ink transition-all">
                   <ExternalLink className="w-4 h-4" />
                 </span>
               </a>

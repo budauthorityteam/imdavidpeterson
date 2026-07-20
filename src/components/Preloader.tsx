@@ -36,7 +36,7 @@ export default function Preloader() {
           key="preloader"
           exit={{ y: '-100%' }}
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[100] bg-ink text-paper flex flex-col justify-between px-6 py-8 md:px-12 md:py-10"
+          className="fixed inset-0 z-[100] bg-paper text-ink flex flex-col justify-between px-6 py-8 md:px-12 md:py-10"
         >
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-paper flex items-center justify-center text-ink font-display font-bold text-[13px]">
@@ -57,7 +57,7 @@ export default function Preloader() {
           </div>
 
           <div className="flex items-end justify-between">
-            <span className="text-paper/50 text-sm">Grow. Build. Buy.</span>
+            <span className="text-ink-faint text-sm">Grow. Build. Buy.</span>
             <span className="font-display font-bold text-6xl md:text-8xl tabular-nums leading-none">
               {n}
             </span>

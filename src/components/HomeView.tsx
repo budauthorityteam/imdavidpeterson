@@ -41,7 +41,7 @@ const PROOF = [
 function Eyebrow({ n, label, light = false }: { n: string; label: string; light?: boolean }) {
   return (
     <Item className="flex items-center gap-3">
-      <span className={`font-display font-bold text-sm ${light ? 'text-paper/40' : 'text-line-2'}`}>{n}</span>
+      <span className={`font-display font-bold text-sm ${light ? 'text-ink-faint' : 'text-line-2'}`}>{n}</span>
       <span className="h-px w-6 bg-current opacity-30" />
       <span className="kicker">{label}</span>
     </Item>
@@ -67,32 +67,39 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
 
   return (
     <div>
-      {/* ============================== HERO (photo-forward, editorial) ============================== */}
-      <section className="relative pt-6 md:pt-8 pb-4 px-4 sm:px-6 md:px-8">
+      {/* ============================== HERO (dark, cinematic) ============================== */}
+      <section className="relative overflow-hidden pt-32 md:pt-40 pb-16 md:pb-20 px-6 md:px-12">
+        {/* Ambient dark field: copper + cyan aurora, faint tech grid */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="aurora aurora-a" />
+          <div className="aurora aurora-b" />
+          <div className="absolute inset-0 tech-grid" />
+        </div>
+
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="visible"
-          className="max-w-[1240px] mx-auto rounded-[1.75rem] md:rounded-[2.25rem] bg-white border border-line/60 shadow-[0_40px_100px_-50px_rgba(23,19,13,0.45)] overflow-hidden grid grid-cols-1 lg:grid-cols-2"
+          className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center"
         >
-          {/* Left: statement */}
-          <div className="order-2 lg:order-1 px-7 sm:px-10 lg:px-14 py-12 lg:py-20 flex flex-col justify-center gap-6">
-            <Item className="flex items-center gap-2.5 text-ink font-semibold text-base md:text-lg">
-              <span className="w-2 h-2 rounded-full bg-accent pulse-dot" />
-              Operator turned owner
+          {/* Statement */}
+          <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col gap-6">
+            <Item className="mono text-[11px] uppercase tracking-[0.2em] text-accent flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
+              Operator × Builder — Rhode Island, USA
             </Item>
 
             <h1
               id="hero-h1"
-              className="font-display font-extrabold text-ink tracking-[-0.035em] leading-[0.92] text-[2.9rem] sm:text-6xl lg:text-[4.2rem] xl:text-[4.8rem]"
+              className="font-display font-bold text-ink tracking-[-0.035em] leading-[0.9] text-[3rem] sm:text-6xl lg:text-[4.6rem] xl:text-[5.2rem]"
               style={{ textWrap: 'balance' as any }}
             >
-              I scaled companies to <span className="text-accent">$30M+</span>.
-              <br />
-              Now I build my own.
+              I scaled companies to{' '}
+              <span className="text-accent [text-shadow:0_0_40px_rgba(224,138,79,0.45)]">$30M+</span>.
+              <span className="block">Now I build my own.</span>
             </h1>
 
-            <Item className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-lg">
+            <Item className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-xl">
               Two decades operating and scaling other people&apos;s businesses. Now I pour it into my
               own: software, AI systems, and boring companies that quietly print cash.
             </Item>
@@ -101,7 +108,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
               <Magnetic>
                 <button
                   onClick={() => handleNavClick('/contact')}
-                  className="btn-accent px-7 py-4 rounded-full text-[15px] font-semibold tracking-wide cursor-pointer flex items-center gap-2"
+                  className="btn-accent px-7 py-4 rounded-full text-[15px] tracking-wide cursor-pointer flex items-center gap-2"
                 >
                   <span>Work With Me</span>
                   <ArrowRight className="w-4 h-4" />
@@ -109,53 +116,51 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
               </Magnetic>
               <a
                 href="#track-record"
-                className="group text-ink font-semibold text-[15px] flex items-center gap-2 px-5 py-4 rounded-full border border-line-2 hover:border-ink transition-colors"
+                className="group glass text-ink font-semibold text-[15px] flex items-center gap-2 px-6 py-4 rounded-full hover:border-accent/50 transition-colors"
               >
                 <span>See the track record</span>
                 <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
               </a>
             </Item>
+
+            {/* Stat row */}
+            <Item className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-6 mt-1 border-t border-line">
+              {[
+                ['$30M+', 'ARR scaled'],
+                ['350+', 'people led'],
+                ['300%+', 'sales growth'],
+                ['30+', 'clients'],
+              ].map(([n, l], i) => (
+                <div key={i} className="flex items-baseline gap-2">
+                  <span className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight tabular-nums">
+                    <CountUp value={n} />
+                  </span>
+                  <span className="text-xs text-ink-faint uppercase tracking-wider">{l}</span>
+                </div>
+              ))}
+            </Item>
           </div>
 
-          {/* Right: clean, full-color portrait bleeding to the card edges */}
+          {/* Portrait emerging from the dark */}
           <motion.div
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="order-1 lg:order-2 relative bg-white min-h-[380px] sm:min-h-[460px] lg:min-h-[640px]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="lg:col-span-5 order-1 lg:order-2 relative min-h-[380px] sm:min-h-[460px] lg:min-h-[600px]"
           >
+            {/* warm glow behind the figure */}
+            <div
+              aria-hidden="true"
+              className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] rounded-full blur-[60px]"
+              style={{ background: 'radial-gradient(circle, rgba(224,138,79,0.32), transparent 68%)' }}
+            />
             <img
               src="/david-hero.png"
               alt="David Peterson"
               loading="eager"
-              className="absolute inset-0 w-full h-full object-cover object-[center_top] -scale-x-100 select-none"
+              className="absolute inset-0 w-full h-full object-contain object-bottom -scale-x-100 select-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
             />
-            {/* soft feather where the photo meets the text column (desktop) */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
           </motion.div>
-        </motion.div>
-
-        {/* Receipts strip below the card */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="max-w-[1240px] mx-auto mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center"
-        >
-          {[
-            ['$30M+', 'ARR scaled'],
-            ['350+', 'people led'],
-            ['300%+', 'sales growth'],
-            ['30+', 'clients'],
-            ['6', 'cities'],
-          ].map(([n, l], i) => (
-            <div key={i} className="flex items-baseline gap-2">
-              <span className="font-display font-extrabold text-2xl md:text-3xl text-ink tracking-tight">
-                <CountUp value={n} />
-              </span>
-              <span className="text-xs md:text-sm text-ink-faint uppercase tracking-wider">{l}</span>
-            </div>
-          ))}
         </motion.div>
       </section>
 
@@ -188,16 +193,13 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Color half-body on a clean white panel (white bg melts, no filters) */}
             <Item className="lg:col-span-6">
-              <div className="relative rounded-[1.75rem] bg-white border border-line/60 shadow-[0_36px_80px_-46px_rgba(23,19,13,0.5)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+              <div className="relative rounded-[1.75rem] bg-gradient-to-b from-paper-2 to-paper border border-line shadow-[0_36px_80px_-46px_rgba(0,0,0,0.7)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
                 <img
                   src="/david-about.png"
                   alt="David Peterson"
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover object-[center_top] select-none"
                 />
-                <div className="absolute left-5 bottom-5 bg-ink/90 text-paper px-4 py-2 rounded-full text-xs font-semibold tracking-[0.12em] uppercase backdrop-blur-sm">
-                  Rhode Island, USA
-                </div>
               </div>
             </Item>
 
@@ -278,7 +280,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       </section>
 
       {/* ============================== THESIS: GROW / BUILD / BUY (dark band) ============================== */}
-      <section className="bg-ink text-paper">
+      <section className="bg-paper-2 border border-line text-ink">
         <Reveal className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
           <div className="max-w-2xl space-y-5 mb-14">
             <Eyebrow n="02" label="The thesis" light />
@@ -287,7 +289,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
               <br />
               I grow <span className="serif-italic font-normal text-accent">boring</span> ones.
             </Item>
-            <Item as="p" className="text-paper/70 text-lg leading-relaxed">
+            <Item as="p" className="text-ink-soft text-lg leading-relaxed">
               The best businesses are unglamorous: local, essential, and quietly profitable, doing
               $500K to $1M in revenue. I help operators take them to $2M to $10M in sales, and I help
               the right people buy into or work with that kind of company.
@@ -300,23 +302,23 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
               { icon: Wrench, tag: 'Build', desc: 'Software and AI systems built from scratch, where clean code replaces headcount and lifts margin.' },
               { icon: Building2, tag: 'Buy', desc: 'Help the right operator find, acquire, or partner into a boring, cash-flowing company worth owning.' },
             ].map((c, i) => (
-              <TiltCard key={c.tag} className="bg-paper/[0.04] border border-paper/15 rounded-2xl p-6" max={8}>
+              <TiltCard key={c.tag} className="bg-white/[0.04] border border-white/10 rounded-2xl p-6" max={8}>
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between">
                     <span className="w-11 h-11 rounded-full bg-accent flex items-center justify-center">
                       <c.icon className="w-5 h-5 text-white" />
                     </span>
-                    <span className="font-display font-bold text-4xl text-paper/15">0{i + 1}</span>
+                    <span className="font-display font-bold text-4xl text-ink/15">0{i + 1}</span>
                   </div>
                   <h3 className="font-display font-bold text-2xl tracking-tight mt-5">{c.tag}</h3>
-                  <p className="text-paper/65 leading-relaxed mt-2">{c.desc}</p>
+                  <p className="text-ink-soft leading-relaxed mt-2">{c.desc}</p>
                 </div>
               </TiltCard>
             ))}
           </div>
 
           <Item className="mt-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <p className="text-paper/70 text-lg">Growing one of these, or want to get into one?</p>
+            <p className="text-ink-soft text-lg">Growing one of these, or want to get into one?</p>
             <Magnetic>
               <button
                 onClick={() => handleNavClick('/contact')}
@@ -387,7 +389,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       {/* ============================== NEWSLETTER (deep cream + ink card) ============================== */}
       <section className="bg-paper-3">
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
-          <Reveal className="bg-ink text-paper rounded-[2rem] px-8 py-12 md:px-16 md:py-16 relative overflow-hidden">
+          <Reveal className="bg-paper-2 border border-line text-ink rounded-[2rem] px-8 py-12 md:px-16 md:py-16 relative overflow-hidden">
             <div className="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
             <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-4">
@@ -397,20 +399,20 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                   <br />
                   someone had handed me.
                 </Item>
-                <Item as="p" className="text-paper/70 text-lg max-w-xl">
+                <Item as="p" className="text-ink-soft text-lg max-w-xl">
                   A short, occasional note on scaling operations, building with AI, and the ugly
                   parts nobody puts on LinkedIn. No spam. Unsubscribe anytime.
                 </Item>
               </div>
               <Item className="lg:col-span-5">
                 {subscribed ? (
-                  <div className="bg-paper/10 border border-paper/20 rounded-2xl p-6 flex items-center gap-3">
+                  <div className="bg-white/10 border border-white/10 rounded-2xl p-6 flex items-center gap-3">
                     <span className="w-10 h-10 rounded-full bg-accent flex items-center justify-center shrink-0">
                       <Check className="w-5 h-5 text-white" />
                     </span>
                     <div>
                       <div className="font-semibold">You're in.</div>
-                      <div className="text-paper/60 text-sm">Watch your inbox for the next memo.</div>
+                      <div className="text-ink-faint text-sm">Watch your inbox for the next memo.</div>
                     </div>
                   </div>
                 ) : (
@@ -422,7 +424,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@company.com"
                       aria-label="Email address"
-                      className="w-full bg-paper/10 border border-paper/25 rounded-full px-6 py-4 text-paper placeholder:text-paper/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                      className="w-full bg-white/10 border border-white/15 rounded-full px-6 py-4 text-ink placeholder:text-ink-faint focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                     />
                     <Magnetic className="w-full" strength={0.2}>
                       <button
@@ -433,7 +435,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     </Magnetic>
-                    <p className="text-paper/45 text-xs text-center">Join operators reading along as I build.</p>
+                    <p className="text-ink-faint text-xs text-center">Join operators reading along as I build.</p>
                   </form>
                 )}
               </Item>
@@ -582,13 +584,13 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       {/* ============================== FINAL CTA (dark band) ============================== */}
       <section className="bg-paper">
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
-          <Reveal className="bg-ink text-paper rounded-[2rem] px-8 py-14 md:px-16 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          <Reveal className="bg-paper-2 border border-line text-ink rounded-[2rem] px-8 py-14 md:px-16 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
             <div className="absolute -left-20 -bottom-24 w-80 h-80 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
             <Item className="relative space-y-3 text-center md:text-left max-w-xl">
               <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight leading-tight">
                 Building something and want a straight answer?
               </h2>
-              <p className="text-paper/70 text-lg">
+              <p className="text-ink-soft text-lg">
                 Skip the pitch deck. Tell me what you're working on and I'll tell you the truth.
               </p>
             </Item>

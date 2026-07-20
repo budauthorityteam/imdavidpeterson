@@ -204,7 +204,7 @@ export default function ContactView() {
               href={PROFILE.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-paper hover:bg-ink hover:border-ink transition-all"
+              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-4 h-4" />
@@ -213,7 +213,7 @@ export default function ContactView() {
               href={PROFILE.social.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-paper hover:bg-ink hover:border-ink transition-all"
+              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
               aria-label="X / Twitter"
             >
               <Twitter className="w-4 h-4" />

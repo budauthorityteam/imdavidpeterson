@@ -27,7 +27,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
           {/* Brand */}
           <div className="md:col-span-5 space-y-5">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-full bg-ink flex items-center justify-center text-paper font-display font-bold text-[12px]">
+              <div className="w-7 h-7 rounded-full bg-paper-2 flex items-center justify-center text-ink font-display font-bold text-[12px]">
                 D
               </div>
               <span className="font-display font-semibold tracking-tight text-[15px] text-ink">
@@ -51,7 +51,7 @@ export default function Footer({ setActiveTab }: FooterProps) {
                   rel="noopener noreferrer"
                   aria-label={label}
                   title={label}
-                  className="w-9 h-9 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-paper hover:bg-ink hover:border-ink transition-all"
+                  className="w-9 h-9 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
                 >
                   <Icon className="w-4 h-4" />
                 </a>

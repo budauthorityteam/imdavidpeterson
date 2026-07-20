@@ -77,12 +77,9 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
             <PhotoFrame
               src="/david-about.png"
               alt="David Peterson"
-              className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] border border-line bg-paper-2 shadow-[0_50px_90px_-45px_rgba(23,19,13,0.6)]"
-              imgClassName="object-top mix-blend-multiply"
+              className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] border border-line bg-gradient-to-b from-paper-2 to-paper shadow-[0_50px_90px_-45px_rgba(0,0,0,0.8)]"
+              imgClassName="object-top"
             />
-            <div className="absolute z-20 -bottom-4 left-5 md:left-8 bg-ink text-paper px-5 py-2.5 rounded-full text-xs font-semibold tracking-[0.14em] uppercase shadow-xl">
-              David Peterson
-            </div>
           </motion.div>
         </div>
 
@@ -161,7 +158,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
 
       {/* Acquisition thesis */}
       <Reveal as="section" className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
-        <div className="bg-ink text-paper rounded-[2rem] px-8 py-12 md:px-14 md:py-16 relative overflow-hidden">
+        <div className="bg-paper-2 border border-line text-ink rounded-[2rem] px-8 py-12 md:px-14 md:py-16 relative overflow-hidden">
           <div className="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-accent/25 blur-3xl pointer-events-none" />
           <div className="relative space-y-9">
             <div className="max-w-2xl space-y-4">
@@ -171,7 +168,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
                 <br />
                 Build what should exist.
               </Item>
-              <Item as="p" className="text-paper/70 text-lg leading-relaxed">
+              <Item as="p" className="text-ink-soft text-lg leading-relaxed">
                 These days my time splits between growing real, boring, cash-flowing companies and
                 building the software that runs them. I take a business doing $500K to $1M and help
                 it reach $2M to $10M in sales, and I help the right people buy into that kind of
@@ -184,12 +181,12 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
                 { icon: Wrench, tag: 'Build', desc: 'Software and AI systems from scratch, where clean code replaces headcount.' },
                 { icon: Building2, tag: 'Buy', desc: 'Help the right operator acquire or partner into a boring, cash-flowing company.' },
               ].map((c) => (
-                <Item key={c.tag} className="bg-paper/5 border border-paper/15 rounded-2xl p-6 space-y-3">
+                <Item key={c.tag} className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-3">
                   <span className="w-11 h-11 rounded-full bg-accent flex items-center justify-center">
                     <c.icon className="w-5 h-5 text-white" />
                   </span>
                   <h3 className="font-display font-bold text-xl tracking-tight">{c.tag}</h3>
-                  <p className="text-paper/65 text-sm leading-relaxed">{c.desc}</p>
+                  <p className="text-ink-soft text-sm leading-relaxed">{c.desc}</p>
                 </Item>
               ))}
             </div>

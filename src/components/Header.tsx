@@ -34,26 +34,28 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 bg-ink text-paper transition-all duration-300 ${
-        scrolled ? 'py-3 shadow-lg shadow-ink/20' : 'py-4'
+      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 text-ink transition-all duration-300 border-b ${
+        scrolled
+          ? 'py-3 bg-paper/80 backdrop-blur-xl border-line'
+          : 'py-4 bg-paper/40 backdrop-blur-md border-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto flex justify-between items-center">
-        {/* Wordmark */}
+        {/* Signature wordmark + DP monogram */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-2.5 group text-left cursor-pointer"
+          className="flex items-center gap-3 group text-left cursor-pointer"
         >
-          <div className="w-8 h-8 rounded-full bg-paper flex items-center justify-center text-ink font-display font-bold text-[13px] tracking-tight">
-            D
-          </div>
-          <span className="font-display font-semibold tracking-tight text-[15px] text-paper group-hover:text-accent transition-colors">
+          <span className="relative grid place-items-center w-9 h-9 rounded-full border border-accent/50 text-accent font-display font-bold text-[13px] tracking-tight glow-warm">
+            DP
+          </span>
+          <span className="script text-[26px] md:text-[30px] leading-none text-ink group-hover:text-accent transition-colors pr-1 -mt-1">
             David Peterson
           </span>
         </button>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium text-paper/60">
+        <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium text-ink-soft">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
@@ -62,8 +64,8 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
                 onClick={() => handleNavClick(item.id)}
                 className={`cursor-pointer transition-colors relative py-1 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:bg-accent after:transition-all ${
                   isActive
-                    ? 'text-paper after:w-full'
-                    : 'hover:text-paper after:w-0 hover:after:w-full'
+                    ? 'text-ink after:w-full'
+                    : 'hover:text-ink after:w-0 hover:after:w-full'
                 }`}
               >
                 {item.label}
@@ -86,7 +88,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
         {/* Mobile hamburger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-paper hover:text-accent focus:outline-none"
+          className="md:hidden text-ink hover:text-accent focus:outline-none"
           aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -95,7 +97,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
 
       {/* Mobile drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed top-[57px] left-0 right-0 bottom-0 bg-ink text-paper border-t border-paper/10 px-6 py-8 flex flex-col justify-between z-40">
+        <div className="md:hidden fixed top-[57px] left-0 right-0 bottom-0 bg-paper text-ink border-t border-line px-6 py-8 flex flex-col justify-between z-40">
           <nav className="flex flex-col">
             {navItems.map((item, idx) => {
               const isActive = activeTab === item.id;
@@ -103,12 +105,12 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`text-left py-5 border-b border-paper/10 flex justify-between items-center font-display text-2xl tracking-tight ${
-                    isActive ? 'text-accent' : 'text-paper'
+                  className={`text-left py-5 border-b border-line flex justify-between items-center font-display text-2xl tracking-tight ${
+                    isActive ? 'text-accent' : 'text-ink'
                   }`}
                 >
                   <span>{item.label}</span>
-                  <span className="text-paper/40 text-xs font-sans">0{idx + 1}</span>
+                  <span className="text-ink-faint text-xs font-sans">0{idx + 1}</span>
                 </button>
               );
             })}
@@ -122,7 +124,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
               <span>Work With Me</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
-            <div className="text-center text-[11px] text-paper/40 tracking-wide">
+            <div className="text-center text-[11px] text-ink-faint tracking-wide">
               © 2026 David Peterson
             </div>
           </div>

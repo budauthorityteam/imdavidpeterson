@@ -12,12 +12,12 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 type Agent = { key: string; role: string; hue: string };
 
 const AGENTS: Agent[] = [
-  { key: 'PF', role: 'Performance', hue: '#B66340' },
-  { key: 'LC', role: 'Local', hue: '#0FA6BC' },
-  { key: 'TC', role: 'Technical', hue: '#B66340' },
-  { key: 'CP', role: 'Competitive', hue: '#0FA6BC' },
-  { key: 'DR', role: 'Director', hue: '#B66340' },
-  { key: 'QA', role: 'Quality', hue: '#0FA6BC' },
+  { key: 'PF', role: 'Performance', hue: '#E08A4F' },
+  { key: 'LC', role: 'Local', hue: '#38D6E6' },
+  { key: 'TC', role: 'Technical', hue: '#E08A4F' },
+  { key: 'CP', role: 'Competitive', hue: '#38D6E6' },
+  { key: 'DR', role: 'Director', hue: '#E08A4F' },
+  { key: 'QA', role: 'Quality', hue: '#38D6E6' },
 ];
 
 // Authentic-flavored activity lines (the work, not internal codenames).
@@ -88,7 +88,7 @@ export default function LiveOps() {
   );
 
   return (
-    <div className="relative w-full overflow-hidden rounded-[1.6rem] bg-ink text-paper border border-white/10">
+    <div className="relative w-full overflow-hidden rounded-[1.6rem] bg-[#080C18] text-ink border border-white/10">
       {/* top status bar */}
       <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10">
         <div className="flex items-center gap-3">
@@ -97,8 +97,8 @@ export default function LiveOps() {
             <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
             <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
           </div>
-          <span className="text-[13px] font-semibold tracking-tight text-paper/90">
-            Sentinel <span className="text-paper/40">/ agent operations</span>
+          <span className="text-[13px] font-semibold tracking-tight text-ink">
+            Sentinel <span className="text-ink-faint">/ agent operations</span>
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -107,14 +107,14 @@ export default function LiveOps() {
             animate={active ? { opacity: [1, 0.35, 1] } : {}}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
           />
-          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-paper/55">Live</span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">Live</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[1.05fr_1.2fr_0.9fr]">
         {/* Agents */}
         <div className="p-5 md:border-r border-white/10 space-y-2.5">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-paper/40 mb-1">Agents online</div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-faint mb-1">Agents online</div>
           {AGENTS.map((a, i) => (
             <div key={a.key} className="flex items-center gap-3">
               <span
@@ -124,7 +124,7 @@ export default function LiveOps() {
                 {a.key}
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[13px] font-medium text-paper/90 leading-tight">{a.role}</div>
+                <div className="text-[13px] font-medium text-ink leading-tight">{a.role}</div>
                 <div className="h-1 mt-1 rounded-full bg-white/10 overflow-hidden">
                   <motion.span
                     className="block h-full rounded-full"
@@ -145,7 +145,7 @@ export default function LiveOps() {
 
         {/* Streaming feed */}
         <div className="p-5 md:border-r border-white/10">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-paper/40 mb-3">Activity</div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-faint mb-3">Activity</div>
           <div className="space-y-2 min-h-[220px]">
             <AnimatePresence initial={false} mode="popLayout">
               {rows.map((idx, pos) => {
@@ -162,10 +162,10 @@ export default function LiveOps() {
                   >
                     <span
                       className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ background: item.tag === 'up' ? '#3ECF8E' : '#B66340' }}
+                      style={{ background: item.tag === 'up' ? '#3ECF8E' : '#E08A4F' }}
                     />
-                    <span className="text-paper/50 shrink-0 font-medium">{item.agent}</span>
-                    <span className="text-paper/85">{item.text}</span>
+                    <span className="text-ink-faint shrink-0 font-medium">{item.agent}</span>
+                    <span className="text-ink">{item.text}</span>
                   </motion.div>
                 );
               })}
@@ -176,13 +176,13 @@ export default function LiveOps() {
         {/* Geo grid + metrics */}
         <div className="p-5 space-y-4">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-paper/40 mb-2">Geo-grid</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-faint mb-2">Geo-grid</div>
             <div className="grid grid-cols-6 gap-1">
               {cells.map((v, i) => (
                 <motion.span
                   key={i}
                   className="aspect-square rounded-[3px]"
-                  style={{ background: '#B66340' }}
+                  style={{ background: '#E08A4F' }}
                   initial={{ opacity: 0.12 + v * 0.7 }}
                   animate={
                     active
@@ -209,8 +209,8 @@ export default function LiveOps() {
 function Metric({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="font-display font-bold text-2xl tracking-tight tabular-nums text-paper">{value}</div>
-      <div className="text-[10.5px] text-paper/45 leading-tight mt-0.5">{label}</div>
+      <div className="font-display font-bold text-2xl tracking-tight tabular-nums text-ink">{value}</div>
+      <div className="text-[10.5px] text-ink-faint leading-tight mt-0.5">{label}</div>
     </div>
   );
 }
