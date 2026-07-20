@@ -69,48 +69,48 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
 
   return (
     <div>
-      {/* ============================== HERO (floating panel + portrait) ============================== */}
-      <section className="relative overflow-hidden pt-28 md:pt-36 pb-16 md:pb-24 px-6 md:px-12">
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 max-w-6xl mx-auto"
-        >
-          <div className="rounded-[2rem] md:rounded-[2.5rem] bg-[#FBFAF5] border border-line/70 shadow-[0_44px_90px_-46px_rgba(23,19,13,0.4)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
-            {/* Left: content */}
-            <div className="lg:col-span-7 order-2 lg:order-1 p-8 md:p-12 lg:p-14 flex flex-col justify-center gap-6">
-              <Item className="inline-flex w-fit items-center gap-2.5 bg-paper-2 border border-line px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.14em] uppercase text-ink-soft">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
-                <span>Operator · Builder · Founder of BudAuthority</span>
-              </Item>
+      {/* ============================== HERO (operator / signal) ============================== */}
+      <section className="relative overflow-hidden pt-24 md:pt-28 pb-4 md:pb-8">
+        {/* Signature mono meta strip — the "terminal" voice, not a rounded pill */}
+        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-6xl mx-auto px-6 md:px-12">
+          <Item className="mono text-[11px] uppercase tracking-[0.16em] text-ink-faint flex flex-wrap items-center gap-x-5 gap-y-1.5 border-b border-line-2 pb-4">
+            <span className="text-accent flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" /> Available for select advisory
+            </span>
+            <span className="hidden sm:inline text-line-2">/</span>
+            <span>Rhode Island, USA</span>
+            <span className="hidden sm:inline text-line-2">/</span>
+            <span>Operator × Builder</span>
+            <span className="ml-auto text-ink/70 caret">EST. 20 YRS IN</span>
+          </Item>
+        </motion.div>
 
+        {/* Oversized statement + portrait, overlapping and asymmetric */}
+        <div className="max-w-6xl mx-auto px-6 md:px-12 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-end pt-10 md:pt-14">
+            <motion.div variants={stagger} initial="hidden" animate="visible" className="lg:col-span-8 relative z-10">
               <h1
                 id="hero-h1"
-                className="font-display font-bold text-ink tracking-[-0.02em] leading-[0.94] text-5xl md:text-6xl xl:text-7xl"
+                className="font-display font-bold text-ink tracking-[-0.035em] leading-[0.84] text-[3.15rem] sm:text-7xl lg:text-8xl xl:text-[6.6rem]"
+                style={{ textWrap: 'balance' as any }}
               >
                 <MaskLine>I scaled other</MaskLine>
+                <MaskLine>people's companies</MaskLine>
                 <MaskLine>
-                  people's companies to{' '}
-                  <span className="underline-swash">$30M+</span>.
+                  to <span className="mark">$30M+</span>.
                 </MaskLine>
-                <MaskLine className="mark serif-italic font-normal">Now I build my own.</MaskLine>
+                <MaskLine className="serif-italic font-normal text-ink-soft">Now I build my own.</MaskLine>
               </h1>
 
-              <Item className="text-2xl md:text-3xl font-display font-medium text-ink-soft">
+              <Item className="mt-7 text-xl md:text-2xl font-display font-medium text-ink-soft max-w-xl">
                 Today that means{' '}
-                <RotatingWord
-                  className="text-accent"
-                  words={['AI agents.', 'boring businesses.', 'SEO engines.', 'cash flow.']}
-                />
+                <RotatingWord className="text-accent" words={['AI agents.', 'boring businesses.', 'SEO engines.', 'cash flow.']} />
+                <span className="block text-base md:text-lg text-ink-faint font-sans font-normal mt-3">
+                  Twenty years of operating lessons, poured into code instead of org charts. No fluff, no yes-man answers.
+                </span>
               </Item>
 
-              <Item className="text-ink-soft text-lg leading-relaxed max-w-xl">
-                Twenty years of operating lessons, poured into code instead of org charts. No fluff,
-                no yes-man answers.
-              </Item>
-
-              <Item className="flex flex-wrap items-center gap-4 pt-1">
+              <Item className="flex flex-wrap items-center gap-4 mt-8">
                 <Magnetic>
                   <button
                     onClick={() => handleNavClick('/contact')}
@@ -120,48 +120,60 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </Magnetic>
-                <a
-                  href="#track-record"
-                  className="group text-ink font-semibold text-sm flex items-center gap-2 link-underline"
-                >
+                <a href="#track-record" className="group text-ink font-semibold text-sm flex items-center gap-2 link-underline">
                   <span>See the track record</span>
                   <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
                 </a>
               </Item>
+            </motion.div>
 
-              {/* Compact proof strip */}
-              <Item className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-5 mt-1 border-t border-line">
-                {[
-                  { n: '$30M+', l: 'ARR scaled' },
-                  { n: '350+', l: 'people led' },
-                  { n: '30+', l: 'clients' },
-                ].map((s) => (
-                  <div key={s.l} className="flex items-baseline gap-2">
-                    <span className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight">
-                      <CountUp value={s.n} />
-                    </span>
-                    <span className="text-xs text-ink-faint uppercase tracking-wider">{s.l}</span>
-                  </div>
-                ))}
-              </Item>
-            </div>
-
-            {/* Right: portrait — larger, bolder */}
-            <div className="lg:col-span-5 order-1 lg:order-2 relative min-h-[440px] sm:min-h-[560px] lg:min-h-[720px]">
-              {/* warm accent wash behind the figure for depth */}
-              <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(120%_80%_at_70%_20%,rgba(182,99,64,0.14),transparent_60%)] pointer-events-none" />
+            {/* Portrait: tall, bleeds off the top-right, overlapped by the headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+              className="lg:col-span-4 relative min-h-[420px] sm:min-h-[520px] lg:min-h-[600px] -mx-6 lg:mx-0 lg:-mt-24 order-first lg:order-none"
+            >
+              <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(120%_80%_at_65%_25%,rgba(182,99,64,0.16),transparent_60%)] pointer-events-none" />
               <PhotoFrame
                 src="/david-hero.png"
                 alt="David Peterson, operator and builder"
                 mirror
-                className="absolute inset-0 h-full w-full scale-[1.06] origin-bottom"
+                className="absolute inset-0 h-full w-full bg-paper scale-[1.08] origin-bottom [mask-image:radial-gradient(125%_120%_at_58%_42%,#000_50%,transparent_98%)]"
                 imgClassName="object-top mix-blend-multiply"
               />
-              <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#FBFAF5] to-transparent pointer-events-none" />
-              <div className="lg:hidden absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FBFAF5] to-transparent pointer-events-none" />
-            </div>
+            </motion.div>
           </div>
-        </motion.div>
+
+          {/* Receipts ticker — hard facts as a running data line */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-2 md:mt-4 border-t border-b border-line-2 py-3 marquee-track overflow-hidden relative">
+            <div className="marquee marquee--slow mono text-[12px] uppercase tracking-[0.14em] text-ink-soft">
+              {[0, 1].map((dup) => (
+                <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
+                  {[
+                    ['$30M+', 'ARR scaled from $5M'],
+                    ['350+', 'people led'],
+                    ['300%+', 'sales growth YTD'],
+                    ['$5.5M+', 'revenue driven'],
+                    ['30+', 'retainer clients'],
+                    ['100%', 'moved online'],
+                    ['6', 'cities operated in'],
+                  ].map(([n, l], i) => (
+                    <span key={i} className="flex items-center whitespace-nowrap">
+                      <span className="mx-5 flex items-baseline gap-2">
+                        <span className="text-accent font-semibold">{n}</span>
+                        <span className="text-ink-faint">{l}</span>
+                      </span>
+                      <span className="text-line-2">•</span>
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-paper to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-paper to-transparent" />
+          </motion.div>
+        </div>
       </section>
 
       {/* ========================= KNOWN FOR MARQUEE (paper-2 band) ========================= */}
