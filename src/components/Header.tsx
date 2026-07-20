@@ -46,20 +46,20 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
           onClick={() => handleNavClick('home')}
           className="flex items-center group text-left cursor-pointer"
         >
-          <span className="script text-[28px] md:text-[32px] leading-none text-accent transition-opacity group-hover:opacity-80 pr-1 -mt-1">
+          <span className="script text-[32px] md:text-[38px] leading-none text-accent transition-opacity group-hover:opacity-80 pr-1 -mt-1">
             David Peterson
           </span>
         </button>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium text-ink-soft">
+        <nav className="hidden md:flex items-center gap-9 text-[17px] font-semibold text-ink/80 font-display tracking-tight">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`cursor-pointer transition-colors relative py-1 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:bg-accent after:transition-all ${
+                className={`cursor-pointer transition-colors relative py-1 after:absolute after:-bottom-1 after:left-0 after:h-[3px] after:rounded-full after:bg-accent after:transition-all ${
                   isActive
                     ? 'text-ink after:w-full'
                     : 'hover:text-ink after:w-0 hover:after:w-full'
@@ -75,10 +75,10 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
         <div className="hidden md:block">
           <button
             onClick={() => handleNavClick('/contact')}
-            className="btn-accent px-5 py-2.5 rounded-full text-[12px] font-semibold tracking-wide cursor-pointer flex items-center gap-1.5"
+            className="btn-accent px-6 py-3 rounded-full text-[15px] font-bold tracking-wide cursor-pointer flex items-center gap-2"
           >
             <span>Work With Me</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
 

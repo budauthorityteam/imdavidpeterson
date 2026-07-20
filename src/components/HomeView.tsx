@@ -3,6 +3,9 @@ import { motion } from 'motion/react';
 import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check, Building2, Wrench, TrendingUp } from 'lucide-react';
 import CountUp from './CountUp';
 import LiveOps from './LiveOps';
+import HeroCreative from './HeroCreative';
+import BusinessInABox from './BusinessInABox';
+import BuildingBuild from './BuildingBuild';
 import {
   Reveal,
   Item,
@@ -27,6 +30,17 @@ const MARQUEE_ITEMS = [
 ];
 
 const OUTLINE_WORDS = ['Grow', 'Build', 'Buy', 'Grow', 'Build', 'Buy'];
+
+const TRUSTED_BY = [
+  'WordAgents',
+  'Trilogy Software',
+  'Aurea Software',
+  'Crossover',
+  'OnTheGoSystems',
+  'Coldwell Banker',
+  'Namco Pools',
+  'GuardRails',
+];
 
 const PROOF = [
   { metric: '$30M+', label: 'ARR grown from $5M', detail: 'Scaled a channel business unit in under three years with an 80/20 organic strategy.', where: 'Aurea Software · Austin, TX' },
@@ -67,99 +81,30 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
 
   return (
     <div>
-      {/* ============================== HERO (dark, cinematic) ============================== */}
-      <section className="relative overflow-hidden pt-32 md:pt-40 pb-16 md:pb-20 px-6 md:px-12">
-        {/* Ambient dark field: copper + cyan aurora, faint tech grid */}
-        <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="aurora aurora-a" />
-          <div className="aurora aurora-b" />
-          <div className="absolute inset-0 tech-grid" />
-        </div>
+      {/* ============================== HERO (interactive) ============================== */}
+      <HeroCreative onNav={handleNavClick} />
 
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-          className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center"
-        >
-          {/* Statement */}
-          <div className="lg:col-span-7 order-2 lg:order-1 flex flex-col gap-6">
-            <Item className="mono text-[11px] uppercase tracking-[0.2em] text-accent flex items-center gap-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
-              Operator × Builder — Rhode Island, USA
-            </Item>
-
-            <h1
-              id="hero-h1"
-              className="font-display font-bold text-ink tracking-[-0.035em] leading-[0.9] text-[3rem] sm:text-6xl lg:text-[4.6rem] xl:text-[5.2rem]"
-              style={{ textWrap: 'balance' as any }}
-            >
-              I scaled companies to{' '}
-              <span className="text-accent [text-shadow:0_0_40px_rgba(224,138,79,0.45)]">$30M+</span>.
-              <span className="block">Now I build my own.</span>
-            </h1>
-
-            <Item className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-xl">
-              Two decades operating and scaling other people&apos;s businesses. Now I pour it into my
-              own: software, AI systems, and boring companies that quietly print cash.
-            </Item>
-
-            <Item className="flex flex-wrap items-center gap-3.5 pt-1">
-              <Magnetic>
-                <button
-                  onClick={() => handleNavClick('/contact')}
-                  className="btn-accent px-7 py-4 rounded-full text-[15px] tracking-wide cursor-pointer flex items-center gap-2"
-                >
-                  <span>Work With Me</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </Magnetic>
-              <a
-                href="#track-record"
-                className="group glass text-ink font-semibold text-[15px] flex items-center gap-2 px-6 py-4 rounded-full hover:border-accent/50 transition-colors"
+      {/* ========================= TRUSTED BY (as seen on) ========================= */}
+      <section className="border-y border-line bg-paper">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 md:py-12 space-y-6">
+          <p className="mono text-[12px] uppercase tracking-[0.24em] text-accent text-center">
+            Trusted by the companies I&apos;ve operated inside
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 md:gap-x-12 gap-y-4">
+            {TRUSTED_BY.map((c) => (
+              <span
+                key={c}
+                className="font-display font-bold text-lg md:text-2xl text-ink-faint hover:text-ink transition-colors tracking-tight"
               >
-                <span>See the track record</span>
-                <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
-              </a>
-            </Item>
-
-            {/* Stat row */}
-            <Item className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-6 mt-1 border-t border-line">
-              {[
-                ['$30M+', 'ARR scaled'],
-                ['350+', 'people led'],
-                ['300%+', 'sales growth'],
-                ['30+', 'clients'],
-              ].map(([n, l], i) => (
-                <div key={i} className="flex items-baseline gap-2">
-                  <span className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight tabular-nums">
-                    <CountUp value={n} />
-                  </span>
-                  <span className="text-xs text-ink-faint uppercase tracking-wider">{l}</span>
-                </div>
-              ))}
-            </Item>
+                {c}
+              </span>
+            ))}
           </div>
-
-          {/* Portrait emerging from the dark */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="lg:col-span-5 order-1 lg:order-2 relative flex items-end justify-center min-h-[420px] sm:min-h-[500px] lg:min-h-[620px]"
-          >
-            <img
-              src="/david-hero.png"
-              alt="David Peterson"
-              loading="eager"
-              className="relative z-10 w-auto max-w-full max-h-[400px] sm:max-h-[500px] lg:max-h-[640px] object-contain -scale-x-100 select-none [mask-image:radial-gradient(115%_125%_at_52%_42%,#000_55%,transparent_96%)]"
-            />
-          </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ========================= KNOWN FOR MARQUEE (paper-2 band) ========================= */}
-      <section className="border-y border-line bg-paper-2 py-7 overflow-hidden">
+      <section className="border-b border-line bg-paper-2 py-9 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6 md:px-12 mb-4">
           <span className="kicker">Known for</span>
         </div>
@@ -168,7 +113,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             {[0, 1].map((dup) => (
               <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
                 {MARQUEE_ITEMS.map((it, i) => (
-                  <span key={i} className="flex items-center text-ink font-display font-semibold text-2xl md:text-3xl whitespace-nowrap">
+                  <span key={i} className="flex items-center text-ink font-display font-extrabold text-3xl md:text-5xl tracking-tight whitespace-nowrap">
                     <span className="mx-6">{it}</span>
                     <span className="text-accent">/</span>
                   </span>
@@ -187,12 +132,13 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Color half-body on a clean white panel (white bg melts, no filters) */}
             <Item className="lg:col-span-6">
-              <div className="relative rounded-[1.75rem] bg-paper border border-line shadow-[0_36px_80px_-46px_rgba(0,0,0,0.7)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+              <div className="relative rounded-[1.75rem] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+                <div aria-hidden="true" className="absolute inset-0 rounded-[1.75rem] bg-[radial-gradient(120%_90%_at_50%_18%,rgba(224,138,79,0.14),transparent_62%)]" />
                 <img
                   src="/david-about.png"
                   alt="David Peterson"
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-top select-none"
+                  className="absolute inset-0 w-full h-full object-contain object-bottom select-none"
                 />
               </div>
             </Item>
@@ -325,6 +271,12 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           </Item>
         </Reveal>
       </section>
+
+      {/* ============================== BUILT BRICK BY BRICK (scroll construction) ============================== */}
+      <BuildingBuild onNav={handleNavClick} />
+
+      {/* ============================== BUSINESS IN A BOX (scroll assembly) ============================== */}
+      <BusinessInABox onNav={handleNavClick} />
 
       {/* ============================== WHAT I'M BUILDING (soft) ============================== */}
       <section className="bg-paper-2">
