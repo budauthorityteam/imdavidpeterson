@@ -16,7 +16,6 @@ export default function Footer({ setActiveTab }: FooterProps) {
     { id: 'home', label: 'Home' },
     { id: '/now', label: 'Now' },
     { id: '/about', label: 'About' },
-    { id: '/media', label: 'Podcast' },
     { id: '/contact', label: 'Contact' },
   ];
 

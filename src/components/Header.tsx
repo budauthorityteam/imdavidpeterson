@@ -28,7 +28,6 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
     { id: 'home', label: 'Home' },
     { id: '/now', label: 'Now' },
     { id: '/about', label: 'About' },
-    { id: '/media', label: 'Podcast' },
     { id: '/contact', label: 'Contact' },
   ];
 
