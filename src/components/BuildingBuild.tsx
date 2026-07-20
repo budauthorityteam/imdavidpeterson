@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import {
   useScroll,
-  useSpring,
   useMotionValueEvent,
   useReducedMotion,
 } from 'motion/react';
@@ -23,14 +22,13 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  const p = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.3 });
 
   const progressRef = useRef(0);
   const [val, setVal] = useState(0);
   const [stage, setStage] = useState(0);
-  useMotionValueEvent(p, 'change', (v) => {
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
     progressRef.current = v;
-    setVal(Math.round((v < 0.9 ? v / 0.9 : 1) * 10_000_000));
+    setVal(Math.round((v < 0.85 ? v / 0.85 : 1) * 10_000_000));
     setStage(Math.min(5, Math.floor(v * 6)));
   });
 
@@ -54,8 +52,8 @@ export default function BuildingBuild({ onNav }: { onNav: (t: string) => void })
               <span className="text-accent">from the ground up.</span>
             </h2>
             <p className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-md">
-              Foundation, operations, a demand engine, systems, an AI layer, then the headquarters on
-              top. Scroll to watch a business get built, floor by floor.
+              Every brick is a decision, a system, a hire, a hard-won lesson. Scroll and watch a
+              business come together piece by piece, from the foundation to the headquarters.
             </p>
 
             <div className="rounded-2xl glass p-5 space-y-4 max-w-sm">
