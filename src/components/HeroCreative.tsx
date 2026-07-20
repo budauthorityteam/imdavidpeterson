@@ -164,7 +164,7 @@ export default function HeroCreative({ onNav }: { onNav: (t: string) => void }) 
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="absolute inset-0 mx-auto w-auto h-full max-h-[640px] object-contain object-bottom -scale-x-100 select-none [mask-image:radial-gradient(115%_125%_at_52%_42%,#000_55%,transparent_96%)]"
+            className="absolute inset-0 mx-auto w-auto h-full max-h-[660px] object-contain object-center -scale-x-100 select-none"
           />
 
           {badges.map((b, i) => {

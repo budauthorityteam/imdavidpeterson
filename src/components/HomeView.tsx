@@ -100,12 +100,13 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Color half-body on a clean white panel (white bg melts, no filters) */}
             <Item className="lg:col-span-6">
-              <div className="relative rounded-[1.75rem] bg-paper border border-line shadow-[0_36px_80px_-46px_rgba(0,0,0,0.7)] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+              <div className="relative rounded-[1.75rem] overflow-hidden aspect-[5/6] lg:aspect-[4/5] lg:min-h-[620px]">
+                <div aria-hidden="true" className="absolute inset-0 rounded-[1.75rem] bg-[radial-gradient(120%_90%_at_50%_18%,rgba(224,138,79,0.14),transparent_62%)]" />
                 <img
                   src="/david-about.png"
                   alt="David Peterson"
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-top select-none"
+                  className="absolute inset-0 w-full h-full object-contain object-bottom select-none"
                 />
               </div>
             </Item>

@@ -77,8 +77,8 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
             <PhotoFrame
               src="/david-about.png"
               alt="David Peterson"
-              className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] border border-line bg-paper shadow-[0_50px_90px_-45px_rgba(0,0,0,0.8)]"
-              imgClassName="object-cover object-top"
+              className="relative z-10 aspect-[4/5] w-full rounded-[2.25rem] overflow-hidden"
+              imgClassName="object-contain object-bottom"
             />
           </motion.div>
         </div>
