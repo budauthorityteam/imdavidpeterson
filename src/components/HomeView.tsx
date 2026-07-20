@@ -5,6 +5,7 @@ import CountUp from './CountUp';
 import LiveOps from './LiveOps';
 import HeroCreative from './HeroCreative';
 import BusinessInABox from './BusinessInABox';
+import BuildingBuild from './BuildingBuild';
 import {
   Reveal,
   Item,
@@ -29,6 +30,17 @@ const MARQUEE_ITEMS = [
 ];
 
 const OUTLINE_WORDS = ['Grow', 'Build', 'Buy', 'Grow', 'Build', 'Buy'];
+
+const TRUSTED_BY = [
+  'WordAgents',
+  'Trilogy Software',
+  'Aurea Software',
+  'Crossover',
+  'OnTheGoSystems',
+  'Coldwell Banker',
+  'Namco Pools',
+  'GuardRails',
+];
 
 const PROOF = [
   { metric: '$30M+', label: 'ARR grown from $5M', detail: 'Scaled a channel business unit in under three years with an 80/20 organic strategy.', where: 'Aurea Software · Austin, TX' },
@@ -72,8 +84,27 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       {/* ============================== HERO (interactive) ============================== */}
       <HeroCreative onNav={handleNavClick} />
 
+      {/* ========================= TRUSTED BY (as seen on) ========================= */}
+      <section className="border-y border-line bg-paper">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 md:py-12 space-y-6">
+          <p className="mono text-[12px] uppercase tracking-[0.24em] text-accent text-center">
+            Trusted by the companies I&apos;ve operated inside
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 md:gap-x-12 gap-y-4">
+            {TRUSTED_BY.map((c) => (
+              <span
+                key={c}
+                className="font-display font-bold text-lg md:text-2xl text-ink-faint hover:text-ink transition-colors tracking-tight"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ========================= KNOWN FOR MARQUEE (paper-2 band) ========================= */}
-      <section className="border-y border-line bg-paper-2 py-7 overflow-hidden">
+      <section className="border-b border-line bg-paper-2 py-9 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6 md:px-12 mb-4">
           <span className="kicker">Known for</span>
         </div>
@@ -82,7 +113,7 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
             {[0, 1].map((dup) => (
               <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
                 {MARQUEE_ITEMS.map((it, i) => (
-                  <span key={i} className="flex items-center text-ink font-display font-semibold text-2xl md:text-3xl whitespace-nowrap">
+                  <span key={i} className="flex items-center text-ink font-display font-extrabold text-3xl md:text-5xl tracking-tight whitespace-nowrap">
                     <span className="mx-6">{it}</span>
                     <span className="text-accent">/</span>
                   </span>
@@ -240,6 +271,9 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           </Item>
         </Reveal>
       </section>
+
+      {/* ============================== BUILT BRICK BY BRICK (scroll construction) ============================== */}
+      <BuildingBuild onNav={handleNavClick} />
 
       {/* ============================== BUSINESS IN A BOX (scroll assembly) ============================== */}
       <BusinessInABox onNav={handleNavClick} />

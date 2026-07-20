@@ -63,10 +63,10 @@ body {
 
 /* Kicker / eyebrow label */
 .kicker {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-accent);
 }
@@ -209,6 +209,43 @@ body {
 
 /* Warm accent glow utility */
 .glow-warm { box-shadow: 0 0 60px -12px rgba(224, 138, 79, 0.45); }
+
+/* ------------------------------------------------------------------ *
+ *  Brick-by-brick building: each brick reveals as the shared --p
+ *  (scroll progress, 0..1) passes its own --i/--n threshold. One motion
+ *  value drives the whole field via CSS calc, so 50+ bricks stay smooth.
+ * ------------------------------------------------------------------ */
+.brickfield { --p: 1; }
+.brick {
+  --start: calc(var(--i) / var(--n));
+  --l: clamp(0, (var(--p) - var(--start)) * 16, 1);
+  opacity: var(--l);
+  transform: translateY(calc((1 - var(--l)) * 34px)) scale(calc(0.82 + var(--l) * 0.18));
+  will-change: transform, opacity;
+}
+/* structural brick (concrete/steel) */
+.brick-solid {
+  background: linear-gradient(180deg, #1a2338, #131a2c);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 2px;
+}
+/* window brick — lights copper as it builds */
+.brick-win {
+  border-radius: 2px;
+  border: 1px solid rgba(224,138,79, calc(0.15 + var(--l) * 0.35));
+  background:
+    linear-gradient(180deg, rgba(224,138,79, calc(var(--l) * 0.85)), rgba(224,138,79, calc(var(--l) * 0.4)));
+  box-shadow: 0 0 calc(var(--l) * 12px) rgba(224,138,79, calc(var(--l) * 0.55));
+}
+/* foundation slab */
+.brick-base {
+  background: linear-gradient(180deg, #0f1626, #0a0f1c);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brick { transform: none; opacity: 1; }
+}
 
 /* Faint tech grid overlay */
 .tech-grid {
