@@ -84,6 +84,9 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       {/* ============================== HERO (interactive) ============================== */}
       <HeroCreative onNav={handleNavClick} />
 
+      {/* ============================== BUILT BRICK BY BRICK (3D construction — right under the hero) ============================== */}
+      <BuildingBuild onNav={handleNavClick} />
+
       {/* ========================= TRUSTED BY (as seen on) ========================= */}
       <section className="border-y border-line bg-paper">
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-10 md:py-12 space-y-6">
@@ -271,9 +274,6 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
           </Item>
         </Reveal>
       </section>
-
-      {/* ============================== BUILT BRICK BY BRICK (scroll construction) ============================== */}
-      <BuildingBuild onNav={handleNavClick} />
 
       {/* ============================== BUSINESS IN A BOX (scroll assembly) ============================== */}
       <BusinessInABox onNav={handleNavClick} />
