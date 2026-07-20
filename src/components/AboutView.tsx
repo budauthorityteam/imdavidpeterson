@@ -63,7 +63,7 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
               <div className="space-y-1">
                 <span className="kicker">Since</span>
                 <div className="text-ink font-semibold">Two decades in</div>
-                <div className="text-ink-soft text-sm">Music → SaaS → AI</div>
+                <div className="text-ink-soft text-sm">SaaS → Ops → AI</div>
               </div>
             </div>
           </motion.div>
@@ -96,30 +96,28 @@ export default function AboutView({ setActiveTab }: AboutViewProps) {
           {/* Narrative */}
           <motion.div variants={item} className="lg:col-span-8 space-y-5 text-ink-soft text-lg leading-relaxed">
             <p>
-              I spent nearly two decades at the intersection of marketing, software, media, and
-              operations. My career didn't start in a corporate suite. It started in the fast,
-              high-stress world of the independent music industry, where I led an organization of
-              over <strong className="text-ink font-semibold">350 people</strong>, ran international
-              tour logistics, coordinated press, and negotiated distribution deals. That trial by
-              fire taught me how to align large, messy teams under razor-thin timelines.
+              For 16+ years I've been the operator behind founder-led businesses, taking them from
+              startup to <strong className="text-ink font-semibold">$30M+ ARR</strong>. My work sits
+              at the intersection of operations, marketing, and technology, translating a founder's
+              vision into systems a team can actually execute.
             </p>
             <p>
-              When SaaS and digital products started reshaping the enterprise, I moved my operating
-              baseline into tech. At Aurea Software in Austin, I led the organic scaling of our
-              channel business unit, taking it from{' '}
-              <strong className="text-ink font-semibold">$5M to $30M+ ARR</strong> in under three
-              years with an 80/20 account-expansion protocol. That's where I refined my thesis: act
-              like an <em>intrapreneur</em> inside established systems, strip out the inefficiency,
-              and execute with extreme ownership.
+              I cut my teeth inside the Trilogy Software family. At{' '}
+              <strong className="text-ink font-semibold">Aurea</strong> I scaled a channel business
+              from <strong className="text-ink font-semibold">$5M to $30M+ ARR</strong>, building the
+              operating systems and 600+ partner network that made the growth durable; at{' '}
+              <strong className="text-ink font-semibold">Versata</strong> I ran M&A operations,
+              cutting acquisition debt 75% and saving $7M across 10 deals. That's where I refined my
+              thesis: act like an <em>intrapreneur</em>, strip out the inefficiency, execute with
+              extreme ownership.
             </p>
             <p>
-              The work took me around the globe: product, sales, and market entry for a new venture
-              out of <strong className="text-ink font-semibold">Hong Kong</strong>; a full digital
-              rebuild that moved a national education org 100% online from{' '}
-              <strong className="text-ink font-semibold">Tucson</strong>, custom membership and
-              payments included. Through all of it, my job was to build engines that made companies
-              grow and run smoothly. $600K marketing budgets, 300%+ sales growth, e-commerce
-              rebuilds.
+              From there the work went global and hands-on: product, sales, and market entry out of{' '}
+              <strong className="text-ink font-semibold">Hong Kong</strong>; a 300% sales turnaround
+              and full digital transformation at Namco Pools; and Chief Operating Officer roles at{' '}
+              <strong className="text-ink font-semibold">WordAgents</strong> (a 350-person remote
+              team) and a high-ticket business I scaled to consecutive{' '}
+              <strong className="text-ink font-semibold">$1M+ months at 60%+ margins</strong>.
             </p>
             <p>
               Then the landscape shifted. I watched teams spend hours on work that well-designed
