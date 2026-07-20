@@ -9,8 +9,6 @@ import {
   MaskLine,
   TiltCard,
   Magnetic,
-  RotatingWord,
-  PhotoFrame,
   stagger,
 } from './Motion';
 
@@ -69,111 +67,96 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
 
   return (
     <div>
-      {/* ============================== HERO (operator / signal) ============================== */}
-      <section className="relative overflow-hidden pt-24 md:pt-28 pb-4 md:pb-8">
-        {/* Signature mono meta strip — the "terminal" voice, not a rounded pill */}
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-6xl mx-auto px-6 md:px-12">
-          <Item className="mono text-[11px] uppercase tracking-[0.16em] text-ink-faint flex flex-wrap items-center gap-x-5 gap-y-1.5 border-b border-line-2 pb-4">
-            <span className="text-accent flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" /> Available for select advisory
-            </span>
-            <span className="hidden sm:inline text-line-2">/</span>
-            <span>Rhode Island, USA</span>
-            <span className="hidden sm:inline text-line-2">/</span>
-            <span>Operator × Builder</span>
-            <span className="ml-auto text-ink/70 caret">EST. 20 YRS IN</span>
-          </Item>
-        </motion.div>
+      {/* ============================== HERO (photo-forward, editorial) ============================== */}
+      <section className="relative pt-6 md:pt-8 pb-4 px-4 sm:px-6 md:px-8">
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+          className="max-w-[1240px] mx-auto rounded-[1.75rem] md:rounded-[2.25rem] bg-white border border-line/60 shadow-[0_40px_100px_-50px_rgba(23,19,13,0.45)] overflow-hidden grid grid-cols-1 lg:grid-cols-2"
+        >
+          {/* Left: statement */}
+          <div className="order-2 lg:order-1 px-7 sm:px-10 lg:px-14 py-12 lg:py-0 flex flex-col justify-center gap-6">
+            <Item className="flex items-center gap-2.5 text-ink font-semibold text-base md:text-lg">
+              <span className="w-2 h-2 rounded-full bg-accent pulse-dot" />
+              Operator turned owner
+            </Item>
 
-        {/* Oversized statement + portrait, overlapping and asymmetric */}
-        <div className="max-w-6xl mx-auto px-6 md:px-12 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-end pt-10 md:pt-14">
-            <motion.div variants={stagger} initial="hidden" animate="visible" className="lg:col-span-8 relative z-10">
-              <h1
-                id="hero-h1"
-                className="font-display font-bold text-ink tracking-[-0.035em] leading-[0.84] text-[3.15rem] sm:text-7xl lg:text-8xl xl:text-[6.6rem]"
-                style={{ textWrap: 'balance' as any }}
-              >
-                <MaskLine>I scaled other</MaskLine>
-                <MaskLine>people's companies</MaskLine>
-                <MaskLine>
-                  to <span className="mark">$30M+</span>.
-                </MaskLine>
-                <MaskLine className="serif-italic font-normal text-ink-soft">Now I build my own.</MaskLine>
-              </h1>
-
-              <Item className="mt-7 text-xl md:text-2xl font-display font-medium text-ink-soft max-w-xl">
-                Today that means{' '}
-                <RotatingWord className="text-accent" words={['AI agents.', 'boring businesses.', 'SEO engines.', 'cash flow.']} />
-                <span className="block text-base md:text-lg text-ink-faint font-sans font-normal mt-3">
-                  Twenty years of operating lessons, poured into code instead of org charts. No fluff, no yes-man answers.
-                </span>
-              </Item>
-
-              <Item className="flex flex-wrap items-center gap-4 mt-8">
-                <Magnetic>
-                  <button
-                    onClick={() => handleNavClick('/contact')}
-                    className="btn-accent px-7 py-3.5 rounded-full text-sm font-semibold tracking-wide cursor-pointer flex items-center gap-2"
-                  >
-                    <span>Work With Me</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </Magnetic>
-                <a href="#track-record" className="group text-ink font-semibold text-sm flex items-center gap-2 link-underline">
-                  <span>See the track record</span>
-                  <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
-                </a>
-              </Item>
-            </motion.div>
-
-            {/* Portrait: tall, bleeds off the top-right, overlapped by the headline */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-              className="lg:col-span-4 relative min-h-[420px] sm:min-h-[520px] lg:min-h-[600px] -mx-6 lg:mx-0 lg:-mt-24 order-first lg:order-none"
+            <h1
+              id="hero-h1"
+              className="font-display font-extrabold text-ink tracking-[-0.035em] leading-[0.92] text-[2.9rem] sm:text-6xl lg:text-[4.2rem] xl:text-[4.8rem]"
+              style={{ textWrap: 'balance' as any }}
             >
-              <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(120%_80%_at_65%_25%,rgba(182,99,64,0.16),transparent_60%)] pointer-events-none" />
-              <PhotoFrame
-                src="/david-hero.png"
-                alt="David Peterson, operator and builder"
-                mirror
-                className="absolute inset-0 h-full w-full bg-paper scale-[1.08] origin-bottom [mask-image:radial-gradient(125%_120%_at_58%_42%,#000_50%,transparent_98%)]"
-                imgClassName="object-top mix-blend-multiply"
-              />
-            </motion.div>
+              I scaled companies to <span className="text-accent">$30M+</span>.
+              <br />
+              Now I build my own.
+            </h1>
+
+            <Item className="text-ink-soft text-lg md:text-xl leading-relaxed max-w-lg">
+              Two decades operating and scaling other people&apos;s businesses. Now I pour it into my
+              own: software, AI systems, and boring companies that quietly print cash.
+            </Item>
+
+            <Item className="flex flex-wrap items-center gap-3.5 pt-1">
+              <Magnetic>
+                <button
+                  onClick={() => handleNavClick('/contact')}
+                  className="btn-accent px-7 py-4 rounded-full text-[15px] font-semibold tracking-wide cursor-pointer flex items-center gap-2"
+                >
+                  <span>Work With Me</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </Magnetic>
+              <a
+                href="#track-record"
+                className="group text-ink font-semibold text-[15px] flex items-center gap-2 px-5 py-4 rounded-full border border-line-2 hover:border-ink transition-colors"
+              >
+                <span>See the track record</span>
+                <ArrowDown className="w-4 h-4 text-accent group-hover:translate-y-0.5 transition-transform" />
+              </a>
+            </Item>
           </div>
 
-          {/* Receipts ticker — hard facts as a running data line */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-2 md:mt-4 border-t border-b border-line-2 py-3 marquee-track overflow-hidden relative">
-            <div className="marquee marquee--slow mono text-[12px] uppercase tracking-[0.14em] text-ink-soft">
-              {[0, 1].map((dup) => (
-                <div key={dup} className="flex shrink-0" aria-hidden={dup === 1}>
-                  {[
-                    ['$30M+', 'ARR scaled from $5M'],
-                    ['350+', 'people led'],
-                    ['300%+', 'sales growth YTD'],
-                    ['$5.5M+', 'revenue driven'],
-                    ['30+', 'retainer clients'],
-                    ['100%', 'moved online'],
-                    ['6', 'cities operated in'],
-                  ].map(([n, l], i) => (
-                    <span key={i} className="flex items-center whitespace-nowrap">
-                      <span className="mx-5 flex items-baseline gap-2">
-                        <span className="text-accent font-semibold">{n}</span>
-                        <span className="text-ink-faint">{l}</span>
-                      </span>
-                      <span className="text-line-2">•</span>
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-paper to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-paper to-transparent" />
+          {/* Right: clean, full-color portrait bleeding to the card edges */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="order-1 lg:order-2 relative bg-white min-h-[380px] sm:min-h-[460px] lg:min-h-[600px]"
+          >
+            <img
+              src="/david-about.png"
+              alt="David Peterson"
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover object-[center_top] select-none"
+            />
+            {/* soft feather where the photo meets the text column (desktop) */}
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent pointer-events-none" />
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* Receipts strip below the card */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="max-w-[1240px] mx-auto mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-center"
+        >
+          {[
+            ['$30M+', 'ARR scaled'],
+            ['350+', 'people led'],
+            ['300%+', 'sales growth'],
+            ['30+', 'clients'],
+            ['6', 'cities'],
+          ].map(([n, l], i) => (
+            <div key={i} className="flex items-baseline gap-2">
+              <span className="font-display font-extrabold text-2xl md:text-3xl text-ink tracking-tight">
+                <CountUp value={n} />
+              </span>
+              <span className="text-xs md:text-sm text-ink-faint uppercase tracking-wider">{l}</span>
+            </div>
+          ))}
+        </motion.div>
       </section>
 
       {/* ========================= KNOWN FOR MARQUEE (paper-2 band) ========================= */}
