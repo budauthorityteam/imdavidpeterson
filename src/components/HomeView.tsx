@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowDown, Mic, BookOpen, Sparkles, Check, Building2, Wrench, TrendingUp } from 'lucide-react';
+import { ArrowRight, ArrowDown, ArrowUpRight, Mic, BookOpen, Sparkles, Check, Building2, Wrench, TrendingUp } from 'lucide-react';
+import { PROFILE } from '../data';
 import CountUp from './CountUp';
 import LiveOps from './LiveOps';
 import HeroCreative from './HeroCreative';
@@ -102,6 +103,23 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
                 {c}
               </span>
             ))}
+          </div>
+
+          {/* Real byline credential — David writes for Entrepreneur */}
+          <div className="flex items-center justify-center pt-1">
+            <a
+              href={PROFILE.entrepreneur}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 rounded-full border border-line hover:border-accent/50 bg-paper-2/60 px-5 py-2.5 transition-colors"
+            >
+              <span className="mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">As featured in</span>
+              <span className="h-4 w-px bg-line-2" />
+              <span className="font-display font-bold text-ink text-lg md:text-xl tracking-tight group-hover:text-accent transition-colors">
+                Entrepreneur
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
           </div>
         </div>
       </section>

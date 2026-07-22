@@ -17,6 +17,8 @@ export const PROFILE = {
     youtube: 'https://youtube.com/imdavidpeterson-placeholder',
   },
   realEstate: 'https://petersonhomes.com',
+  // Entrepreneur Leadership Network contributor — real author page.
+  entrepreneur: 'https://www.entrepreneur.com/author/david-n-peterson',
 } as const;
 
 export interface ProofPoint {
@@ -340,8 +342,4 @@ export const TESTIMONIALS = [
     author: "VP of Business Operations",
     location: "New York, NY"
   }
-];
-
-export const FEATURED_LOGOS = [
-  "Forbes", "Wired", "Fast Company", "Entrepreneur", "Inc", "TechCrunch"
 ];
