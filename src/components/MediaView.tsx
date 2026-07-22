@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Play, Pause, ExternalLink, Mic, Check, ArrowRight } from 'lucide-react';
 import { TiltCard } from './Motion';
+import { PROFILE } from '../data';
 
 interface MediaViewProps {
   setActiveTab: (tab: string) => void;
@@ -57,11 +58,12 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
     'Remote executive workshops',
   ];
 
+  // Real, published pieces from David's Entrepreneur author page.
   const pressMentions = [
-    { outlet: 'Forbes Business Council', title: 'The Rise of the Embedded Operator: Why Middle-Market Firms Are Abandoning Traditional Advisors', date: 'March 2026' },
-    { outlet: 'Wired Technology Review', title: 'Migrating Legacy IT Under Pressure: Custom Platforms vs. Monolithic SaaS', date: 'January 2026' },
-    { outlet: 'Entrepreneur', title: 'Game Changer vs. Clout Chaser: How to Audit Your Service Agency for Real Outcomes', date: 'November 2025' },
-    { outlet: 'Rhode Island Business Journal', title: 'BudAuthority: Local Founders Launch Proprietary Search Intelligence Suite', date: 'August 2025' },
+    { outlet: 'Entrepreneur', cat: 'Buying a Business', title: 'Why Start a Business When You Can Buy One? Here’s What You Need to Know.', url: PROFILE.entrepreneur },
+    { outlet: 'Entrepreneur', cat: 'Acquisitions', title: 'Purchasing a Business Doesn’t Have to Be Difficult. Here’s Your Comprehensive Guide.', url: PROFILE.entrepreneur },
+    { outlet: 'Entrepreneur', cat: 'Building a Business', title: '5 Reasons Why You Need to Treat Your Side Hustle Like a True Business', url: PROFILE.entrepreneur },
+    { outlet: 'Entrepreneur', cat: 'Operations', title: '6 Tips for Managing a Remote Freelance Writing Team', url: PROFILE.entrepreneur },
   ];
 
   const togglePlayback = (epId: string) => setIsPlaying(isPlaying === epId ? null : epId);
@@ -196,20 +198,32 @@ export default function MediaView({ setActiveTab }: MediaViewProps) {
         </div>
       </section>
 
-      {/* Press */}
+      {/* Selected writing — real Entrepreneur bylines */}
       <section className="px-6 md:px-12 max-w-6xl mx-auto pt-24 md:pt-32">
-        <motion.h2 variants={item} className="kicker mb-6">
-          Press &amp; editorials
-        </motion.h2>
+        <div className="flex flex-wrap items-baseline justify-between gap-3 mb-6">
+          <motion.h2 variants={item} className="kicker">
+            Selected writing
+          </motion.h2>
+          <motion.a
+            variants={item}
+            href={PROFILE.entrepreneur}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-ink-soft hover:text-ink group"
+          >
+            <span>Contributor at <span className="font-semibold text-accent">Entrepreneur</span></span>
+            <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+          </motion.a>
+        </div>
         <motion.div variants={item} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {pressMentions.map((press, i) => (
             <TiltCard key={i} className="ed-card rounded-2xl p-5 group" max={5}>
-              <a href="#" className="flex justify-between items-center gap-4 h-full">
+              <a href={press.url} target="_blank" rel="noopener noreferrer" className="flex justify-between items-center gap-4 h-full">
                 <div className="space-y-1 pr-2">
                   <div className="flex items-center gap-2 text-xs text-ink-faint">
                     <span className="font-medium text-accent">{press.outlet}</span>
                     <span>·</span>
-                    <span>{press.date}</span>
+                    <span>{press.cat}</span>
                   </div>
                   <h3 className="font-display font-semibold text-ink tracking-tight leading-snug">
                     {press.title}
