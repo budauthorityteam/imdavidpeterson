@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Send, Check, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+import { Send, Check, ArrowUpRight } from 'lucide-react';
 import { PROFILE } from '../data';
 
 export default function ContactView() {
@@ -188,7 +188,7 @@ export default function ContactView() {
       {/* Direct channels */}
       <motion.div
         variants={item}
-        className="mt-14 pt-10 border-t border-line grid grid-cols-1 sm:grid-cols-2 gap-8"
+        className="mt-14 pt-10 border-t border-line"
       >
         <div className="space-y-1.5">
           <span className="kicker">Direct</span>
@@ -196,29 +196,6 @@ export default function ContactView() {
             {PROFILE.email}
           </a>
           <p className="text-sm text-ink-faint">Rhode Island, USA · working globally.</p>
-        </div>
-        <div className="space-y-2.5">
-          <span className="kicker">Elsewhere</span>
-          <div className="flex items-center gap-3">
-            <a
-              href={PROFILE.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a
-              href={PROFILE.social.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-line-2 flex items-center justify-center text-ink-soft hover:text-ink hover:bg-paper-2 hover:border-ink transition-all"
-              aria-label="X / Twitter"
-            >
-              <Twitter className="w-4 h-4" />
-            </a>
-          </div>
         </div>
       </motion.div>
     </motion.div>
