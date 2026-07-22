@@ -18,7 +18,7 @@ export const PROFILE = {
   },
   realEstate: 'https://petersonhomes.com',
   // Entrepreneur Leadership Network contributor — real author page.
-  entrepreneur: 'https://www.entrepreneur.com/author/david-n-peterson',
+  entrepreneur: 'https://www.entrepreneur.com/author/david-peterson',
 } as const;
 
 export interface ProofPoint {
