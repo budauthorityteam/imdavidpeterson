@@ -130,11 +130,14 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
           </div>
 
           {/* Right: the scroll-scrubbed construction film */}
-          <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[420px] lg:min-h-[560px]">
-            <div className="relative rounded-[1.5rem] overflow-hidden border border-line glow-warm">
+          <div className="lg:col-span-7 relative">
+            {/* Panel grows taller on desktop to sit closer to the left column's
+                height; the video object-covers so the tower stays centered and
+                only the empty warm side-background crops. */}
+            <div className="relative rounded-[1.5rem] overflow-hidden border border-line glow-warm aspect-video sm:aspect-[4/3] lg:aspect-square">
               <video
                 ref={videoRef}
-                className="block w-full h-full object-cover aspect-video"
+                className="absolute inset-0 w-full h-full object-cover"
                 src="/building-film.mp4"
                 poster="/building-poster.jpg"
                 muted
