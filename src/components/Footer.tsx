@@ -1,4 +1,4 @@
-import { Linkedin, Twitter, Mail, ArrowUpRight, MapPin } from 'lucide-react';
+import { Mail, ArrowUpRight, MapPin } from 'lucide-react';
 import { PROFILE } from '../data';
 
 interface FooterProps {
@@ -39,8 +39,6 @@ export default function Footer({ setActiveTab }: FooterProps) {
             </p>
             <div className="flex items-center gap-3 pt-1">
               {[
-                { href: PROFILE.social.linkedin, Icon: Linkedin, label: 'LinkedIn' },
-                { href: PROFILE.social.twitter, Icon: Twitter, label: 'X / Twitter' },
                 { href: `mailto:${PROFILE.email}`, Icon: Mail, label: 'Email' },
               ].map(({ href, Icon, label }) => (
                 <a
