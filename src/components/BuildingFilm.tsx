@@ -135,16 +135,29 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
                 height; the video object-covers so the tower stays centered and
                 only the empty warm side-background crops. */}
             <div className="relative rounded-[1.5rem] overflow-hidden border border-line glow-warm aspect-video sm:aspect-[4/3] lg:aspect-square">
-              <video
-                ref={videoRef}
-                className="absolute inset-0 w-full h-full object-cover"
-                src="/building-film.mp4"
-                poster="/building-poster.jpg"
-                muted
-                playsInline
-                preload="auto"
-                aria-hidden="true"
-              />
+              {reduce ? (
+                // Reduced motion: no scrub, so just show the finished HQ.
+                <img
+                  src="/building-poster.jpg"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src="/building-film.mp4"
+                  // Poster is the FIRST frame (the empty site), so what shows
+                  // before the scrub kicks in matches where the build starts —
+                  // never flash the finished tower and then "restart".
+                  poster="/building-start.jpg"
+                  muted
+                  playsInline
+                  preload="auto"
+                  aria-hidden="true"
+                />
+              )}
               {/* Edge vignette so the warm-dark film melts into the navy canvas */}
               <div
                 aria-hidden="true"
