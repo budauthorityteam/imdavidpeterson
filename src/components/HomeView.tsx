@@ -5,7 +5,7 @@ import CountUp from './CountUp';
 import LiveOps from './LiveOps';
 import HeroCreative from './HeroCreative';
 import BusinessInABox from './BusinessInABox';
-import BuildingBuild from './BuildingBuild';
+import BuildingFilm from './BuildingFilm';
 import {
   Reveal,
   Item,
@@ -84,8 +84,8 @@ export default function HomeView({ setActiveTab }: HomeViewProps) {
       {/* ============================== HERO (interactive) ============================== */}
       <HeroCreative onNav={handleNavClick} />
 
-      {/* ============================== BUILT BRICK BY BRICK (3D construction — right under the hero) ============================== */}
-      <BuildingBuild onNav={handleNavClick} />
+      {/* ============================== BUILT BRICK BY BRICK (scroll-scrubbed cinematic film — right under the hero) ============================== */}
+      <BuildingFilm onNav={handleNavClick} />
 
       {/* ========================= TRUSTED BY (as seen on) ========================= */}
       <section className="border-y border-line bg-paper">

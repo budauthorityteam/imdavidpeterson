@@ -53,6 +53,25 @@ export default function Preloader() {
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
           className="fixed inset-0 z-[100] bg-paper text-ink flex flex-col items-center justify-center gap-7 px-6 overflow-hidden"
         >
+          {/* the business, building itself — cinematic film behind the assembling stack */}
+          {!reduce && (
+            <video
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover opacity-35 pointer-events-none"
+              src="/building-film.mp4"
+              poster="/building-poster.jpg"
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+            />
+          )}
+          {/* navy scrim so the foreground stack + type stay crisp over the film */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(120% 90% at 50% 45%, rgba(11,17,32,0.55), rgba(11,17,32,0.9) 100%)' }}
+          />
           {/* ambient */}
           <div aria-hidden="true" className="absolute inset-0 tech-grid opacity-60 pointer-events-none" />
           <div
