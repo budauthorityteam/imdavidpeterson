@@ -83,8 +83,9 @@ export default function HeroCreative({ onNav }: { onNav: (t: string) => void }) 
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } } }}
         className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center w-full"
       >
-        {/* Statement */}
-        <motion.div style={{ x: gX, y: gY }} className="lg:col-span-7 order-2 lg:order-1 flex flex-col gap-6">
+        {/* Statement — leads on mobile so the headline, not the photo, is the
+            first thing read; sits left of the portrait on desktop. */}
+        <motion.div style={{ x: gX, y: gY }} className="lg:col-span-7 order-1 flex flex-col gap-6">
           <motion.div
             variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
             className="mono text-[11px] uppercase tracking-[0.2em] text-accent flex items-center gap-2.5"
@@ -155,7 +156,7 @@ export default function HeroCreative({ onNav }: { onNav: (t: string) => void }) 
         </motion.div>
 
         {/* Portrait (white rounded box) + floating sticker-tags */}
-        <div className="lg:col-span-5 order-1 lg:order-2 relative flex items-center justify-center min-h-[460px] sm:min-h-[540px] lg:min-h-[600px]">
+        <div className="lg:col-span-5 order-2 relative flex items-center justify-center min-h-[360px] sm:min-h-[460px] lg:min-h-[600px]">
           <motion.div
             style={{ x: portX, y: portY }}
             initial={{ opacity: 0, y: 26 }}

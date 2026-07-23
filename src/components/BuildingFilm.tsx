@@ -31,6 +31,23 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
   const [stage, setStage] = useState(0);
   const [ready, setReady] = useState(false);
 
+  // Touch devices can't scroll-scrub a <video> via currentTime — iOS Safari
+  // won't render seeked frames of an inline, non-playing video, so the film
+  // would sit frozen on its first frame the whole way down. On those devices
+  // we let the film simply autoplay in view instead, and drive the readout
+  // from the video's own progress rather than scroll.
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: none), (pointer: coarse)');
+    const set = () => setIsTouch(mq.matches);
+    set();
+    mq.addEventListener?.('change', set);
+    return () => mq.removeEventListener?.('change', set);
+  }, []);
+
+  // Scroll-scrubbing is desktop-with-motion only.
+  const scrub = !reduce && !isTouch;
+
   // Video duration + a rAF-smoothed seek target, so scrubbing stays buttery
   // even when the browser can only seek keyframes.
   const durationRef = useRef(0);
@@ -38,9 +55,10 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
   const currentRef = useRef(0);
   const rafRef = useRef(0);
 
+  // Desktop scroll-scrub: ease the video's currentTime toward the scroll target.
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || reduce) return;
+    if (!v || !scrub) return;
 
     const onMeta = () => {
       durationRef.current = v.duration || 0;
@@ -70,9 +88,51 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
       v.removeEventListener('loadedmetadata', onMeta);
       cancelAnimationFrame(rafRef.current);
     };
+  }, [scrub]);
+
+  // Touch: autoplay the film when it enters view (pause when it leaves), and
+  // drive the enterprise-value + phase readout from the video's own progress.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !isTouch || reduce) return;
+    setReady(true);
+
+    const onTime = () => {
+      const dur = v.duration || 0;
+      if (!dur) return;
+      const p = Math.min(1, v.currentTime / dur);
+      setVal(Math.round(p * 10_000_000));
+      setStage(Math.min(5, Math.floor(p * 6)));
+    };
+    v.addEventListener('timeupdate', onTime);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        });
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(v);
+
+    return () => {
+      v.removeEventListener('timeupdate', onTime);
+      io.disconnect();
+    };
+  }, [isTouch, reduce]);
+
+  // Reduced motion: no film plays, so pin the readout to the finished tower.
+  useEffect(() => {
+    if (reduce) {
+      setVal(10_000_000);
+      setStage(5);
+    }
   }, [reduce]);
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    if (!scrub) return;
     // Building tops out slightly before the section ends so the finished HQ
     // holds on screen for a beat.
     const p = v < 0.9 ? v / 0.9 : 1;
@@ -84,8 +144,8 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
   const fmtV = (n: number) => (n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1000)}K`);
 
   return (
-    <section ref={ref} className={`relative bg-paper ${reduce ? 'h-auto' : 'h-[300vh] md:h-[420vh]'}`}>
-      <div className={`${reduce ? '' : 'sticky top-0'} min-h-screen flex items-center overflow-hidden`}>
+    <section ref={ref} className={`relative bg-paper ${scrub ? 'h-[300vh] md:h-[420vh]' : 'h-auto'}`}>
+      <div className={`${scrub ? 'sticky top-0 min-h-screen' : 'py-16 md:py-24'} flex items-center overflow-hidden`}>
         {/* ambient tech grid */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 tech-grid opacity-60" />
@@ -155,6 +215,9 @@ export default function BuildingFilm({ onNav }: { onNav: (t: string) => void }) 
                   muted
                   playsInline
                   preload="auto"
+                  // Touch devices can't scroll-scrub, so the film loops in view.
+                  autoPlay={isTouch}
+                  loop={isTouch}
                   aria-hidden="true"
                 />
               )}

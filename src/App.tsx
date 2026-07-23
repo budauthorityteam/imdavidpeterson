@@ -195,23 +195,25 @@ export default function App() {
         {renderActiveView()}
       </main>
 
-      {/* Elegant Footer */}
-      <div className="relative z-10">
+      {/* Elegant Footer — extra bottom padding on mobile so its last row
+          clears the floating CTA bar. */}
+      <div className={`relative z-10 ${activeTab !== '/contact' ? 'pb-24 md:pb-0' : ''}`}>
         <Footer
           setActiveTab={setActiveTab}
         />
       </div>
 
-      {/* Floating CTA bar on Mobile */}
+      {/* Floating CTA bar on Mobile — a soft scrim under it keeps the button
+          from looking like it slices through the content behind it. */}
       {activeTab !== '/contact' && (
-        <div className="md:hidden fixed bottom-4 left-4 right-4 z-40">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-4 pt-10 pb-4 pointer-events-none bg-gradient-to-t from-paper via-paper/85 to-transparent">
           <button
             onClick={() => {
               setActiveTab('/contact');
               window.location.hash = '/contact';
               window.scrollTo({ top: 0, behavior: 'instant' });
             }}
-            className="btn-accent w-full py-4 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] shadow-xl flex items-center justify-center space-x-2 cursor-pointer"
+            className="btn-accent pointer-events-auto w-full py-4 rounded-full text-[11px] font-bold uppercase tracking-[0.18em] shadow-xl flex items-center justify-center space-x-2 cursor-pointer"
           >
             <span>Work With Me</span>
           </button>
